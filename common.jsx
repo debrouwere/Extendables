@@ -5,7 +5,7 @@
 
 #include "monkeypatches.jsx"
 
-var PACKAGEFOLDER = "./packages";
+var PACKAGEFOLDERS = ['./core-packages', './site-packages'];
 var modules = {};
 function require (module_id) {
 	// CommonJS: A module identifier is a String of "terms"
@@ -14,9 +14,9 @@ function require (module_id) {
 	
 	if (modules.hasOwnProperty(module)) {
 		if (terms.length) {
-			return modules[module].get_submodule(terms).exports;
+			return modules[module].get_submodule(terms).load().exports;
 		} else {
-			return modules[module_id].exports;
+			return modules[module].load().exports;
 		}
 	} else {
 		throw Error("No package named " + module_id);
@@ -27,10 +27,6 @@ function require (module_id) {
 var global = $.global.clone();
 global.modules = modules;
 global.require = require;
-
-var packageFolder = new File($.fileName).parent;
-packageFolder.changePath(PACKAGEFOLDER);
-var packages = packageFolder.getFiles();
 
 function Module (file_or_folder) {
 	var self = this;
@@ -48,7 +44,7 @@ function Module (file_or_folder) {
 			// REFACTOR: shouldn't be user-facing; should perhaps be a log message
 			alert("Could not fully load " + module.id + "\n" + error);	
 		}
-		self.exports = exports;		
+		return exports;		
 	};
 
 	this.extract_submodules = function (folder) {
@@ -67,23 +63,34 @@ function Module (file_or_folder) {
 			return submodule;
 		}
 	};
+
+	this.load = function () {
+		if (file_or_folder.isInstanceOf(Folder)) {
+			self.extract_submodules(file_or_folder);
+			self.exports = self.submodules['__core__'].load().exports;
+		} else {
+			self.exports = self.eval(file_or_folder);
+		}
+		return self
+	}
 	
 	/* init */
 	this.id = file_or_folder.displayName.split('.')[0];
 	this.uri = file_or_folder.absoluteURI;
-	this.submodules = {};	
-
-	if (file_or_folder.isInstanceOf(File)) {
-		this.eval(file_or_folder);
-	} else {
-		this.extract_submodules(file_or_folder);
-		this.exports = this.submodules['__core__'].exports;	
-	}
+	this.submodules = {};
 }
 
-packages.forEach(function(file_or_folder) {
-	var module = new Module(file_or_folder);
-	modules[module.id] = module;
+/* main */
+
+PACKAGEFOLDERS.forEach(function(packagefolder) {
+	var folder = new File($.fileName).parent;
+	folder.changePath(packagefolder);
+	var packages = folder.getFiles();
+	
+	packages.forEach(function(file_or_folder) {
+		var module = new Module(file_or_folder);
+		modules[module.id] = module;
+	});	
 });
 
 // $.evalFile messes up the global namespace regardless of how you use it, so
