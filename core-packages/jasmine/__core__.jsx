@@ -33,7 +33,7 @@ var TestRunner = function () {
 		var results = this.run();
 		
 		results.forEach(function(suite) {
-			$.writeln("\nSuite: %s\tran %s tests, %s failure(s)".format(suite.name, suite.total, suite.failed));
+			$.writeln("\nSuite: %s \tran %s tests, %s failure(s)".format(suite.name, suite.total, suite.failed));
 			suite.specs.forEach(function(spec) {
 				$.writeln("\t" + spec.result.toUpperCase() + "\t" + spec.name);
 			});
