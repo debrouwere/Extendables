@@ -1,0 +1,5 @@
+Why use Extendables, if you're coding in InDesign?
+
+* convenient: a lot of the functionality you're used to from Javascript 1.6+, like using .forEach() and .indexOf() on an Array.
+* (some) batteries included: comes with a couple of libraries out of the box that make it easy to e.g. connect with web services
+* keep your sanity: logging, unit testing and namespaced imports. You know you want it.

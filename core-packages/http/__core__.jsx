@@ -6,7 +6,7 @@
  * Class definitions
  */
 
-var URL = require('http/url').URL;
+exports.URL = require('http/url').URL;
 
 function assoc2str (obj) {
 	var str = "";
@@ -18,7 +18,7 @@ function assoc2str (obj) {
 	return str;
 }
 
-function HttpResponse (raw_response) {
+exports.HttpResponse = function (raw_response) {
 	var end_of_headers = raw_response.indexOf("\n\n")+2;	
 	
 	this.raw    = raw_response;
@@ -26,7 +26,7 @@ function HttpResponse (raw_response) {
 	this.body   = raw_response.substr(end_of_headers);
 }
 
-function HttpRequest (url, data) {
+exports.HttpRequest = function (url, data) {
 	// utility methods
 	this.urlencode = function (data) {
 		var out = new Array();

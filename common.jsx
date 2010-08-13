@@ -3,7 +3,9 @@
  * Namespaces for Javascript -- yay!
  */
 
-#include "monkeypatches.jsx"
+#include "extendscript.patches.jsx"
+#include "indesign.patches.jsx"
+#include "scriptui.patches.jsx"
 
 var PACKAGEFOLDERS = ['./core-packages', './site-packages'];
 var modules = {};
@@ -23,12 +25,36 @@ function require (module_id) {
 	}
 }
 
+// extracts a module into the global namespace (like the eponymous PHP function);
+// to be avoided, except when convenience trumps stringency
+function extract (module_id) {
+	var module = require(module_id);
+	for (var name in module) {
+		$.global[name] = module[name];
+	}
+}
+
+/* additional context for modules */
+/*
+var current = {
+	window: app.layoutWindows.item(0),
+	doc: app.documents.item(0),
+	spread: function () {
+		var spread = app.documents.item(0).spreads.firstItem();
+		while (spread.pages.count() < 2) {
+			spread = app.documents.item(0).spreads.nextItem(spread);
+		}
+		return spread;
+	}()
+}*/
+
 // a snapshot of all globals, so we can clear up the dirty global namespace later.
 var global = $.global.clone();
 global.modules = modules;
 global.require = require;
+global.extract = extract;
 
-function Module (file_or_folder) {
+function Module (file_or_folder) {	
 	var self = this;
 	
 	this.eval = function (file) {
@@ -47,8 +73,8 @@ function Module (file_or_folder) {
 		return exports;		
 	};
 
-	this.extract_submodules = function (folder) {
-		var submodule_files = folder.getFiles();
+	this.extract_submodules = function () {
+		var submodule_files = file_or_folder.getFiles();
 		submodule_files.forEach(function(submodule) {
 			var submodule = new Module(submodule);
 			self.submodules[submodule.id] = submodule;
@@ -65,11 +91,10 @@ function Module (file_or_folder) {
 	};
 
 	this.load = function () {
-		if (file_or_folder.isInstanceOf(Folder)) {
-			self.extract_submodules(file_or_folder);
+		if (this.packaged) {
 			self.exports = self.submodules['__core__'].load().exports;
 		} else {
-			self.exports = self.eval(file_or_folder);
+			self.exports = self.eval(self.uri);
 		}
 		return self
 	}
@@ -77,7 +102,11 @@ function Module (file_or_folder) {
 	/* init */
 	this.id = file_or_folder.displayName.split('.')[0];
 	this.uri = file_or_folder.absoluteURI;
+	this.packaged = file_or_folder.isInstanceOf(Folder);
 	this.submodules = {};
+	if (this.packaged) {
+		this.extract_submodules();
+	}
 }
 
 /* main */
@@ -99,7 +128,15 @@ PACKAGEFOLDERS.forEach(function(packagefolder) {
 // You think that'd be as easy as $.global = global, but the $.global
 // attribute is sort-of-not-quite-entirely-writable.
 for (var key in $.global) {
-	if (key != 'global') $.global[key] = global[key];
+	if (key != 'global' && key != 'app') $.global[key] = global[key];
 }
 $.global.require = global.require
+$.global.extract = global.extract
 $.global.modules = global.modules
+
+/*
+var url = require("http/url");
+alert(url.URL);
+var http = require("http");
+alert(http.URL);
+*/
