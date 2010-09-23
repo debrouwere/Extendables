@@ -1,4 +1,6 @@
-﻿// note: the Mozilla stuff is MIT licensed!
+﻿#include "../dependencies/json2.js"
+
+// note: the Mozilla stuff is MIT licensed!
 
 /* Javascript 1.6 Array extras, courtesy of Mozilla */
 
@@ -250,11 +252,9 @@ if (!Array.prototype.reduceRight)
   };
 }
 
-/* Safe JSON serializer, adapted from JSON.org */
+/*
 
-Object.prototype.toJSON = function(arg) {
-    return toJsonStringArray(arg).join('');
-}
+/* Safe JSON serializer, adapted from JSON.org */
 
 var toJsonStringArray = function(arg, out) {
     out = out || new Array();
@@ -312,6 +312,48 @@ var toJsonStringArray = function(arg, out) {
 
 /* Assorted patches */
 
+// note: I'd love to delegate most of this to underscore.js, though it doesn't work with ExtendScript
+// out of the box.
+
+Object.prototype.clone = function () {
+	return eval(uneval(this));
+}
+
+Object.prototype.to = function (type) {
+	// some of the functions we call do their work in-place, whereas others return a new object
+	// to keep things sane, any conversion using this method won't modify the original object
+	// but return a new one instead
+	var result = this.clone();
+	
+	var conversions = {
+		/* types */
+		'int': function () { return parseInt(result); },
+		'float': function () { return parseFloat(result); },
+		'string': function () { return result.toString() },
+		'array': function () { return Array.prototype.slice.call(result); },
+		/* other conversions */
+		'json': function () { return JSON.stringify(result, undefined, 4); },
+		'alphanumeric': function () { return result.replace(/[^a-zA-Z0-9 ]/g, ""); },
+		'slug': function () { return result.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase().replace(" ", "-"); },
+		'lower': result.toLowerCase,
+		'upper': result.toUpperCase
+};
+
+	if (conversions.hasOwnProperty(type)) {
+		return conversions[type]();
+	} else {
+		throw RangeError("This method cannot convert from %s to %s".format(this.prototype.name, type));
+	}
+}
+
+Array.prototype.flatten = function () {
+    return this.reduce(function(memo, value) {
+		if (value instanceof Array) return memo.concat(value.flatten());
+		memo.push(value);
+		return memo;
+    }, []);
+  };
+
 Object.prototype.keys = function () {
 	var keys = [];
 	for (var key in this) {
@@ -327,46 +369,37 @@ Object.prototype.values = function () {
 	});
 }
 
-Object.prototype.isEmpty = function() {
+Object.prototype.isEmpty = function () {
     for (var prop in this) {
         if (this.hasOwnProperty(prop)) return false;
     }
     return true;
 };
 
-Object.prototype.clone = function() {
-	return eval(uneval(this));
+Object.prototype.merge = function (obj) {
+	if (!obj) return;
+	
+	var merged_obj = this;
+	for (var name in obj) {
+		merged_obj[name] = obj[name];
+	}
+	return merged_obj;
 }
 
 // the inverse of isPrototypeOf
 // when doing inheritance, this works better than testing obj.constructor == type
 Object.prototype.isInstanceOf = function(type) {
-	return type.prototype.isPrototypeOf(this)
+	return this instanceof type;
 }
 
-String.prototype.alnum = function() {
-	string = this.replace(/[^a-zA-Z0-9]/g, "");
-	string = string.toLowerCase();
-	return string;
-}
-
-// REFACTOR: blurg, dit toont een nogal gebrekkige kennis van javascript...
-String.prototype.format = function() {
-	function obj2array (obj) {
-		var args = new Array();
-		for (i = 0; i < obj.length; i++) {
-			args.push(obj[i]);
-		}
-		return args;
-	}	
-	
+String.prototype.format = function() {	
 	// split the string into parts around the substring replacement symbols (%s).
 	var chunks = this.split("%s");
-	var arguments = obj2array(arguments);
+	var replacements = arguments.to('array');
 
 	// fill in the replacements
 	for (var i in chunks) {
-		var replacement = arguments.shift();
+		var replacement = replacements.shift();
 		if (replacement) {
 			chunks[i] += replacement;
 		}

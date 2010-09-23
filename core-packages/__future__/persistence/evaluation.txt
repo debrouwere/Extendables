@@ -1,0 +1,59 @@
+js-model (http://github.com/benpickles/js-model) seems like a very interesting way to handle persistency in javascript over a REST interface; however, it was made with client-side javascript in mind, and so would need to be modified to work with ExtendScript and the low-level Extendables HTTP library.
+
+# Evaluation of version 0.8.4 #
+
+The docs say it uses underscore.js, but I couldn't find any evidence of that. Perhaps it's already been phased out, since the docs mention it uses the library "for now", i.e. there are/were plans to remove that dependency.
+
+It uses the following jQuery functionality: 
+
+jQuery.isFunction
+jQuery.extend
+jQuery.parseJSON
+$.each
+jQuery.ajax
+
+All of these should be easy to replace in a mock jQuery object.
+
+The ajax method is called in one place and one place only (RestPersistence.xhr in model_rest_persistence.js) which means it should be fairly easy to get it right. It'll just take time to get the HTTP library advanced enough to support things like DEL and PUT requests, though that of course would benefit Extendables as a whole.
+
+See http://api.jquery.com/jQuery.ajax/ for its interface.
+
+      return jQuery.ajax({
+        type: method,
+        url: url,
+        dataType: "json",
+        data: data,
+        dataFilter: function(data, type) {
+          return /\S/.test(data) ? data : null;
+        },
+        complete: function(xhr, textStatus) {
+          self.xhrComplete(xhr, textStatus, model, callback)
+        },
+        success: function(data, textStatus, xhr) {
+          self.xhrSuccess(xhr, textStatus, model, data)
+        }
+      });
+
+Another tricky part is that model.js works with JSON. This lays bare a little quirk of the current Pubtalk design: it talks in JSON, but requests XML for the content itself.
+
+Maybe this isn't so bad, though, because it allows us to make a distinction between the model (content, yes, but also instructions, ids, ...), and its XML _representation_, which is meant to be layouted in InDesign.
+
+This will probably start to make sense once we get to two-way content editing: you'll want to edit the content in its original markup/structuring, not its output.
+
+The functionality is exactly what we need, except that it lacks some sort of a refresh() method on either the class or the model objects.
+
+Estimate
+--------
+
+replacing isFunction, extend, parseJSON and each		1h
+stubbing out an ajax function, sans actual http req.		1h
+enhancing the HTTP module					4h
+bugfixing / making things ExtendScript-compatible		2h
+gathering XML reprs. and putting them in doc.xmlElements	1h
+
+AJAX
+	type, url:		duh
+	dataType:		just a header
+	data			the content
+	dataFilter:		filter on the raw response 
+	complete, success: 	callbacks

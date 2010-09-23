@@ -1,0 +1,3 @@
+- jasmine
+- json converter
+- inspiratie: Herb (http) -- in readme eerder dan license

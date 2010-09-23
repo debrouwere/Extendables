@@ -4,17 +4,17 @@
  */
 
 var PACKAGEFOLDERS = ['./core-packages', './site-packages'];
-var modules = {};
+var __modules__ = {};
 function require (module_id) {
 	// CommonJS: A module identifier is a String of "terms"
 	var terms = module_id.split('/');
 	var module = terms.shift();
 	
-	if (modules.hasOwnProperty(module)) {
+	if (__modules__.hasOwnProperty(module)) {
 		if (terms.length) {
-			return modules[module].get_submodule(terms).load().exports;
+			return __modules__[module].get_submodule(terms).load().exports;
 		} else {
-			return modules[module].load().exports;
+			return __modules__[module].load().exports;
 		}
 	} else {
 		throw Error("No package named " + module_id);
@@ -30,12 +30,9 @@ function extract (module_id) {
 	}
 }
 
-// a snapshot of all globals, so we can clear up the dirty global namespace later.
-var global = $.global.clone();
-global.modules = modules;
-global.require = require;
-global.extract = extract;
-
+/**
+ * @class Module
+ */
 function Module (file_or_folder) {	
 	var self = this;
 	
@@ -45,7 +42,7 @@ function Module (file_or_folder) {
 			'id': self.id,
 			'uri': self.uri
 			};
-		
+
 		try {
 			$.evalFile(file);
 		} catch (error) {
@@ -120,18 +117,6 @@ PACKAGEFOLDERS.forEach(function(packagefolder) {
 	
 	packages.forEach(function(file_or_folder) {
 		var module = new Module(file_or_folder);
-		modules[module.id] = module;
+		__modules__[module.id] = module;
 	});	
 });
-
-// $.evalFile messes up the global namespace regardless of how you use it, so
-// we have to clean up the mess afterwards by reverting globals to an older
-// state, albeit with the 'modules' and 'require' vars mixed back in.
-// You think that'd be as easy as $.global = global, but the $.global
-// attribute is sort-of-not-quite-entirely-writable.
-for (var key in $.global) {
-	if (key != 'global' && key != 'app') $.global[key] = global[key];
-}
-$.global.require = global.require
-$.global.extract = global.extract
-$.global.modules = global.modules

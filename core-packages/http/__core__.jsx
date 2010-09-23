@@ -2,6 +2,10 @@
  * A very basic and incomplete implementation of the hypertext transfer protocol.
  */
 
+// todo: take inspiration from http://github.com/billywhizz/node-httpclient/blob/master/lib/httpclient.js
+// as well as Python's urllib and urllib2
+
+
 /*
  * Class definitions
  */
@@ -38,7 +42,7 @@ exports.HttpRequest = function (url, data) {
 
 	// public method
 	this.execute = function () {
-		var socket = new Socket;
+		var socket = new Socket();
 		if (socket.open(this.url.address + ":" + this.url.port)) {
 			socket.write(this.request);
 			var response = socket.read();
@@ -53,15 +57,15 @@ exports.HttpRequest = function (url, data) {
 	// init
 	this.url = new URL(url);
 	var header_parts = {
-		"Host"      : this.url.address,
+		"Host": this.url.address,
 		"User-Agent": "InDesign ExtendScript",
-		"Accept"    : "*/*"
+		"Accept": "*/*"
 	}
 
 	if (data) {
 		var method = "POST";
 		data = this.urlencode(data);
-		header_parts["Content-Type"]   = "application/x-www-form-urlencoded";
+		header_parts["Content-Type"] = "application/x-www-form-urlencoded";
 		header_parts["Content-Length"] = data.length;
 	} else {
 		var method = "GET";

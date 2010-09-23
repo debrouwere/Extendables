@@ -63,6 +63,7 @@ XMLElement.prototype.repr = function () {
 		if (element.children().length) {
 			repr[element.tag()] = element.repr();
 		} else {
+			// todo: indien de tag al bestaat, de val omvormen tot een array en daar naar pushen!
 			repr[element.tag()] = element.val();
 		}
 	});
