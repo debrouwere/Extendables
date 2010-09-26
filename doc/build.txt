@@ -1,0 +1,8 @@
+with the jsdoc toolkit, perhaps using 
+export PATH=$PATH:/path/to/jsdoc
+or
+alias jsphinx /path/to/jsdoc/jsrun.sh --template=docs/templates/rst --out=docs --x=jsx
+
+java -jar jsrun.jar app/run.js ../extendables --template=templates/rst -x=jsx --directory=../extendables/docs/source
+
+(voorlopig evt. met -a optie, zodat ik weet wat nog coverage nodig heeft)

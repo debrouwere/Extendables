@@ -1,0 +1,22 @@
+{+ symbol.desc +}
+
+<if test="symbol.deprecated">
+.. deprecated:: {+ symbol.deprecated +}
+</if>
+<if test="symbol.since">
+.. versionadded:: {+ symbol.since +}
+</if>
+
+<if test="symbol.requires">
+.. important::
+    **Requires:** <for each="item" in="symbol.requires">{+ item +}</for>
+</if>
+<if test="symbol.see">
+.. seealso::
+
+    <for each="item" in="symbol.see">{+ item +}</for>
+</if>
+
+<if test="symbol.author">
+.. codeauthor:: {+symbol.author+}
+</if>

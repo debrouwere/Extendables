@@ -32,8 +32,20 @@ function extract (module_id) {
 
 /**
  * @class Module
+ * @desc The module loading system.
+ * @param {File} file_or_folder Expects a file or folder, wrapped in a File object.
+ * @param {String} [garbage="gooblygok"] Just a jsdoc test.
+ * @returns {Object} a module object, duh.
+ * @deprecated
+ *	 0.1
+ * 	This thing is pretty shitty anyway. Try :func:`current` instead.
+ * @example
+ *     // here it is!
+ *     var x = Module(new File($.scriptName));
+ *
+ * @see :func:`current`
  */
-function Module (file_or_folder) {	
+function Module (file_or_folder, is_package) {	
 	var self = this;
 	
 	this.eval = function (file) {
@@ -53,7 +65,12 @@ function Module (file_or_folder) {
 	};
 
 	this.extract_submodules = function () {
-		var submodule_files = file_or_folder.getFiles();
+		var base = file_or_folder;
+		if (is_package) {
+			base.changePath("./lib");
+		}
+		var submodule_files = base.getFiles();
+		
 		submodule_files.forEach(function(submodule) {
 			var submodule = new Module(submodule);
 			self.submodules[submodule.id] = submodule;
@@ -75,13 +92,27 @@ function Module (file_or_folder) {
 		});
 	}
 
+	/**
+	  * @static
+	  * @constant
+	  * @desc nothing special, but static!
+	  */
 	this.has_subpackages = function () {
 		return !!self.get_subpackages().length;
 	}
 
+	/** 
+	 * let's document this one for kicks 
+	 * @example
+	 *	module.get_tests().map(function () { do_something(); });
+	 *
+	 * @since 0.1
+	 * @see You'll find a higher-level API at :js:func:`current`
+	 * @author Stijn Debrouwere, Rens Dusseldorf
+	 */
 	this.get_tests = function () {
 		var testfolder = new Folder(self.uri);
-		testfolder.changePath("./tests");
+		testfolder.changePath("./test");
 		if (testfolder.exists) {
 			return testfolder.getFiles("*.specs");
 		} else {
@@ -89,6 +120,10 @@ function Module (file_or_folder) {
 		}
 	}
 
+	/**
+	 * @param {Bool} packaged Nah not really!
+	 * @returns {Module} the module itself
+	 */
 	this.load = function () {
 		if (self.packaged) {
 			self.exports = self.submodules['__core__'].load().exports;
@@ -101,7 +136,7 @@ function Module (file_or_folder) {
 	/* init */
 	this.id = file_or_folder.displayName.split('.')[0];
 	this.uri = file_or_folder.absoluteURI;
-	this.packaged = file_or_folder.isInstanceOf(Folder);
+	this.packaged = file_or_folder.is(Folder);
 	this.submodules = {};
 	if (this.packaged) {
 		this.extract_submodules();
@@ -116,7 +151,7 @@ PACKAGEFOLDERS.forEach(function(packagefolder) {
 	var packages = folder.getFiles();
 	
 	packages.forEach(function(file_or_folder) {
-		var module = new Module(file_or_folder);
+		var module = new Module(file_or_folder, true);
 		__modules__[module.id] = module;
 	});	
 });
