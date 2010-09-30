@@ -1,5 +1,17 @@
 describe('HTTP', function () {
-	it('should have unit tests', function () {
+    var http = require("http");
+
+	it('exports a HTTPRequest constructor', function () {
+	  expect(http.HTTPRequest).toBeDefined();
+	}); 
+
+	it('exports a bunch of shortcut functions', function () {
+	   ['get', 'head', 'post', 'put', 'del'].forEach(function (method) {
+	       expect(http[method]).toBeDefined();
+	   })
+	}); 
+
+	it('has enough unit tests', function () {
 	  expect(false).toEqual(true);
 	});
 });

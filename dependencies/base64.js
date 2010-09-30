@@ -1,4 +1,9 @@
-﻿// base64.js - Base64 encoding and decoding functions
+﻿exports.encode64 = encoder('+/');
+exports.decode64 = decoder('+/');
+exports.urlsafeEncode64 = encoder('-_');
+exports.urlsafeDecode64 = decoder('-_');
+
+// base64.js - Base64 encoding and decoding functions
 //
 // Copyright (c) 2007, David Lindquist <david.lindquist@gmail.com>
 // Released under the MIT license
@@ -6,11 +11,6 @@
 // Modified by TJ Holowaychuk for CommonJS module support.
 // Modified by Ben Weaver to use any alphabet.
 // Modified by Stijn Debrouwere for ExtendScript support.
-
-exports.encode64 = encoder('+/');
-exports.decode64 = decoder('+/');
-exports.urlsafeEncode64 = encoder('-_');
-exports.urlsafeDecode64 = decoder('-_');
 
 function encoder(extra) {
   var chars = alphabet(extra);

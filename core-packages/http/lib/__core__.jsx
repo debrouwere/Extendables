@@ -1,90 +1,452 @@
-﻿/*
- * A very basic and incomplete implementation of the hypertext transfer protocol.
- */
+﻿// convenience shortcuts
+// basic_auth (opt): any object that satisfies {'username': x, 'password': y}
 
-// todo: take inspiration from 
-// - http://github.com/billywhizz/node-httpclient/blob/master/lib/httpclient.js
-// - http://nodejs.org/api.html
-// - Python's urllib and urllib2
+exports.get = get;
+exports.head = head;
+exports.post = post;
+exports.put = put;
+exports.del = del;
+exports.HTTPError = HTTPError;
+exports.HTTPRequest = HTTPRequest;
 
+// hmm, this should work but doesn't: 
+// var url = require("http/url");
+// fix the module loader!
 
-/*
- * Class definitions
- */
+var ByteString = require("io/octals").ByteString;
 
-exports.URL = require('http/url').URL;
+var HTTPError = Error.factory("HTTPError");
+
+// basic_auth: authentication with an intranet is a common use-case
+// timeout: we want to make it easy to do long polling
+function _pull (request, basic_auth, timeout) {
+	// will simply return false if basic_auth is undefined
+	request.auth.basic(basic_auth);
+	if (timeout != undefined) {
+		request.timeout(timeout);
+	}
+	return request.do();	
+}
+
+function _push (request, basic_auth, timeout) {
+	request.content(data);
+	return _pull(request, basic_auth, timeout);
+}
 
 /**
- * @namespace http_url
- * @name assoc2str
- * @description I dunno, really
+ * @desc Performs a GET request on the specified resource.
+ * @param {String} url The URL for the resource
+ * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` properties will do.
+ * @param {Number} [timeout=1] How long before the http client should give up.
  */
-function assoc2str (obj) {
-	var str = "";
-	for (i in obj) {
-		if (typeof(obj[i]) == "string" || typeof(obj[i]) == "number") {
-			str += i + ": " + obj[i] + "\n";
-		}
-	}
-	return str;
+
+function get (url, basic_auth, timeout) {
+	var request = new HTTPRequest("GET", url);
+	return _pull(request, basic_auth, timeout);
 }
 
-exports.HttpResponse = function (raw_response) {
-	var end_of_headers = raw_response.indexOf("\n\n")+2;	
+/**
+ * @desc Performs a HEAD request on the specified resource. Similar to a GET request, but only returns the http headers.
+ * @param {String} url The URL for the resource
+ * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` properties will do.
+ * @param {Number} [timeout=1] How long before the http client should give up.
+ */
+
+function head (url, basic_auth, timeout) {
+	var request = new HTTPRequest("HEAD", url);
+	return _pull(request, basic_auth, timeout);
+}
+
+/**
+ * @desc Performs a POST request on the specified resource.
+ * @param {String} url The URL for the resource
+ * @param {Object|String} data Either an object, to be urlencoded by this function, or a string that 
+ * will be passed along unchanged.
+ * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` 
+ * properties will do.
+ * @param {Number} [timeout=1] How long before the http client should give up.
+ */
+
+function post (url, data, basic_auth, timeout) {
+	var request = new HTTPRequest("POST", url);
+	return _push(request, basic_auth, timeout);
+}
+
+/**
+ * @desc Performs a PUT request on the specified resource. PUT requests are like POST requests, but idempotent.
+ * @param {String} url The URL for the resource
+ * @param {Object|String} data Either an object, to be urlencoded by this function, or a string that 
+ * will be passed along unchanged.
+ * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` 
+ * properties will do.
+ * @param {Number} [timeout=1] How long before the http client should give up.
+ */
+
+function put (url, data, basic_auth, timeout) {
+	var request = new HTTPRequest("PUT", url);
+	return _push(request, basic_auth, timeout);
+}
+
+/**
+ * @desc Performs a DEL request on the specified resource.
+ * @param {String} url The URL for the resource
+ * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` 
+ * properties will do.
+ * @param {Number} [timeout=1] How long before the http client should give up.
+ */
+
+function del (url, basic_auth, timeout) {
+	var request = new HTTPRequest("DEL", url);
+	return _pull(request, basic_auth, timeout);
+}
+
+/**
+ * @class
+ * 
+ * @desc An incomplete but "good enough" implementation of the hypertext transfer protocol
+ * for the client side. This is a lower-level interface. It feeds the :func:`get`, :func:`head`, 
+ * :func:`post`, :func:`put` and :func:`del` convenience functions.
+ *
+ * Supports:
+ *
+ * * two methods: GET and POST
+ * * persistent connections
+ * * chunked responses
+ *
+ * Soon:
+ *
+ * * redirects
+ * * PUT and DEL support
+ * * basic authentication
+ *
+ * Most likely never: 
+ *
+ * * digest authentication
+ * * cookies
+ * * proxies
+ * * caching
+ *
+ * HTTPRequest objects are entirely getter/setter-based, so e.g. use ``req.method()``
+ * to get the current request method, and use ``req.method("POST")`` to change the 
+ * request method.
+ *
+ * @param {String} [method]
+ * @param {String} url
+ * @param {Number} [timeout]
+ *
+ * @example
+ *      var http = require("http");
+ *      var example = "http://www.example.com"
+ *      var response = http.HTTPRequest("GET", example);
+ *      if (response.status == 200) {
+ *          $.writeln(response.body);
+ *      } else {
+ *          $.writeln("Couldn't fetch {}".format(example));
+ *      }
+ */
+
+function HTTPRequest (method, url, timeout) {
+	var self = this;
 	
-	this.raw    = raw_response;
-	this.status = raw_response.substr(9,3);
-	this.body   = raw_response.substr(end_of_headers);
-}
-
-// req .get .post(data) .put(data) .del is probably better
-// req (get|post|put|del).headers([hash]) getter/setter
-// req .header(name[, val]) getter/setter
-
-exports.HttpRequest = function (url, data) {
-	// utility methods
-	// data.serialize('key-value', {'separator': '=', 'eol': '&'}).slice(0, -1);
-	this.urlencode = function (data) {
-		var out = new Array();
-		for (attr in data) {
-			out.push(attr + "=" + data[attr]);
-		}
-		return out.join("&");		
-	}
-
-	// public method
-	this.execute = function () {
-		var socket = new Socket();
-		if (socket.open(this.url.address + ":" + this.url.port)) {
-			socket.write(this.request);
-			var response = socket.read();
-			socket.close();
-			return new HttpResponse(response);
+	/** @desc The resource to request */
+	this.url = function (url) {
+		if (url) {
+			this._url = require("http/url").parse(url);
 		} else {
-			log.error("Couldn't open socket");
-			return false;
+			return this._url;
+		}
+	}
+	this.url(url);
+
+	this._port = this.url().port || 80;
+	/** @desc The server port the request should be directed to. */
+	this.port = function (number) {
+		if (number) {
+			this._port = number;
+		} else {
+			return this._port;
+		}
+	}
+	
+	this._method = method || "GET";
+	/** @desc The request method. One of ``GET``, ``HEAD``, ``POST``, ``PUT`` or ``DEL``. ``GET`` by default. */
+	this.method = function (type) {
+		if (type) {
+			this._method = type;
+		} else {
+			return this._method;
 		}
 	}
 
-	// init
-	this.url = new URL(url);
-	var header_parts = {
-		"Host": this.url.address,
-		"User-Agent": "InDesign ExtendScript",
-		"Accept": "*/*"
+	this._timeout = timeout || 1;
+	/** @desc How long before the http client should give up the request. 1 second by default. */
+	this.timeout = function (duration) {
+		if (duration) {
+			this._timeout = duration.to('int');
+		} else {
+			return this._timeout;
+		}
 	}
 
-	if (data) {
-		var method = "POST";
-		data = this.urlencode(data);
-		header_parts["Content-Type"] = "application/x-www-form-urlencoded";
-		header_parts["Content-Length"] = data.length;
-	} else {
-		var method = "GET";
-		var data = "";
-	}	
+	this._follow_redirects = true;
+	/** @desc Whether to follow redirects when requesting a resource. True by default. */
+	this.follow_redirects = function (value) {
+		if (value) {
+			this._follow_redirects = true;
+		} else {
+			return this._follow_redirects;
+		}
+	}
 
-	var request_line = sprintf("{} /{} HTTP/1.1\n", method, this.url.path);
-	this.request = request_line + assoc2str(header_parts) + "\n" + data;
-	log.info("HTTP request: {}", request_line);
+	/** @desc Whether to establish a persistent connection. False by default, and best left that way. */
+	this.persistent = function (value) {
+		if (value) {
+			// set header
+		} else {
+			// return value
+		}
+	}
+
+	this._headers = {
+		"Host": this.url().host,
+		"User-Agent": "InDesign ExtendScript",
+		"Accept": "*/*",
+		"Connection": "close"
+	}
+	/**
+	 * @desc The headers for this request.
+	 * By default, these headers are included: 
+	 * User-Agent
+	 *     InDesign ExtendScript
+	 * Accept
+	 *	*\/*
+	 * Connection
+	 *	close
+	 *
+	 * @param {Object} An key-value object. Replaces all existing headers.
+	 * Use the ``header`` method instead when fetching or changing a single header.
+	 */
+	this.headers = function (hash) {
+		if (hash) {
+			// todo: check if we're passed a hash, not a string
+			this._headers = hash;
+		} else {
+			return this._headers;
+		}
+	}
+
+	/** @desc Get or set a single header. */
+	this.header = function (name, value) {
+		if (value) {
+			// set header[name] to value
+		} else {
+			// return header[name]
+		}
+	}
+
+	this._content = '';
+	/** @desc Any content to send along with a ``PUT`` or ``POST`` request. */
+	this.content = function (data) {
+		if (data) {
+			this._content = data;
+			var m = this.method();
+			// we could easily change this request to a POST request if it isn't one, 
+			// but Extendables doesn't try to guess too much for the end developer.
+			if (m =! "POST" && m != "PUT") {
+				throw new HTTPError("Only PUT and POST requests can carry content. This is a {} request".format(m));
+			}
+			this.header("Content-Type", "application/x-www-form-urlencoded");
+			this.header("Content-Length", data.length);
+		} else {
+			return this._content;
+		}
+	}
+
+	/** @desc Basic authentication */
+	this.auth = {
+		basic: function (user) {
+			if (user) {
+				var credentials  = "{}:{}".format(user.username, user.password).to('base64');
+				self.add_header("Authorization", "Basic: " + credentials);
+			} else {
+				return new Boolean(self.header("Authorization"));
+			}
+		}
+	}
+
+	this._encoding = "UTF-8";
+	/** @desc The character encoding in which to send this request, which is also the preferred response encoding. */
+	this.encoding = function (encoding) {
+		if (encoding) {
+			// normalize encoding name
+			name = name.to('lower').replace('-', '');
+			// test if encoding is one of ASCII, BINARY or UTF-8, throw an error otherwise
+			this._encoding = encoding;
+		} else {
+			return this._encoding;
+		}
+	}
+
+	this._build_head = function () {
+		// request line
+		var head = [];
+		var request_line = "{} {} HTTP/1.1".format(this.method(), this.url().pathname || "/");
+		head.push(request_line);
+		// headers to string (kv) form
+		var headers = this.headers().serialize('key-value', {'separator': ': ', 'eol': '\n'});
+		head.push(headers);
+		// content
+		head.push(this.content());
+		return head.join("\n");
+	}
+
+	this._build_request = function () {
+		var request = this._build_head();
+		// for POST and PUT requests, add content
+		request += this.content();
+		return request;
+	}
+
+	this._execute = function (connection) {
+		var request = this._build_request();
+		connection.write(request);
+		var response = new HTTPResponse(this.method(), this.encoding(), this);
+		while (connection.connected && !response.complete()) {
+			response.push(connection.read(), connection.eof);
+		}
+		return response;
+	}
+
+	/** 
+	 * @desc Executes the request.
+	 * @returns {Object} Returns a :func:`HTTPResponse` object.
+	 */
+	this.do = function () {
+		var start = new Date();
+		var socket = new Socket();
+		socket.timeout = this.timeout();
+		var host = "{}:{}".format(this.url().host, this.port());
+		if (socket.open(host, "UTF-8")) {
+			var response = this._execute(socket);
+		} else {
+			throw new HTTPError("Could not connect to {}".format(host));
+		}
+		response.response_time = new Date().getTime() - start.getTime();
+		return response.process();
+	}
 }
+
+/**
+ * @class
+ * @desc The response to an HTTP request. These are returned by :func:`HTTPRequest` objects, 
+ * you should never have to construct them yourself.
+ */
+
+function HTTPResponse (method, encoding, request) {
+	this._parts = [];
+	this._eof = false;
+	this._received_headers = false;
+
+	this.push = function (partial_response, eof) {
+		this._parts.push(partial_response);
+		this._eof = eof;
+		if (!this.headers && partial_response.indexOf("\n\n")) {
+			this.process_headers();
+		}
+	}
+
+	this.complete = function () {
+		// a response is complete when we've received an EOF signal from the socket,
+		// or when the last returned response from the socket was empty ("dried up").
+		// (The last scenario applies in case we've chosen for a persistent connection.)
+		//
+		// (Note: once we support HEAD, there is a possible optimization: 
+		// for those requests, namely: they're complete once our headers are)
+		var eof = this._eof;
+		var dry = (this._parts.length && this._parts.slice(-1)[0].length == 0);
+		var satisfied = (method == "HEAD" && this.headers);
+		//var last_chunk = not implemented (yet?)
+		
+		return eof || dry || satisfied;
+	}
+
+	this.process_chunks = function (chunked_string) {
+		// chunk length is an amount of octals, not an amount of characters
+		// UTF-8 can have multiple bytes for a single character, so we 
+		// can't use the regular string length to know where a chunk ends.
+		//
+		// TODO: this isn't right, we can only know the encoding by checking the
+		// response headers, as we can't be absolutely sure that we've received
+		// a response in the requested encoding. (Unless socket takes care of that?)
+		if (chunked_string.is(String) && this.encoding == "UTF-8") {
+			chunked_string = new ByteString(chunked_string);
+		}
+	
+		var terminator = 1;
+		var chunk_length = parseInt(chunked_string.toString(), 16);
+		var start_of_data = chunked_string.indexAfter('\n');
+		var remainder = chunked_string.substr(start_of_data);
+		var chunk = remainder.substr(0, chunk_length);
+		if (chunk_length) {
+			remainder = remainder.substr(chunk_length + terminator);
+			return chunk + this.process_chunks(remainder);
+		} else {
+			return chunk;
+		}
+	}
+
+	this.process_headers = function () {
+		var raw_head = this._parts.join('').split('\n\n', 1)[0].split('\n');
+		var raw_headers = raw_head.slice(1).join('\n');
+		this.status = raw_head[0].split(' ')[1];
+		this.headers = raw_headers.deserialize('key-value', {'separator': ': ', 'eol': '\n'});
+		if (this.headers["Transfer-Encoding"] && this.headers["Transfer-Encoding"] == "chunked") {
+			this._chunked = true;
+		}
+	}
+
+	this.process = function () {
+		this.raw = this._parts.join('');
+		var start_of_body = this.raw.indexAfter('\n\n');
+		this.body = this.raw.substring(start_of_body);
+		// additional processing for chunked encoding
+		if (this._chunked) this.body = this.process_chunks(this.body);
+		// change state
+		this.processed = true;
+		return this;
+	}
+	
+	/** @desc The original HTTPRequest object that led to this response. */
+	this.for_request = request;
+	/** @desc Whether the response is corrupt. Currently not implemented. */
+	this.corrupt = false;
+	this.processed = false;
+	/**
+	 * @desc An array of any redirects the request might have followed.
+	 * @type String[]
+	 */
+	this.redirects = [];
+	/** @desc The response headers. This is an object, not the raw HTTP headers. */
+	this.headers;
+	/** @desc The body content of the response. */
+	this.body = undefined;
+	/** @desc The status code of the response. */
+	this.status = undefined;
+	/** @desc How long it took to request the resource and get a response. In milliseconds. */
+	this.response_time = undefined;
+	/** @desc The encoding of the response we received. */
+	this.encoding = encoding; 
+}
+
+/*
+ * implementation detail
+ *
+ * This library doesn't use the content-length header nor chunk length directives to determine
+ * whether we've received the full message, regardless of whether our socket is closed.
+ * If we would, we'd be able to close persistent (keep-alive) connections before they were explicitly 
+ * terminated by the sender.
+ * 
+ * However, before we could consider this optimization, we'd need to optimize the ByteString class, 
+ * and in particular make it possible and fast to concatenate / add in string data to an existing
+ * byte class. Then we could process the data parts we receive on the fly rather than post-hoc.
+ */

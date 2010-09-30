@@ -1,5 +1,11 @@
-describe('Logging', function () {
-	it('should have unit tests', function () {
+describe('logging', function () {
+    var logging = require("logging");
+
+	it('exports a Log constructor', function () {
+	  expect(logging.Log).toBeDefined();
+	});    
+    
+	it('has enough unit tests', function () {
 	  expect(false).toEqual(true);
 	});
 });

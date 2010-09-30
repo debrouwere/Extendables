@@ -59,18 +59,18 @@ jasmine.bindOriginal_ = function(base, name) {
 
 /*
 This is the only hack Jasmine needs to work in ExtendScript.
-*/
+
+jasmine.bindOriginal_ = function() { return false; }
 jasmine.setTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'setTimeout');
 jasmine.clearTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearTimeout');
 jasmine.setInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'setInterval');
 jasmine.clearInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearInterval');
-/*
+*/
 jasmine.bindOriginal_ = function() { return false; }
 jasmine.setTimeout = function(fn) { return fn(); }
 jasmine.clearTimeout = function(fn) { return; }
 jasmine.setInterval = function(fn) { return fn(); }
 jasmine.clearInterval = function(fn) { return; }
-*/
 
 jasmine.MessageResult = function(values) {
   this.type = 'log';

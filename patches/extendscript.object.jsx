@@ -34,8 +34,11 @@ Object.prototype.extend = Object.prototype.merge
  */
 
 Object.prototype.clone = function () {
+	// speeds things up if we're cloning an array
 	if (this instanceof Array) return this.slice(0);
-    return {}.merge(this);
+	if (this instanceof String) return this.substring(0);
+	// the normal route for any other object
+	return new this.constructor().merge(this);
 }
 
 /**
@@ -78,4 +81,41 @@ Object.prototype.values = function () {
  */
 Object.prototype.is = function(type) {
 	return this instanceof type;
+}
+
+/**
+ * @desc Checks whether the object has the specified property.
+ * @returns {Bool} True or false.
+ */
+
+Object.prototype.has = function (key) {
+	return this[key] !== undefined;
+}
+
+/**
+ * @desc Alias for obj.hasOwnProperty
+ * @returns {Bool} True or false.
+ */
+
+Object.prototype.has_own = function (key) {
+	return this.hasOwnProperty(key);
+}
+
+/**
+ * @desc A debugging utility. When used without the ``dump`` argument,
+ * equivalent to ``$.writeln(obj.toString())``.
+ * @param {Bool} dump Dump all properties of this object;
+ * otherwise just returns a string representation.
+ */
+
+Object.prototype.to_console = function (dump) {
+	if (dump) {
+		var obj = this;
+		var out = obj.reflect.properties.map(function (property) {
+			return property.name + "\t => " + obj[property.name]; 
+		}).join("\n");
+	} else {
+		var out = this.toString();
+	}
+	return $.writeln(out);
 }

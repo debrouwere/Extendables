@@ -4,6 +4,9 @@
 Getting started with Extendables
 ================================
 
+..
+   why a framework comes in handy; mention the low barrier to entry: it's free, it's easy, don't use what you don't need
+
 Download
 ========
 
@@ -16,6 +19,24 @@ First steps
    :start-after: class-title
 
 ... now let's see whether that worked.
+
+* loading a package (e.g. http) and the concept of namespaces
+* doing things with objects (e.g. reject, is, to, indexAfter)
+* manipulating stuff in InDesign (current, dom object shortcuts)
+* wrap things up with a basic interface (ui + menu)
+
+Learn more: 
+
+* javascript
+    * functional methods
+    * conversions, serializations, object types and checks
+* InDesign: see ``dom`` docs
+* ScriptUI: see ``ui`` docs
+* Best practices
+    * OO in javascript
+    * Error handling
+    * Testing
+* About this project
 
 Issues
 ======

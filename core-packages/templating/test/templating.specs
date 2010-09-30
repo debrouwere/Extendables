@@ -1,0 +1,5 @@
+describe('templating', function () {
+	it('should have unit tests', function () {
+	  expect(false).toEqual(true);
+	});
+});

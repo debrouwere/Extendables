@@ -1,6 +1,6 @@
-=========================================
-``logging``: unit testing in ExtendScript
-=========================================
+===============================================
+``logging``: a logging utility for ExtendScript
+===============================================
 
 Logging is useful when debugging (nobody likes code interspersed with ``alert()`` statements). Logging is also beneficial in production settings — if something goes wrong, good logs will make it easy to know what happened and how to remedy the problem.
 

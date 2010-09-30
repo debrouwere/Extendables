@@ -22,7 +22,7 @@ function require (module_id) {
 }
 
 // extracts a module into the global namespace (like the eponymous PHP function);
-// to be avoided, except when convenience trumps stringency
+// to be avoided, but sometimes convenience trumps stringency
 function extract (module_id) {
 	var module = require(module_id);
 	for (var name in module) {
@@ -30,21 +30,10 @@ function extract (module_id) {
 	}
 }
 
-/**
- * @class Module
- * @desc The module loading system.
- * @param {File} file_or_folder Expects a file or folder, wrapped in a File object.
- * @param {String} [garbage="gooblygok"] Just a jsdoc test.
- * @returns {Object} a module object, duh.
- * @deprecated
- *	 0.1
- * 	This thing is pretty shitty anyway. Try :func:`current` instead.
- * @example
- *     // here it is!
- *     var x = Module(new File($.scriptName));
- *
- * @see :func:`current`
- */
+function _is_valid_module (file_or_folder) {
+	return file_or_folder.is(Folder) || file_or_folder.name.endswith(".jsx");
+}
+
 function Module (file_or_folder, is_package) {	
 	var self = this;
 	
@@ -69,7 +58,7 @@ function Module (file_or_folder, is_package) {
 		if (is_package) {
 			base.changePath("./lib");
 		}
-		var submodule_files = base.getFiles();
+		var submodule_files = base.getFiles(_is_valid_module);
 		
 		submodule_files.forEach(function(submodule) {
 			var submodule = new Module(submodule);
@@ -148,10 +137,10 @@ function Module (file_or_folder, is_package) {
 PACKAGEFOLDERS.forEach(function(packagefolder) {
 	var folder = new File($.fileName).parent;
 	folder.changePath(packagefolder);
-	var packages = folder.getFiles();
+	var packages = folder.getFiles(_is_valid_module);
 	
 	packages.forEach(function(file_or_folder) {
-		var module = new Module(file_or_folder, true);
-		__modules__[module.id] = module;
+			var module = new Module(file_or_folder, true);
+			__modules__[module.id] = module;
 	});	
 });

@@ -1,13 +1,4 @@
-﻿#include "patches/extendscript.object.jsx"
-#include "patches/extendscript.string.jsx"
-#include "patches/extendscript.array.jsx"
-#include "patches/extendscript.conversions.jsx"
-if (app.name.to('lower').contains("toolkit")) {
-	#include "patches/application.jsx"
-}
-if (app.name.to('lower').contains("indesign")) {
-	#include "patches/application.indesign.jsx"
-}
+﻿#include "patches/__all__.jsx"
 #include "loader.jsx"
 
 // note: if we want some modules to be available in the global namespace, we can simply extract() 'em here
@@ -30,12 +21,8 @@ var current = {
 // example use
 
 /**
- * Whatever dude.
- * @example
- * var x = y();
- *
  * @param {String} item Can be any one of ``window``, ``doc``, ``page`` or ``spread``.
-*/
+ */
 function current (item) {
 	var items = {
 		'window': app.layoutWindows.item(0),
@@ -52,14 +39,3 @@ function current (item) {
 }
 
 // another approach would be q('window').active(), instead of current('window')
-
-/**
- * @name rescue
- */
-function rescue(error, expected_error_type, fn) {
-	if (error instanceof expected_error_type) {
-		fn();
-	} else {
-		throw error;
-	}
-}

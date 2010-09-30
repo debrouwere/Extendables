@@ -36,15 +36,21 @@ function UIShortcuts () {
 	
 	/** @desc adds a group, displayed as a row */
 	this.row = function (name) {
-		return this.add_group(name);		
+		var group = this.add_group(name);	
+		group.window.orientation = 'row';
+		return group;
 	}
 	/** @desc adds a group, displayed as a column */
 	this.column = function (name) {
-		return this.add_group(name);			
+		var group = this.add_group(name);	
+		group.window.orientation = 'column';		
+		return group;
 	}
 	/** @desc adds a group, displayed as a stack */
 	this.stack = function (name) {
-		return this.add_group(name);		
+		var group = this.add_group(name);	
+		group.window.orientation = 'stack';
+		return group;
 	}	
 
 	/** @desc adds a button */

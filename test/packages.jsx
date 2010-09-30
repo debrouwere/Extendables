@@ -1,9 +1,9 @@
 ﻿#include "../extendables.jsx"
-extract("jasmine");
+extract("testing");
 
 var specfiles = [];
 
-modules.values().forEach(function (module) {
+__modules__.values().forEach(function (module) {
 	module.get_tests().forEach(function (specs) {
 		specfiles.push(specs);
 	});
@@ -17,4 +17,4 @@ specfiles.forEach(function (specfile) {
 	}
 });
 
-tests.to_console();
+tests.to_html("tests.packages.html");

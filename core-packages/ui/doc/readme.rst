@@ -15,22 +15,23 @@ It's easiest to get acquainted with the UI mini-framework through an example. He
     
     /* stylings */
     var mixins = {
-    	'long': {
-    		'size': [400, 200],
-    		'indent': 50
+    	'centered': {
+    		'size': [180, 50],
+    		'justify': 'center'
     	},
-    	'high': {
-    		'size': [100, 200]
+    	'square': {
+    		'size': [200, 120]
     	},
     	'help': {
-    		'helpTip': 'clickerdy click'
+    		'helpTip': 'clickerdy click',
     	},
-    	'high_helper': ['help', 'high']
+    	'button': ['centered', 'help']
     };
     
     /* structure */
-    var dialog = new ui.Dialog('a little testing').with(mixins);
-    dialog.row('stuff').using('long').text('welcome', 'hello there').using('high').button('confirm', 'OK!').using('high_helper');
+    var dialog = new ui.Dialog('A friendly welcome').with(mixins);
+    dialog.column('stuff').using('square').text('welcome', 'hello there').using('centered').button('confirm', 'OK!').using('button');
+
     
     /* event handlers */   
     dialog.stuff.confirm.on('click').do(function () {
@@ -41,7 +42,7 @@ It's easiest to get acquainted with the UI mini-framework through an example. He
 
 And visually: 
 
-.. note:: todo
+.. image:: layout.png
 
 Every UI consists of three parts: 
 
@@ -79,17 +80,31 @@ Adding element properties and styling
 
 .. note:: todo
 
-Adding events
--------------
+Adding event listeners
+----------------------
 
-* quick reminder about how accessing elements through the UI works.
+Add an event listener with: 
 
-.. note:: todo
+.. code-block:: extendscript
 
-..
-    Events: normaliter doe je ofwel control.addEventListener('click', ...) ofwel 
-    control.onClick = function () {} -- Het eerste is nogal verbose en het tweede
-    duwt andere event listeners weg.
+    // add an event, Extendables-style
+    dialog.stuff.confirm.on(event_type).do(handler)
+
+    // but you can still add an event the old way, if you prefer
+    dialog.stuff.confirm.addEventListener(event_type, handler)
+    
+    // here's a practical example
+    dialog.stuff.confirm.on('click').do(function () {
+        this.window.close();
+    })
+
+Avoid adding an event handler through ``control.onClick = handler``; it will push any previous handlers on the control.
+
+As a quick reminder: control elements are accessible through the first argument specified on their construction. The button in ``dialog.row('a_row').button('a_button', 'Click here);`` is accessed through ``dialog.a_row.a_button``.
+
+.. seealso::
+
+   You'll find a reference of all event types (click, mouseover etc.) at :ref:`ui-reference`
 
 Why use this instead of a GUI designer?
 =======================================

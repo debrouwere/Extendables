@@ -1,4 +1,4 @@
-/** Called automatically by JsDoc Toolkit. */
+﻿/** Called automatically by JsDoc Toolkit. */
 
 // some utility filters
 function hasNoParent($) {return ($.memberOf == "")}
@@ -117,21 +117,13 @@ function makeSignature(params) {
 		function(param) {
 			return param.name.indexOf(".") == -1; // don't show config params in signature
 		}
-	).map(
-		function(param, i, array) {
-		    if (i > 0) {
-		      var comma = ", ";
-		    } else {
-		      var comma = "";
-		    }
-		    
-            if (param.isOptional) {
-                return "[" + comma + param.name + "]";
-            } else {
-                return comma + param.name;
-            }
+	).map(function(param) {
+		if (param.isOptional) {
+			return "[" + param.name + "]";
+		} else {
+			return param.name;
 		}
-	).join("")
+	}).join(", ")
 	+
 	")";
 	return signature;

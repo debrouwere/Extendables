@@ -55,13 +55,14 @@ Javascript and DOM enhancements
    
    patches/index
    
-Best practices
---------------
+More
+----
 
 .. toctree::
    :maxdepth: 2
-   :glob:
    
-   best-practices/*
-   
+   learning-extendscript
+   best-practices
+   core/contribute
+      
 You can also :ref:`search through the docs <search>`. 

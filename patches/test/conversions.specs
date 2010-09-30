@@ -1,0 +1,5 @@
+describe('Patches: object conversions', function () {
+	it('should have unit tests', function () {
+	  expect(false).toEqual(true);
+	});
+});

@@ -94,3 +94,17 @@ String.prototype.endswith = function (substring) {
 String.prototype.contains = function (substring) {
 	return this.indexOf(substring) != -1;
 }
+
+/**
+ * @desc Does what it says.
+ * Does not check whether the string actually extends beyond the the substring.
+ */
+
+String.prototype.indexAfter = function (substring) {
+	var index = this.indexOf(substring);
+	if (index == -1) {
+		return index;
+	} else {
+		return index + substring.length;
+	}
+}

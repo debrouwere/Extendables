@@ -31,6 +31,20 @@
   };
 
 /**
+ * @desc Does what it says.
+ * Does not check whether there is actually a next element, that's up to you.
+ */
+
+Array.prototype.indexAfter = function (element) {
+	var index = this.indexOf(element);
+	if (index == -1) {
+		return index;
+	} else {
+		return index + 1;
+	}
+}
+
+/**
  * @desc Returns the last index at which a given element can be found in the array, 
  * or -1 if it is not present. The array is searched backwards, starting at from_index.
  *
