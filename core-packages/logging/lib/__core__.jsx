@@ -14,11 +14,6 @@ if (!logging) {
 
 var SEVERITY = ["NOTSET", "CRITICAL", "ERROR", "WARNING", "INFO", "DEBUG"];
 
-
-
-
-
-
 /*
  * Log object constructor
  * this is how other programs interface with the logging app

@@ -32,8 +32,6 @@ function ControlMixins () {
  */
 
 function UIShortcuts () {
-	// todo: the 'group' shortcuts need some work, obviously
-	
 	/** @desc adds a group, displayed as a row */
 	this.row = function (name) {
 		var group = this.add_group(name);	
@@ -124,7 +122,7 @@ function UIShortcuts () {
 	/** @desc adds a tree, equivalent to ``treeview`` in plain ScriptUI */
 	this.tree = function (name, text) {
 		return this.add_control(name, 'treeview', text);		
-	}	
+	}
 }
 
 /**
@@ -133,11 +131,15 @@ function UIShortcuts () {
  * Don't instantiate this class directly.
  */
 
-function UI () {
-	var self = this;
+function UI () {	
+	var self = this;	
 	
+	this.mixins = {};
+	this.merge(new UIShortcuts());
+
 	// this variable is continually updated to reflect the last added layout element
 	this._last_added = this;
+
 	
 	/**
 	 * @desc To make ``UI`` methods chainable, they return the entire
@@ -151,7 +153,7 @@ function UI () {
 	this.el = function () {
 		return this._last_added;
 	}
-	
+
 	/**
 	 * @desc Add mixins -- mixins are like style sheets for Extendables UIs.
 	 *
@@ -167,12 +169,12 @@ function UI () {
 	 */
 	this.using = function () {
 		// arguments may be passed either as variable arguments or as an array
-		var mixin_names = arguments.to('array').flatten();
-		
+		var mixin_names = arguments.to('array').flatten();		
 		mixin_names.forEach(function(mixin_name) {
-			var mixin = this.mixins[mixin_name];
-			
-			if (mixin.is(Array)) {
+			var mixin = self.mixins[mixin_name];
+			if (mixin == undefined) {
+				throw Error("Mixin {} does not exist.".format(mixin_name));
+			} else if (mixin.is(Array)) {
 				// is a list of other mixins
 				self.using(mixin);
 			} else {
@@ -188,7 +190,7 @@ function UI () {
 		// so we check whether they're not overriding any existing
 		// methods, attributes or controls.		
 		if (this[name] == undefined) {
-			var control = this.window.add(type, undefined, text);
+			var control = self.window.add(type, undefined, text);
 			control.merge(new ControlMixins());
 			this[name] = control;
 			self._last_added = control;
@@ -202,18 +204,23 @@ function UI () {
 		var ui = new UI();
 		ui.window = this.add_control(name, 'group').el();
 		ui._last_added = ui.window;
+		ui.mixins = this.mixins;
 		this[name] = ui;
 		return ui;		
 	}
 }
-UI.prototype = new UIShortcuts();
+
+// prototypal inheritance only shares properties upstream, so making Dialog and Palette subclasses of UI
+// would render UI unable to access the 'window' property.
 
 exports.Dialog = function (title) {
-	this.window = new Window('dialog', title);	
+	var ui = new UI();
+	ui.window = new Window('dialog', title); 
+	return ui;
 }
-exports.Dialog.prototype = new UI();
 
 exports.Palette = function (title) {
-	this.window = new Window('palette', title);	
+	var ui = new UI();
+	ui.window = new Window('palette', title); 
+	return ui;
 }
-exports.Palette.prototype = new UI();

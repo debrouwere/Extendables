@@ -60,7 +60,7 @@ jasmine.bindOriginal_ = function(base, name) {
 /*
 This is the only hack Jasmine needs to work in ExtendScript.
 
-jasmine.bindOriginal_ = function() { return false; }
+//jasmine.bindOriginal_ = function() { return false; }
 jasmine.setTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'setTimeout');
 jasmine.clearTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearTimeout');
 jasmine.setInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'setInterval');

@@ -22,10 +22,6 @@ function ByteString (input) {
 		var string = input.join('');
 		this._bytearray = input;
 	}
-	this._characters = [];
-	for (i = 0; i < string.length; i++) {
-		this._characters.push(string.charAt(i));
-	}
 	
 	this.as_bytearray = function () {
 		if (self._bytearray !== null) {
@@ -33,9 +29,15 @@ function ByteString (input) {
 		} else {
 			self._bytearray = [];
 		}
+
+		var characters = [];
+		for (i = 0; i < string.length; i++) {
+			characters.push(string.charAt(i));
+		}
+	
 		// map/reduce/flatten would've been more elegant
 		// but it chucks performance down the drain
-		this._characters.forEach(function (character) {
+		characters.forEach(function (character) {
 			var length = ByteString.count_bytes(character);
 			for (i = 1; i <= length; i++) {
 				if (i == length) {

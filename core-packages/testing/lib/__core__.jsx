@@ -1,34 +1,6 @@
 ﻿#include ../../../dependencies/jasmine.js
 
-function Template (path) {
-	var base = new File($.fileName).parent;
-	base.changePath("../templates");
-	base.changePath(path);
-	var template_file = new File(base.absoluteURI);
-	template_file.open("r");
-	this.template = template_file.read();
-	template_file.close();
-	
-	this._output = false;
-	this.render = function () {
-		this._output = this.template.format.apply(this.template, arguments);
-		return this._output;
-	}
-
-	this.write_to = function (path) {
-		var base = new File($.fileName).parent.parent.parent.parent;
-		base.changePath("./log");
-		base.changePath(path);
-		var out = new File(base.absoluteURI);
-		if (this._output) {
-			out.open("w");
-			out.write(this._output);
-			out.close();
-		} else {
-			throw new Error("There's no output to write. Did you call the render method first?");
-		}
-	}
-}
+var Template = require("templating").Template;
 
 var TestRunner = function () {
 	this._clean_results = function (suites, results) {
@@ -38,7 +10,10 @@ var TestRunner = function () {
 				return (results[spec.id].result == "passed");
 			}).length;
 			var specs = suite.children.map(function (spec) {
-				return {'name': spec.name, 'result': results[spec.id].result}
+				return {'name': spec.name, 
+					'result': results[spec.id].result, 
+					'message': results[spec.id].messages[0]
+					}
 			});
 
 			return {
@@ -59,6 +34,24 @@ var TestRunner = function () {
 		return this._clean_results(reporter.suites_, reporter.results());
 	}
 
+	this.get_environment = function () {
+		return {
+			'<strong>OS</strong>': $.os,
+			'<strong>ExtendScript build</strong>': $.build,
+			'<strong>ExtendScript version</strong>': $.version,
+			'<strong>path</strong>': $.includePath,
+			'<strong>locale</strong>': $.locale,
+			'<strong>app</strong>': app.name,
+			'<strong>app version</strong>': app.version
+		}
+	}
+
+	// we'll add this into the html representation, 
+	// so people can upload structured test reports to our central server.
+	this.as_json = function () {
+		
+	}
+
 	this.to_console = function () {
 		var results = this.run();
 		
@@ -75,34 +68,35 @@ var TestRunner = function () {
 	}
 
 	this.to_html = function (filename) {
-		var results = this.run();
-		
 		// some background info
 		var datetime = new Date();
 		var date = datetime.toDateString();
 		var time = "{}:{}".format(datetime.getHours(), datetime.getMinutes());
-		var environment = {
-			'<strong>os</strong>': $.os,
-			'<strong>build</strong>': $.build,
-			'<strong>version</strong>': $.version,
-			'<strong>path</strong>': $.includePath,
-			'<strong>locale</strong>': $.locale,
-			'<strong>app</strong>': app.name
-			}.serialize('key-value', {'separator': ': ', 'eol': '<br />'});
-		
+		var environment = this.get_environment().serialize('key-value', {'separator': ': ', 'eol': '<br />'});		
+
+		// output templates
 		var tpl = {
-			'report': new Template("report.html"),
-			'suite': new Template("partial.suite.html"),
-			'test': new Template("partial.test.html")
+			'report': new Template("report.html", module),
+			'suite': new Template("partial.suite.html", module),
+			'test': new Template("partial.test.html", module)
 		};
+
+		// run tests
+		var results = this.run();
 		
+		// render results
 		var suites = [];
 		var testcount = 0;
 		
 		results.forEach(function(suite) {
 			var tests = [];
 			suite.specs.forEach(function(spec) {
-				var test = tpl.test.render(spec.result, spec.result, spec.name);
+				if (spec.result == 'failed') {
+					var problem = '<p class="problem">{}</p>'.format(spec.message);
+				} else {
+					var problem = '';
+				}
+				var test = tpl.test.render(spec.result, spec.result, spec.name, problem);
 				tests.push(test);
 				testcount++;
 			});
@@ -114,6 +108,12 @@ var TestRunner = function () {
 
 		tpl.report.render(date, time, testcount, duration, suites.join('\n\n'), environment);
 		tpl.report.write_to(filename);
+	}
+
+	// would be incredibly interesting to see usage patterns and whether certain tests
+	// fail consistently on the same platform or app version or ...
+	this.to_central_server = function () {
+		// todo
 	}
 }
 

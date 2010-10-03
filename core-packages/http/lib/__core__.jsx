@@ -6,6 +6,7 @@ exports.head = head;
 exports.post = post;
 exports.put = put;
 exports.del = del;
+exports.has_internet_access = has_internet_access;
 exports.HTTPError = HTTPError;
 exports.HTTPRequest = HTTPRequest;
 
@@ -28,7 +29,7 @@ function _pull (request, basic_auth, timeout) {
 	return request.do();	
 }
 
-function _push (request, basic_auth, timeout) {
+function _push (request, data, basic_auth, timeout) {
 	request.content(data);
 	return _pull(request, basic_auth, timeout);
 }
@@ -69,7 +70,7 @@ function head (url, basic_auth, timeout) {
 
 function post (url, data, basic_auth, timeout) {
 	var request = new HTTPRequest("POST", url);
-	return _push(request, basic_auth, timeout);
+	return _push(request, data, basic_auth, timeout);
 }
 
 /**
@@ -84,7 +85,7 @@ function post (url, data, basic_auth, timeout) {
 
 function put (url, data, basic_auth, timeout) {
 	var request = new HTTPRequest("PUT", url);
-	return _push(request, basic_auth, timeout);
+	return _push(request, data, basic_auth, timeout);
 }
 
 /**
@@ -98,6 +99,24 @@ function put (url, data, basic_auth, timeout) {
 function del (url, basic_auth, timeout) {
 	var request = new HTTPRequest("DEL", url);
 	return _pull(request, basic_auth, timeout);
+}
+
+/**
+ * @desc Tests whether the application has access to the internet.
+ * If not, this might either imply that the user is simply not connected, 
+ * or otherwise that a firewall is blocking internet access for the active
+ * Creative Suite app.
+ */
+
+function has_internet_access () {
+	var response = head("http://www.w3.org/");
+	// the socket won't even open, so there are probably
+	// more robust tests we could do than this one
+	if (response.status = 200) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /**
@@ -178,8 +197,8 @@ function HTTPRequest (method, url, timeout) {
 		}
 	}
 
-	this._timeout = timeout || 1;
-	/** @desc How long before the http client should give up the request. 1 second by default. */
+	this._timeout = timeout || 5;
+	/** @desc How long before the http client should give up the request. 5 seconds by default. */
 	this.timeout = function (duration) {
 		if (duration) {
 			this._timeout = duration.to('int');
@@ -188,8 +207,25 @@ function HTTPRequest (method, url, timeout) {
 		}
 	}
 
-	this._follow_redirects = true;
-	/** @desc Whether to follow redirects when requesting a resource. True by default. */
+	this._max_redirects = 5;
+	/** @desc How much redirects the http client should follow before giving up. 5 redirects by default. */
+	this.max_redirects = function (value) {
+		if (value) {
+			this._max_redirects = true;
+		} else {
+			return this._max_redirects;
+		}		
+	}
+
+	// "If the 307 status code is received in response to a request other than GET or HEAD, the
+	// user agent MUST NOT automatically redirect the request unless it can be confirmed by the
+	// user, since this might change the conditions under which the request was issued."
+	if (method == "GET" || method == "HEAD") {
+		this._follow_redirects = true;
+	} else {
+		this._follow_redirects = false;
+	}
+	/** @desc Whether to follow redirects when requesting a resource. By default, true for GET and HEAD requests, false for POST and PUT requests. */
 	this.follow_redirects = function (value) {
 		if (value) {
 			this._follow_redirects = true;
@@ -209,7 +245,7 @@ function HTTPRequest (method, url, timeout) {
 
 	this._headers = {
 		"Host": this.url().host,
-		"User-Agent": "InDesign ExtendScript",
+		"User-Agent": "Adobe ExtendScript",
 		"Accept": "*/*",
 		"Connection": "close"
 	}
@@ -238,9 +274,9 @@ function HTTPRequest (method, url, timeout) {
 	/** @desc Get or set a single header. */
 	this.header = function (name, value) {
 		if (value) {
-			// set header[name] to value
+			this._headers[name] = value;
 		} else {
-			// return header[name]
+			return this._headers[name];
 		}
 	}
 
@@ -398,7 +434,7 @@ function HTTPResponse (method, encoding, request) {
 	this.process_headers = function () {
 		var raw_head = this._parts.join('').split('\n\n', 1)[0].split('\n');
 		var raw_headers = raw_head.slice(1).join('\n');
-		this.status = raw_head[0].split(' ')[1];
+		this.status = raw_head[0].split(' ')[1].to('int');
 		this.headers = raw_headers.deserialize('key-value', {'separator': ': ', 'eol': '\n'});
 		if (this.headers["Transfer-Encoding"] && this.headers["Transfer-Encoding"] == "chunked") {
 			this._chunked = true;
@@ -415,7 +451,27 @@ function HTTPResponse (method, encoding, request) {
 		this.processed = true;
 		return this;
 	}
-	
+
+	this.follow = function () {
+		// rough pseudocode
+		throw new NotImplementedError();
+		
+		if (!this.redirects) {
+			throw new HTTPError("No redirects to follow.");
+		}
+		
+		var request = this.clone();
+		add_to_this.redirects;
+		while (redirects < request.max_redirects && this.redirects) {
+			request.url(to_redirect_wherever);
+			request.do();
+		}
+		
+		if (redirects > request.max_redirects) {
+			throw new HTTPError("Gave up after {} redirects.".format(redirects));
+		}
+	}
+
 	/** @desc The original HTTPRequest object that led to this response. */
 	this.for_request = request;
 	/** @desc Whether the response is corrupt. Currently not implemented. */

@@ -1,5 +1,9 @@
-describe('HTTP', function () {
-    var http = require("http");
+﻿/*
+ * Most of these tests will fail without a working internet connection.
+ */
+
+describe('HTTP: request and response objects', function () {	
+	var http = require("http");	
 
 	it('exports a HTTPRequest constructor', function () {
 	  expect(http.HTTPRequest).toBeDefined();
@@ -11,7 +15,63 @@ describe('HTTP', function () {
 	   })
 	}); 
 
+	it('gives users control over port, method and timeout', function () {
+		expect('have tests').toEqual(true);
+	}); 
+
+	it('has an interface to add and view http headers', function () {
+		var req = new http.HTTPRequest("HEAD", "http://www.w3.org/");
+		expect(req.header("User-Agent")).toEqual("Adobe ExtendScript");
+		req.header("User-Agent", "Something completely different.");
+		expect(req.header("User-Agent")).toEqual("Something completely different.");		
+	}); 
+
 	it('has enough unit tests', function () {
 	  expect(false).toEqual(true);
 	});
+});
+
+describe('HTTP: requests', function () {
+	var http = require("http");	
+	
+	beforeEach(function () {
+		// let's not spam w3.org
+		$.sleep(500);
+	});
+	
+	it('can check whether the script has internet access', function () {
+		expect(http.has_internet_access()).toEqual(true);
+	});
+
+	it('has a high-level shortcut for GET requests', function () {
+		expect(http.get("http://www.w3.org/").status).toEqual(200);
+	}); 
+
+	it('has a high-level shortcut for HEAD requests', function () {
+		expect(http.head("http://www.w3.org/").status).toEqual(200);
+	}); 
+
+	it('has a high-level shortcut for POST requests', function () {
+		expect(http.post("http://www.w3.org/").status).toEqual(200);
+	}); 
+
+	it('has a high-level shortcut for PUT requests', function () {
+		expect(http.put("http://www.w3.org/").status).toEqual(200);
+	});
+
+	it('has a high-level shortcut for DEL requests', function () {
+		expect(http.head("http://www.w3.org/").status).toEqual(200);
+	}); 
+
+	it('can follow redirects', function () {
+		expect('have tests').toEqual(true);
+	}); 
+
+	it('is tested in a variety of scenarios', function () {
+		expect(http.get("http://www.example.com/").status).toEqual(200);
+	}); 
+
+	it('has enough unit tests', function () {
+	  expect(false).toEqual(true);
+	});	
 });

@@ -1,5 +1,23 @@
-describe('path', function () {
-	it('should have unit tests', function () {
-	  expect(false).toEqual(true);
+﻿describe('path', function () {
+	var path = require("path");
+	
+	it('can join paths', function () {
+		var joined_path = path.join("/one/two/", "/three/four", "five/six");
+		expect(joined_path).toEqual("/one/two/three/four/five/six");
+	});
+
+	it('can return the directory name', function () {
+		var dirname = path.dirname("/one/two/three.jsx");
+		expect(dirname).toEqual("/one/two");
+	});
+
+	it('can return the base name (file name)', function () {
+		var basename = path.basename("/one/two/three.jsx");
+		expect(basename).toEqual("three.jsx");
+	});
+
+	it('can return the file extension', function () {
+		var ext = path.extname("/one/two/three.jsx");
+		expect(ext).toEqual(".jsx");
 	});
 });
