@@ -21,11 +21,11 @@ def _document_this():
 
 def build_jsdoc():
     for folder in _document_this():
-        local("{0} {1}{2} --template=doc/_themes/jsdoc-for-sphinx -x=js,jsx --directory={1}/doc/jsdoc".format(JSDOC, folder, getattr(folder, 'package', '')))
+        local("{0} {1}{2} --template=doc/_themes/jsdoc-for-sphinx -x=js,jsx --directory={1}/doc/jsdoc".format(JSDOC, folder, getattr(folder, 'package', '')), capture=False)
 
 def build_sphinx():
     with cd("doc"):
-        local("make html")
+        local("make html", capture=False)
 
 def docbuild(part='all'):
     # jsdoc should be aliased to something like 
@@ -57,3 +57,25 @@ def ghpages():
 def build():
     docbuild()
     ghpages()
+
+def push():
+    local("git push origin --all")
+
+def commit():
+    if prompt("Do you want to do a docbuild first?", default=False):
+        build()
+        if not prompt("Is this docbuild okay?", default=False):
+            abort("Halting commit.")
+    
+    # show any new files we could add
+    new_files = local("git add . --dry-run")
+    if len(new_files):
+        print "Git found a few new files: "
+        print new_files
+        if prompt("Do you want to exclude some of these files first?", default=False):
+            local("nano .gitignore", capture=False)
+        local("git add .")
+    local("git commit -a", capture=False)
+
+    if prompt("Commit to the central repository as well?", default=False):
+        push()

@@ -1,5 +1,6 @@
 // code originally taken from node.js
 
+/** @desc join paths together */
 exports.join = function () {
   return exports.normalize(Array.prototype.join.call(arguments, "/"));
 };
@@ -38,10 +39,12 @@ exports.normalizeArray = function (parts, keepBlanks) {
   return directories;
 };
 
+/** @desc normalize a path (attempt to resolve . and ..) */
 exports.normalize = function (path, keepBlanks) {
   return exports.normalizeArray(path.split("/"), keepBlanks).join("/");
 };
 
+/** @desc return the directory name */
 exports.dirname = function (path) {
   if (path.length > 1 && '/' === path[path.length-1]) {
     path = path.replace(/\/+$/, '');
@@ -57,6 +60,7 @@ exports.dirname = function (path) {
   }
 };
 
+/** @desc return the basename (filename without extension) */
 exports.basename = function (path, ext) {
   var f = path.substr(path.lastIndexOf("/") + 1);
   if (ext && f.substr(-1 * ext.length) === ext) {
@@ -65,6 +69,7 @@ exports.basename = function (path, ext) {
   return f;
 };
 
+/** @desc returns the file extension */
 exports.extname = function (path) {
   var dot = path.lastIndexOf('.'),
       slash = path.lastIndexOf('/');
@@ -74,6 +79,7 @@ exports.extname = function (path) {
   return dot <= slash + 1 ? '' : path.substring(dot);
 };
 
+/** @desc tests whether the path exists */
 exports.exists = function (path) {
   return new File(path).exists;
 };

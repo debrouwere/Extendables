@@ -1,6 +1,18 @@
 ﻿/*
  * Most of these tests will fail without a working internet connection.
  */
+ 
+describe('HTTP: url parsing', function () {	
+	var url = require("http/url");	
+
+	it('parses urls into host, pathname, port and auth parts', function () {
+        var parsed_url = url.parse("http://one:two@extendables.org:80/a/path/");
+        expect(parsed_url.auth).toEqual("one:two");
+        expect(parsed_url.host).toEqual("extendables.org");
+        expect(parsed_url.port).toEqual(80);
+        expect(parsed_url.pathname).toEqual("/a/path/");
+	});
+});
 
 describe('HTTP: request and response objects', function () {	
 	var http = require("http");	
