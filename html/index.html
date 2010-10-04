@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to Extendables’ documentation! &mdash; Extendables v0.2a documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="Extendables v0.2a documentation" href="#" />
+    <link rel="next" title="ui: The UI framework" href="packages/ui/doc/readme.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="packages/ui/doc/readme.html" title="ui: The UI framework"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-extendables-documentation">
+<h1>Welcome to Extendables&#8217; documentation!<a class="headerlink" href="#welcome-to-extendables-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Extendables is an <a class="reference internal" href="license.html#license"><em>MIT-licensed</em></a> developers&#8217; <strong>framework for Adobe ExtendScript</strong>. If you&#8217;re writing heavy-duty automations for a Creative Suite app like <strong>InDesign</strong>, or anything more than just a throwaway script, this is for you.</p>
+<p>Extendables comes with three big blocks of functionality.</p>
+<ol class="arabic simple">
+<li>Additional methods on built-in objects like String and Array that give you the <strong>Javascript 1.8 features</strong> you&#8217;re used to (think <tt class="docutils literal"><span class="pre">forEach</span></tt>), conveniences for functional programming (think <tt class="docutils literal"><span class="pre">map</span></tt>, <tt class="docutils literal"><span class="pre">reduce</span></tt>, <tt class="docutils literal"><span class="pre">filter</span></tt>), easy serialization to JSON or base64 and more.</li>
+<li>Additional methods on InDesign DOM objects that make coding in InDesign <strong>less verbose</strong>.</li>
+<li>Packages for <strong>logging</strong>, <strong>unit testing</strong>, <strong>http</strong>, <strong>user interface development</strong>, and a couple of other goodies.</li>
+</ol>
+<p>Include the framework in your code simply by including the <tt class="docutils literal"><span class="pre">extendables.jsx</span></tt> file. Code looks like this:</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">();</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;Hi there!&#39;</span><span class="p">).</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="s1">&#39;Close this please.&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">ok</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">dialog</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;Bye!&#39;</span><span class="p">;</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>You&#8217;ll code more quickly and more reliably.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="get-started.html#get-started"><em>Getting started with Extendables</em></a> is a great place to get going.</p>
+</div>
+<p>In addition, Extendables comes with a <a class="reference external" href="http://www.commonjs.org/">CommonJS</a>-compatible module loader and packaging system. This makes it easy to incorporate other CommonJS components into your project, and it also means all code is <a class="reference external" href="http://en.wikipedia.org/wiki/Namespace">namespaced</a>. <a class="reference internal" href="core/writing-a-module.html#writing-a-module"><em>Learn more about writing your own modules</em></a> or about <a class="reference internal" href="core/index.html#core"><em>the internals of the framework</em></a>.</p>
+<div class="section" id="packages">
+<h2>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="packages/ui/doc/readme.html"><tt class="docutils literal"><span class="pre">ui</span></tt>: The UI framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packages/ui/doc/readme.html#creating-a-ui">Creating a UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/ui/doc/readme.html#why-use-this-instead-of-a-gui-designer">Why use this instead of a GUI designer?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages/testing/doc/readme.html"><tt class="docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packages/testing/doc/readme.html#where-to-place-tests">Where to place tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/testing/doc/readme.html#running-tests">Running tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages/http/doc/readme.html"><tt class="docutils literal"><span class="pre">http</span></tt>: sending and receiving http requests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packages/http/doc/readme.html#basic-requests">Basic requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/http/doc/readme.html#request-objects">Request objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/http/doc/readme.html#response-objects">Response objects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="packages/logging/doc/readme.html"><tt class="docutils literal"><span class="pre">logging</span></tt>: a logging utility for ExtendScript</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="javascript-and-dom-enhancements">
+<h2>Javascript and DOM enhancements<a class="headerlink" href="#javascript-and-dom-enhancements" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="patches/index.html">DOM enhancements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="patches/application.html">Application methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patches/array.html">Array methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patches/error.html">Error handling</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/error.html#id1">Error methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/error.html#error-types">Error types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="patches/object.html">Object methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patches/string.html">String methods</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="more">
+<h2>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="learning-extendscript.html">Learning ExtendScript</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="learning-extendscript.html#i-know-how-to-code">I know how to code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="learning-extendscript.html#i-m-new-to-programming">I&#8217;m new to programming</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="best-practices.html">Best practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="best-practices.html#organizing-a-project">Organizing a project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best-practices.html#code-style">Code style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best-practices.html#how-to-do-error-handling">How to do error handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="best-practices.html#patterns">Patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core/contribute.html">Contribute</a></li>
+</ul>
+</div>
+<p>You can also <a class="reference internal" href="search.html"><em>search through the docs</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to Extendables&#8217; documentation!</a><ul>
+<li><a class="reference internal" href="#packages">Packages</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#javascript-and-dom-enhancements">Javascript and DOM enhancements</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#more">More</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="packages/ui/doc/readme.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">ui</span></tt>: The UI framework</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="packages/ui/doc/readme.html" title="ui: The UI framework"
+             >next</a> |</li>
+        <li><a href="#">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
