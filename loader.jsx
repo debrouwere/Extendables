@@ -9,7 +9,6 @@ function require (module_id) {
 	// CommonJS: A module identifier is a String of "terms"
 	var terms = module_id.split('/');
 	var module = terms.shift();
-	
 	if (__modules__.hasOwnProperty(module)) {
 		if (terms.length) {
 			return __modules__[module].get_submodule(terms).load().exports;

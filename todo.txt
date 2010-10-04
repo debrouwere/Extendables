@@ -1,4 +1,3 @@
-- 1h	add in the nature-fixedwidth and rst themes as git submodules / deps
 - 3h	finish the http library
 	- req/res objects
 	- URL sublibrary (clean)

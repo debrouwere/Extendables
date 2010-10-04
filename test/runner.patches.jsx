@@ -1,17 +1,4 @@
-﻿/*
- * Bootstrap
- *
- * This script tests very basic functionality of the framework, so instead of using the loader system
- * we're bootstrapping this stuff ourselves.
- */
-
-var exports = {};
-#include "../patches/__all__.jsx"
-#include "../core-packages/testing/lib/__core__.jsx"
-
-for (name in exports) {
-	$.global[name] = exports[name];
-}
+﻿#include "bootstrapper.jsx"
 
 var base = new File($.fileName).parent;
 base.changePath("../patches/test");
