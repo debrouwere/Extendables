@@ -1,12 +1,9 @@
-﻿exports.jasmine = {};
-
-/**
+﻿/**
  * Top level namespace for Jasmine, a lightweight JavaScript BDD/spec/testing framework.
  *
  * @namespace
  */
-
-var jasmine = exports.jasmine;
+var jasmine = {};
 
 /**
  * @private
@@ -24,10 +21,15 @@ jasmine.unimplementedMethod_ = function() {
 jasmine.undefined = jasmine.___undefined___;
 
 /**
- * Default interval for event loop yields. Small values here may result in slow test running. Zero means no updates until all tests have completed.
+ * Default interval in milliseconds for event loop yields (e.g. to allow network activity or to refresh the screen with the HTML-based runner). Small values here may result in slow test running. Zero means no updates until all tests have completed.
  *
  */
 jasmine.DEFAULT_UPDATE_INTERVAL = 250;
+
+/**
+ * Default timeout interval in milliseconds for waitsFor() blocks.
+ */
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
 
 jasmine.getGlobal = function() {
   function getGlobal() {
@@ -46,6 +48,7 @@ jasmine.getGlobal = function() {
  * @param name {Function} function to find
  */
 jasmine.bindOriginal_ = function(base, name) {
+	return false;
   var original = base[name];
   if (original.apply) {
     return function() {
@@ -57,20 +60,10 @@ jasmine.bindOriginal_ = function(base, name) {
   }
 };
 
-/*
-This is the only hack Jasmine needs to work in ExtendScript.
-
-//jasmine.bindOriginal_ = function() { return false; }
 jasmine.setTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'setTimeout');
 jasmine.clearTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearTimeout');
 jasmine.setInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'setInterval');
 jasmine.clearInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearInterval');
-*/
-jasmine.bindOriginal_ = function() { return false; }
-jasmine.setTimeout = function(fn) { return fn(); }
-jasmine.clearTimeout = function(fn) { return; }
-jasmine.setInterval = function(fn) { return fn(); }
-jasmine.clearInterval = function(fn) { return; }
 
 jasmine.MessageResult = function(values) {
   this.type = 'log';
@@ -448,7 +441,7 @@ jasmine.log = function() {
  * @param methodName
  * @returns a Jasmine spy that can be chained with all spy methods
  */
-exports.spyOn = function(obj, methodName) {
+var spyOn = function(obj, methodName) {
   return jasmine.getEnv().currentSpec.spyOn(obj, methodName);
 };
 
@@ -465,7 +458,7 @@ exports.spyOn = function(obj, methodName) {
  * @param {String} desc description of this specification
  * @param {Function} func defines the preconditions and expectations of the spec
  */
-exports.it = function(desc, func) {
+var it = function(desc, func) {
   return jasmine.getEnv().it(desc, func);
 };
 
@@ -477,7 +470,7 @@ exports.it = function(desc, func) {
  * @param {String} desc description of this specification
  * @param {Function} func defines the preconditions and expectations of the spec
  */
-exports.xit = function(desc, func) {
+var xit = function(desc, func) {
   return jasmine.getEnv().xit(desc, func);
 };
 
@@ -489,7 +482,7 @@ exports.xit = function(desc, func) {
  *
  * @param {Object} actual Actual value to test against and expected value
  */
-exports.expect = function(actual) {
+var expect = function(actual) {
   return jasmine.getEnv().currentSpec.expect(actual);
 };
 
@@ -498,27 +491,29 @@ exports.expect = function(actual) {
  *
  * @param {Function} func Function that defines part of a jasmine spec.
  */
-exports.runs = function(func) {
+var runs = function(func) {
   jasmine.getEnv().currentSpec.runs(func);
 };
 
 /**
- * Waits for a timeout before moving to the next runs()-defined block.
- * @param {Number} timeout
+ * Waits a fixed time period before moving to the next block.
+ *
+ * @deprecated Use waitsFor() instead
+ * @param {Number} timeout milliseconds to wait
  */
-exports.waits = function(timeout) {
+var waits = function(timeout) {
   jasmine.getEnv().currentSpec.waits(timeout);
 };
 
 /**
- * Waits for the latchFunction to return true before proceeding to the next runs()-defined block.
+ * Waits for the latchFunction to return true before proceeding to the next block.
  *
- * @param {Number} timeout
  * @param {Function} latchFunction
- * @param {String} message
+ * @param {String} optional_timeoutMessage
+ * @param {Number} optional_timeout
  */
-exports.waitsFor = function(timeout, latchFunction, message) {
-  jasmine.getEnv().currentSpec.waitsFor(timeout, latchFunction, message);
+var waitsFor = function(latchFunction, optional_timeoutMessage, optional_timeout) {
+  jasmine.getEnv().currentSpec.waitsFor.apply(jasmine.getEnv().currentSpec, arguments);
 };
 
 /**
@@ -528,7 +523,7 @@ exports.waitsFor = function(timeout, latchFunction, message) {
  *
  * @param {Function} beforeEachFunction
  */
-exports.beforeEach = function(beforeEachFunction) {
+var beforeEach = function(beforeEachFunction) {
   jasmine.getEnv().beforeEach(beforeEachFunction);
 };
 
@@ -539,7 +534,7 @@ exports.beforeEach = function(beforeEachFunction) {
  *
  * @param {Function} afterEachFunction
  */
-exports.afterEach = function(afterEachFunction) {
+var afterEach = function(afterEachFunction) {
   jasmine.getEnv().afterEach(afterEachFunction);
 };
 
@@ -558,7 +553,7 @@ exports.afterEach = function(afterEachFunction) {
  * @param {String} description A string, usually the class under test.
  * @param {Function} specDefinitions function that defines several specs.
  */
-exports.describe = function(description, specDefinitions) {
+var describe = function(description, specDefinitions) {
   return jasmine.getEnv().describe(description, specDefinitions);
 };
 
@@ -568,7 +563,7 @@ exports.describe = function(description, specDefinitions) {
  * @param {String} description A string, usually the class under test.
  * @param {Function} specDefinitions function that defines several specs.
  */
-exports.xdescribe = function(description, specDefinitions) {
+var xdescribe = function(description, specDefinitions) {
   return jasmine.getEnv().xdescribe(description, specDefinitions);
 };
 
@@ -673,6 +668,7 @@ jasmine.Env = function() {
   this.reporter = new jasmine.MultiReporter();
 
   this.updateInterval = jasmine.DEFAULT_UPDATE_INTERVAL;
+  this.defaultTimeoutInterval = jasmine.DEFAULT_TIMEOUT_INTERVAL;
   this.lastUpdate = 0;
   this.specFilter = function() {
     return true;
@@ -1148,7 +1144,7 @@ jasmine.Matchers.matcherFn_ = function(matcherName, matcherFunction) {
       message: message
     });
     this.spec.addMatcherResult(expectationResult);
-    return result;
+    return jasmine.undefined;
   };
 };
 
@@ -1166,6 +1162,7 @@ jasmine.Matchers.prototype.toBe = function(expected) {
 /**
  * toNotBe: compares the actual to the expected using !==
  * @param expected
+ * @deprecated as of 1.0. Use not.toBe() instead.
  */
 jasmine.Matchers.prototype.toNotBe = function(expected) {
   return this.actual !== expected;
@@ -1183,6 +1180,7 @@ jasmine.Matchers.prototype.toEqual = function(expected) {
 /**
  * toNotEqual: compares the actual to the expected using the ! of jasmine.Matchers.toEqual
  * @param expected
+ * @deprecated as of 1.0. Use not.toNotEqual() instead.
  */
 jasmine.Matchers.prototype.toNotEqual = function(expected) {
   return !this.env.equals_(this.actual, expected);
@@ -1201,6 +1199,7 @@ jasmine.Matchers.prototype.toMatch = function(expected) {
 /**
  * Matcher that compares the actual to the expected using the boolean inverse of jasmine.Matchers.toMatch
  * @param expected
+ * @deprecated as of 1.0. Use not.toMatch() instead.
  */
 jasmine.Matchers.prototype.toNotMatch = function(expected) {
   return !(new RegExp(expected).test(this.actual));
@@ -1243,11 +1242,6 @@ jasmine.Matchers.prototype.toBeFalsy = function() {
 };
 
 
-/** @deprecated Use expect(xxx).toHaveBeenCalled() instead */
-jasmine.Matchers.prototype.wasCalled = function() {
-  return this.toHaveBeenCalled();
-};
-
 /**
  * Matcher that checks to see if the actual, a Jasmine spy, was called.
  */
@@ -1261,11 +1255,17 @@ jasmine.Matchers.prototype.toHaveBeenCalled = function() {
   }
 
   this.message = function() {
-    return "Expected spy " + this.actual.identity + " to have been called.";
+    return [
+      "Expected spy " + this.actual.identity + " to have been called.",
+      "Expected spy " + this.actual.identity + " not to have been called."
+    ];
   };
 
   return this.actual.wasCalled;
 };
+
+/** @deprecated Use expect(xxx).toHaveBeenCalled() instead */
+jasmine.Matchers.prototype.wasCalled = jasmine.Matchers.prototype.toHaveBeenCalled;
 
 /**
  * Matcher that checks to see if the actual, a Jasmine spy, was not called.
@@ -1282,15 +1282,13 @@ jasmine.Matchers.prototype.wasNotCalled = function() {
   }
 
   this.message = function() {
-    return "Expected spy " + this.actual.identity + " to not have been called.";
+    return [
+      "Expected spy " + this.actual.identity + " to not have been called.",
+      "Expected spy " + this.actual.identity + " to have been called."
+    ];
   };
 
   return !this.actual.wasCalled;
-};
-
-/** @deprecated Use expect(xxx).toHaveBeenCalledWith() instead */
-jasmine.Matchers.prototype.wasCalledWith = function() {
-  return this.toHaveBeenCalledWith.apply(this, arguments);
 };
 
 /**
@@ -1306,14 +1304,24 @@ jasmine.Matchers.prototype.toHaveBeenCalledWith = function() {
   }
   this.message = function() {
     if (this.actual.callCount == 0) {
-      return "Expected spy to have been called with " + jasmine.pp(expectedArgs) + " but it was never called.";
+      // todo: what should the failure message for .not.toHaveBeenCalledWith() be? is this right? test better. [xw]
+      return [
+        "Expected spy to have been called with " + jasmine.pp(expectedArgs) + " but it was never called.",
+        "Expected spy not to have been called with " + jasmine.pp(expectedArgs) + " but it was."
+      ];
     } else {
-      return "Expected spy to have been called with " + jasmine.pp(expectedArgs) + " but was called with " + jasmine.pp(this.actual.argsForCall);
+      return [
+        "Expected spy to have been called with " + jasmine.pp(expectedArgs) + " but was called with " + jasmine.pp(this.actual.argsForCall),
+        "Expected spy not to have been called with " + jasmine.pp(expectedArgs) + " but was called with " + jasmine.pp(this.actual.argsForCall)
+      ];
     }
   };
 
   return this.env.contains_(this.actual.argsForCall, expectedArgs);
 };
+
+/** @deprecated Use expect(xxx).toHaveBeenCalledWith() instead */
+jasmine.Matchers.prototype.wasCalledWith = jasmine.Matchers.prototype.toHaveBeenCalledWith;
 
 /** @deprecated Use expect(xxx).not.toHaveBeenCalledWith() instead */
 jasmine.Matchers.prototype.wasNotCalledWith = function() {
@@ -1323,7 +1331,10 @@ jasmine.Matchers.prototype.wasNotCalledWith = function() {
   }
 
   this.message = function() {
-    return "Expected spy not to have been called with " + jasmine.pp(expectedArgs) + " but it was";
+    return [
+      "Expected spy not to have been called with " + jasmine.pp(expectedArgs) + " but it was",
+      "Expected spy to have been called with " + jasmine.pp(expectedArgs) + " but it was"
+    ]
   };
 
   return !this.env.contains_(this.actual.argsForCall, expectedArgs);
@@ -1342,6 +1353,7 @@ jasmine.Matchers.prototype.toContain = function(expected) {
  * Matcher that checks that the expected item is NOT an element in the actual Array.
  *
  * @param {Object} expected
+ * @deprecated as of 1.0. Use not.toNotContain() instead.
  */
 jasmine.Matchers.prototype.toNotContain = function(expected) {
   return !this.env.contains_(this.actual, expected);
@@ -1375,9 +1387,11 @@ jasmine.Matchers.prototype.toThrow = function(expected) {
     result = (expected === jasmine.undefined || this.env.equals_(exception.message || exception, expected.message || expected));
   }
 
+  var not = this.isNot ? "not " : "";
+
   this.message = function() {
     if (exception && (expected === jasmine.undefined || !this.env.equals_(exception.message || exception, expected.message || expected))) {
-      return ["Expected function to throw", expected.message || expected, ", but it threw", exception.message || exception].join(' ');
+      return ["Expected function " + not + "to throw", expected ? expected.message || expected : " an exception", ", but it threw", exception.message || exception].join(' ');
     } else {
       return "Expected function to throw an exception.";
     }
@@ -1657,6 +1671,7 @@ jasmine.Queue = function(env) {
   this.running = false;
   this.index = 0;
   this.offset = 0;
+  this.abort = false;
 };
 
 jasmine.Queue.prototype.addBefore = function(block) {
@@ -1691,7 +1706,7 @@ jasmine.Queue.prototype.next_ = function() {
   while (goAgain) {
     goAgain = false;
     
-    if (self.index < self.blocks.length) {
+    if (self.index < self.blocks.length && !this.abort) {
       var calledSynchronously = true;
       var completedSynchronously = false;
 
@@ -1699,6 +1714,10 @@ jasmine.Queue.prototype.next_ = function() {
         if (jasmine.Queue.LOOP_DONT_RECURSE && calledSynchronously) {
           completedSynchronously = true;
           return;
+        }
+
+        if (self.blocks[self.index].abort) {
+          self.abort = true;
         }
 
         self.offset = 0;
@@ -1897,14 +1916,46 @@ jasmine.Spec.prototype.expect = function(actual) {
   return positive;
 };
 
+/**
+ * Waits a fixed time period before moving to the next block.
+ *
+ * @deprecated Use waitsFor() instead
+ * @param {Number} timeout milliseconds to wait
+ */
 jasmine.Spec.prototype.waits = function(timeout) {
   var waitsFunc = new jasmine.WaitsBlock(this.env, timeout, this);
   this.addToQueue(waitsFunc);
   return this;
 };
 
-jasmine.Spec.prototype.waitsFor = function(timeout, latchFunction, timeoutMessage) {
-  var waitsForFunc = new jasmine.WaitsForBlock(this.env, timeout, latchFunction, timeoutMessage, this);
+/**
+ * Waits for the latchFunction to return true before proceeding to the next block.
+ *
+ * @param {Function} latchFunction
+ * @param {String} optional_timeoutMessage
+ * @param {Number} optional_timeout
+ */
+jasmine.Spec.prototype.waitsFor = function(latchFunction, optional_timeoutMessage, optional_timeout) {
+  var latchFunction_ = null;
+  var optional_timeoutMessage_ = null;
+  var optional_timeout_ = null;
+
+  for (var i = 0; i < arguments.length; i++) {
+    var arg = arguments[i];
+    switch (typeof arg) {
+      case 'function':
+        latchFunction_ = arg;
+        break;
+      case 'string':
+        optional_timeoutMessage_ = arg;
+        break;
+      case 'number':
+        optional_timeout_ = arg;
+        break;
+    }
+  }
+
+  var waitsForFunc = new jasmine.WaitsForBlock(this.env, optional_timeout_, latchFunction_, optional_timeoutMessage_, this);
   this.addToQueue(waitsForFunc);
   return this;
 };
@@ -2127,41 +2178,56 @@ jasmine.WaitsBlock.prototype.execute = function (onComplete) {
     onComplete();
   }, this.timeout);
 };
+/**
+ * A block which waits for some condition to become true, with timeout.
+ *
+ * @constructor
+ * @extends jasmine.Block
+ * @param {jasmine.Env} env The Jasmine environment.
+ * @param {Number} timeout The maximum time in milliseconds to wait for the condition to become true.
+ * @param {Function} latchFunction A function which returns true when the desired condition has been met.
+ * @param {String} message The message to display if the desired condition hasn't been met within the given time period.
+ * @param {jasmine.Spec} spec The Jasmine spec.
+ */
 jasmine.WaitsForBlock = function(env, timeout, latchFunction, message, spec) {
-  this.timeout = timeout;
+  this.timeout = timeout || env.defaultTimeoutInterval;
   this.latchFunction = latchFunction;
   this.message = message;
   this.totalTimeSpentWaitingForLatch = 0;
   jasmine.Block.call(this, env, null, spec);
 };
-
 jasmine.util.inherit(jasmine.WaitsForBlock, jasmine.Block);
 
-jasmine.WaitsForBlock.TIMEOUT_INCREMENT = 100;
+jasmine.WaitsForBlock.TIMEOUT_INCREMENT = 10;
 
-jasmine.WaitsForBlock.prototype.execute = function (onComplete) {
-  var self = this;
-  self.env.reporter.log('>> Jasmine waiting for ' + (self.message || 'something to happen'));
+jasmine.WaitsForBlock.prototype.execute = function(onComplete) {
+  this.env.reporter.log('>> Jasmine waiting for ' + (this.message || 'something to happen'));
   var latchFunctionResult;
   try {
-    latchFunctionResult = self.latchFunction.apply(self.spec);
+    latchFunctionResult = this.latchFunction.apply(this.spec);
   } catch (e) {
-    self.spec.fail(e);
+    this.spec.fail(e);
     onComplete();
     return;
   }
 
   if (latchFunctionResult) {
     onComplete();
-  } else if (self.totalTimeSpentWaitingForLatch >= self.timeout) {
-    var message = 'timed out after ' + self.timeout + ' msec waiting for ' + (self.message || 'something to happen');
-    self.spec.fail({
+  } else if (this.totalTimeSpentWaitingForLatch >= this.timeout) {
+    var message = 'timed out after ' + this.timeout + ' msec waiting for ' + (this.message || 'something to happen');
+    this.spec.fail({
       name: 'timeout',
       message: message
     });
+
+    this.abort = true;
+    onComplete();
   } else {
-    self.totalTimeSpentWaitingForLatch += jasmine.WaitsForBlock.TIMEOUT_INCREMENT;
-    self.env.setTimeout(function () { self.execute(onComplete); }, jasmine.WaitsForBlock.TIMEOUT_INCREMENT);
+    this.totalTimeSpentWaitingForLatch += jasmine.WaitsForBlock.TIMEOUT_INCREMENT;
+    var self = this;
+    this.env.setTimeout(function() {
+      self.execute(onComplete);
+    }, jasmine.WaitsForBlock.TIMEOUT_INCREMENT);
   }
 };
 // Mock setTimeout, clearTimeout
@@ -2349,8 +2415,8 @@ jasmine.getGlobal().clearInterval = function(timeoutKey) {
 
 
 jasmine.version_= {
-  "major": 0,
-  "minor": 11,
-  "build": 1,
-  "revision": 1277514571
+  "major": 1,
+  "minor": 0,
+  "build": 0,
+  "revision": 1284494074
 };

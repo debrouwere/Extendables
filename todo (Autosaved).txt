@@ -12,3 +12,6 @@
 - 2h	intro docs for conversions, monkeypatches, best practices
 - 1h	dev docs (contributing, running the test suite, jsdoc, building the docs, fabric, semver, roadmap, acknowledgements, unit test results)
 - 1h	final go through the docs, README, clean up old files, finish website, blogpost and forum post
+
+
+jasmine.bindOriginal_ = function() { return false; }jasmine.setTimeout = function(fn) { return fn(); }jasmine.clearTimeout = function(fn) { return; }jasmine.setInterval = function(fn) { return fn(); }jasmine.clearInterval = function(fn) { return; }

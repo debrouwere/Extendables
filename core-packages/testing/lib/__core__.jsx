@@ -1,4 +1,11 @@
-﻿#include ../../../dependencies/jasmine.js
+﻿var setTimeout = function(fn) { return fn(); }
+var clearTimeout = function(fn) { return; }
+var setInterval = function(fn) { return fn(); }
+var clearInterval = function(fn) { return; }
+
+#include ../../../dependencies/jasmine.js
+
+exports.jasmine = jasmine;
 
 var Template = require("templating").Template;
 
