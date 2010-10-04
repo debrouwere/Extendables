@@ -21,7 +21,7 @@ def _document_this():
 
 def build_jsdoc():
     for folder in _document_this():
-        local("{0} {1}{2} --template=doc/_themes/rst -x=js,jsx --directory={1}/doc/jsdoc".format(JSDOC, folder, getattr(folder, 'package', '')))
+        local("{0} {1}{2} --template=doc/_themes/jsdoc-for-sphinx -x=js,jsx --directory={1}/doc/jsdoc".format(JSDOC, folder, getattr(folder, 'package', '')))
 
 def build_sphinx():
     with cd("doc"):
