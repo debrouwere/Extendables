@@ -1,5 +1,0 @@
-for base64, try out:
-
-http://github.com/weaver/node-text
-http://github.com/tdebarochez/node-base64.js
-http://github.com/dankogai/js-base64
