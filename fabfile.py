@@ -43,3 +43,17 @@ def docbuild(part='all'):
     else:
         build_jsdoc()
         build_sphinx()
+
+def ghpages():
+    local("mv doc/_build/html ../extendables-documentation")
+    local("git stash")
+    local("git checkout gh-pages -m")
+    local("mv ../extendables-documentation ./docs")
+    local("git add .")
+    local('git commit -a -m "New docbuild"')
+    local("git checkout master")
+    local("git stash apply")
+
+def build():
+    docbuild()
+    ghpages()
