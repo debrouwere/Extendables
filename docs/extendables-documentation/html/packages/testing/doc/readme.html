@@ -1,0 +1,153 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>testing: unit testing in ExtendScript &mdash; Extendables v0.2a documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="Extendables v0.2a documentation" href="../../../index.html" />
+    <link rel="next" title="http: sending and receiving http requests" href="../../http/doc/readme.html" />
+    <link rel="prev" title="ui: The UI framework" href="../../ui/doc/readme.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../http/doc/readme.html" title="http: sending and receiving http requests"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../../ui/doc/readme.html" title="ui: The UI framework"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing-unit-testing-in-extendscript">
+<h1><tt class="docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript<a class="headerlink" href="#testing-unit-testing-in-extendscript" title="Permalink to this headline">¶</a></h1>
+<p>Extendables comes with <a class="reference external" href="http://pivotallabs.com/">Pivotal Labs</a>&#8216; excellent Jasmine unit-testing framework, ever-so-slightly modified to make it work with ExtendScript. Jasmine defines a very intuitive domain-specific language on top of Javascript:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Calculator&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can add a number&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">counter</span> <span class="o">=</span> <span class="nx">counter</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>   <span class="c1">// counter was 0 before</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">bar</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;can multiply a number&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">counter</span> <span class="o">=</span> <span class="nx">counter</span> <span class="o">*</span> <span class="mi">5</span><span class="p">;</span>   <span class="c1">// counter was 2 before</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">bar</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>You can <a class="reference external" href="http://pivotal.github.com/jasmine/">read the documentation to Jasmine</a> at GitHub.</p>
+<div class="section" id="where-to-place-tests">
+<h2>Where to place tests<a class="headerlink" href="#where-to-place-tests" title="Permalink to this headline">¶</a></h2>
+<p>A test suite is simply a Javascript file which calls <tt class="docutils literal"><span class="pre">describe</span></tt>. Conventionally, tests are placed inside <tt class="docutils literal"><span class="pre">/path/to/module/test/*.specs</span></tt>. If you follow this convention, Extendables will find and run your tests as part of its built-in test suite. The test runner is located at <tt class="docutils literal"><span class="pre">tools/testrunner.jsx</span></tt> in the Extendables project root.</p>
+</div>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<p>You don&#8217;t need to use the Extendables test runner if you don&#8217;t want to, or if you want to test a script that isn&#8217;t a registered CommonJS module.</p>
+<p>Try this instead:</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span>
+<span class="c1">// extracts describe, it, expect etc. into the global namespace</span>
+<span class="nx">extract</span><span class="p">(</span><span class="s2">&quot;testing&quot;</span><span class="p">);</span>
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;My test suite&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="cm">/* your tests here */</span> <span class="p">});</span>
+<span class="nx">tests</span><span class="p">.</span><span class="nx">to_html</span><span class="p">(</span><span class="s2">&quot;tests.mytestsuite.html&quot;</span><span class="p">);</span>
+<span class="c1">// or alternatively: tests.to_console();</span>
+</pre></div>
+</div>
+<p>HTML test results will reside under <tt class="docutils literal"><span class="pre">log</span></tt> in the Extendables project root.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript</a><ul>
+<li><a class="reference internal" href="#where-to-place-tests">Where to place tests</a></li>
+<li><a class="reference internal" href="#running-tests">Running tests</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../../ui/doc/readme.html"
+                        title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">ui</span></tt>: The UI framework</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../http/doc/readme.html"
+                        title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">http</span></tt>: sending and receiving http requests</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/packages/testing/doc/readme.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../http/doc/readme.html" title="http: sending and receiving http requests"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../../ui/doc/readme.html" title="ui: The UI framework"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

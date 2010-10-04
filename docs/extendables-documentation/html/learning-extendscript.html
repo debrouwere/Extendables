@@ -1,0 +1,149 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Learning ExtendScript &mdash; Extendables v0.2a documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.2a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="top" title="Extendables v0.2a documentation" href="index.html" />
+    <link rel="next" title="Best practices" href="best-practices.html" />
+    <link rel="prev" title="String methods" href="patches/string.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="best-practices.html" title="Best practices"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="patches/string.html" title="String methods"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="learning-extendscript">
+<h1>Learning ExtendScript<a class="headerlink" href="#learning-extendscript" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="i-know-how-to-code">
+<h2>I know how to code<a class="headerlink" href="#i-know-how-to-code" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Simon Willison&#8217;s <a class="reference external" href="https://developer.mozilla.org/en/A_re-introduction_to_JavaScript">A re-introduction to Javascript</a> is a short and sweet overview of Javascript for those already familiar with programming. It also showcases some of the hidden power of Javascript, like variable arguments and closures.</li>
+<li>Javascript, by default, throws very little errors, much like PHP</li>
+<li>The ExtendScript Toolkit does catch quite a few errors before you ever run a script.</li>
+<li>See the best practices document.</li>
+<li>it might make sense to browse through Adobe&#8217;s <a href="#id1"><span class="problematic" id="id2">`Introduction to Scripting http://www.adobe.com/content/dam/Adobe/en/devnet/scripting/pdfs/adobe_intro_to_scripting.pdf`_</span></a>, but after that, refer to  the <a class="reference external" href="http://www.adobe.com/content/dam/Adobe/en/devnet/scripting/pdfs/javascript_tools_guide.pdf">Javascript Tools Guide</a> And don&#8217;t forget that there&#8217;s a</li>
+<li>get support over at the Adobe forums. The InDesign community is the most active ones: <a class="reference external" href="http://forums.adobe.com/community/indesign/indesign_scripting">http://forums.adobe.com/community/indesign/indesign_scripting</a>, but Photoshoppers and After Effects wizards do regularly try their hand at scripting as well.</li>
+</ul>
+</div>
+<div class="section" id="i-m-new-to-programming">
+<h2>I&#8217;m new to programming<a class="headerlink" href="#i-m-new-to-programming" title="Permalink to this headline">¶</a></h2>
+<p>Extendables is a framework that aims to make coding in ExtendScript a friendlier experience, but it  will do little to help if you don&#8217;t know some basics.</p>
+<p>ExtendScript is Javascript with some Adobe mojo added here and there. If you&#8217;re not very familiar with programming in general, you&#8217;d do well to consult a Javascript tutorial first, and learn the basics:</p>
+<ul class="simple">
+<li>object notation (<cite>.</cite>) and manipulating strings, arrays and objects</li>
+<li>creating functions and anonymous functions</li>
+<li>control structures, especially <tt class="docutils literal"><span class="pre">for</span></tt> loops</li>
+<li>conditionals (if/else) and comparisons</li>
+</ul>
+<p>After that, take a look at Adobe&#8217;s <a href="#id3"><span class="problematic" id="id4">`Introduction to Scripting http://www.adobe.com/content/dam/Adobe/en/devnet/scripting/pdfs/adobe_intro_to_scripting.pdf`_</span></a></p>
+<p>Learning to script the Creative Suite through ExtendScript is not something you&#8217;ll pick up in a couple of hours, but it&#8217;s not rocket science either. As Adobe itself puts it:</p>
+<div class="highlight-python"><pre>Scripting is not programming. You do not need a degree in computer science or mathematics
+to write basic scripts that automate a wide variety of common tasks.
+Each scripting item corresponds to a tool or a palette or menu item in an Adobe application.
+In other words, each scripting element is something you already know through your Adobe
+expertise. If you know what you’d like your Adobe applications to do, you can easily learn
+to write scripts.</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Learning ExtendScript</a><ul>
+<li><a class="reference internal" href="#i-know-how-to-code">I know how to code</a></li>
+<li><a class="reference internal" href="#i-m-new-to-programming">I&#8217;m new to programming</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="patches/string.html"
+                        title="previous chapter">String methods</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="best-practices.html"
+                        title="next chapter">Best practices</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/learning-extendscript.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="best-practices.html" title="Best practices"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="patches/string.html" title="String methods"
+             >previous</a> |</li>
+        <li><a href="index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
