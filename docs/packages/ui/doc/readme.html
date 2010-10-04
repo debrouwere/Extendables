@@ -1,0 +1,236 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ui: The UI framework &mdash; Extendables v0.2a documentation</title>
+    <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.2a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="Extendables v0.2a documentation" href="../../../index.html" />
+    <link rel="next" title="testing: unit testing in ExtendScript" href="../../testing/doc/readme.html" />
+    <link rel="prev" title="Welcome to Extendables’ documentation!" href="../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../testing/doc/readme.html" title="testing: unit testing in ExtendScript"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../../../index.html" title="Welcome to Extendables’ documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ui-the-ui-framework">
+<h1><tt class="docutils literal"><span class="pre">ui</span></tt>: The UI framework<a class="headerlink" href="#ui-the-ui-framework" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-a-ui">
+<h2>Creating a UI<a class="headerlink" href="#creating-a-ui" title="Permalink to this headline">¶</a></h2>
+<p>It&#8217;s easiest to get acquainted with the UI mini-framework through an example. Here&#8217;s what a finished interface may look like:</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span>
+
+<span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
+
+<span class="cm">/* stylings */</span>
+<span class="kd">var</span> <span class="nx">mixins</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;centered&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+            <span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;square&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;helpTip&#39;</span><span class="o">:</span> <span class="s1">&#39;clickerdy click&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;button&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;centered&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="cm">/* structure */</span>
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s1">&#39;A friendly welcome&#39;</span><span class="p">).</span><span class="kd">with</span><span class="p">(</span><span class="nx">mixins</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;centered&#39;</span><span class="p">).</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+
+
+<span class="cm">/* event handlers */</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">dialog</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>And visually:</p>
+<img alt="../../../_images/layout.png" src="../../../_images/layout.png" />
+<p>Every UI consists of three parts:</p>
+<ol class="arabic simple">
+<li><strong>a skeleton</strong>: the basic structure and layout of a dialog or palette</li>
+<li><strong>stylings</strong>, like applying width and height to elements, or giving them a different color</li>
+<li><strong>event handlers</strong> that bring your UI alive</li>
+</ol>
+<p>Extendables UI makes it painless to keep these three parts separate, giving your project a <a class="reference external" href="http://en.wikipedia.org/wiki/Model–View–Controller">Model-View-Controller</a>-like vibe.</p>
+<p>Let&#8217;s build this example up from scratch.</p>
+<div class="section" id="creating-an-interface">
+<h3>Creating an interface<a class="headerlink" href="#creating-an-interface" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">todo</p>
+</div>
+</div>
+<div class="section" id="adding-controls">
+<h3>Adding controls<a class="headerlink" href="#adding-controls" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">todo</p>
+</div>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">You&#8217;ll find a reference of all element types (button, dropdown, etc.) and group types (row, column, stack) at <a class="reference internal" href="reference.html#ui-reference"><em>ui reference</em></a></p>
+</div>
+</div>
+<div class="section" id="adding-groups">
+<h3>Adding groups<a class="headerlink" href="#adding-groups" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>also show how accessing elements through the UI object works</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">todo</p>
+</div>
+</div>
+<div class="section" id="adding-element-properties-and-styling">
+<h3>Adding element properties and styling<a class="headerlink" href="#adding-element-properties-and-styling" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">todo</p>
+</div>
+</div>
+<div class="section" id="adding-event-listeners">
+<h3>Adding event listeners<a class="headerlink" href="#adding-event-listeners" title="Permalink to this headline">¶</a></h3>
+<p>Add an event listener with:</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="c1">// add an event, Extendables-style</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">event_type</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="nx">handler</span><span class="p">)</span>
+
+<span class="c1">// but you can still add an event the old way, if you prefer</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">event_type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+
+<span class="c1">// here&#39;s a practical example</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>Avoid adding an event handler through <tt class="docutils literal"><span class="pre">control.onClick</span> <span class="pre">=</span> <span class="pre">handler</span></tt>; it will push any previous handlers on the control.</p>
+<p>As a quick reminder: control elements are accessible through the first argument specified on their construction. The button in <tt class="docutils literal"><span class="pre">dialog.row('a_row').button('a_button',</span> <span class="pre">'Click</span> <span class="pre">here);</span></tt> is accessed through <tt class="docutils literal"><span class="pre">dialog.a_row.a_button</span></tt>.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">You&#8217;ll find a reference of all event types (click, mouseover etc.) at <a class="reference internal" href="reference.html#ui-reference"><em>ui reference</em></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="why-use-this-instead-of-a-gui-designer">
+<h2>Why use this instead of a GUI designer?<a class="headerlink" href="#why-use-this-instead-of-a-gui-designer" title="Permalink to this headline">¶</a></h2>
+<p>Software like Steven Bryant&#8217;s <a class="reference external" href="http://scriptui.com/">Rapid ScriptUI</a> or the <a class="reference external" href="http://www.scriptuibuilder.com/">ScriptUI Interface Builder</a> gives you a nice graphical interface in which you can build ScriptUI user interfaces. If a graphical approach is what you prefer, by all means, stick with it. However:</p>
+<ol class="arabic simple">
+<li>When you need to make a UI programmatically, these tools won&#8217;t help.</li>
+<li>These tools fix a symptom (ScriptUI coding is very verbose and sometimes tough), this one fixes the problem.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">ui</span></tt>: The UI framework</a><ul>
+<li><a class="reference internal" href="#creating-a-ui">Creating a UI</a><ul>
+<li><a class="reference internal" href="#creating-an-interface">Creating an interface</a></li>
+<li><a class="reference internal" href="#adding-controls">Adding controls</a></li>
+<li><a class="reference internal" href="#adding-groups">Adding groups</a></li>
+<li><a class="reference internal" href="#adding-element-properties-and-styling">Adding element properties and styling</a></li>
+<li><a class="reference internal" href="#adding-event-listeners">Adding event listeners</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#why-use-this-instead-of-a-gui-designer">Why use this instead of a GUI designer?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../../../index.html"
+                        title="previous chapter">Welcome to Extendables&#8217; documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../testing/doc/readme.html"
+                        title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../_sources/packages/ui/doc/readme.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../testing/doc/readme.html" title="testing: unit testing in ExtendScript"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../../../index.html" title="Welcome to Extendables’ documentation!"
+             >previous</a> |</li>
+        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>
