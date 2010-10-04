@@ -9,3 +9,4 @@ core-packages/*/doc/jsdoc
 *.pyc
 *.old
 *.orig
+*(Autosaved)*
