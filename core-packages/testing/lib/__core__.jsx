@@ -1,11 +1,17 @@
-﻿var setTimeout = function(fn) { return fn(); }
-var clearTimeout = function(fn) { return; }
-var setInterval = function(fn) { return fn(); }
-var clearInterval = function(fn) { return; }
-
-#include ../../../dependencies/jasmine.js
+﻿#include ../../../dependencies/jasmine.js
 
 exports.jasmine = jasmine;
+exports.spyOn = spyOn;
+exports.it = it;
+exports.xit = xit;
+exports.expect = expect;
+exports.runs = runs;
+exports.waits = waits;
+exports.waitsFor = waitsFor;
+exports.beforeEach = beforeEach;
+exports.afterEach = afterEach;
+exports.describe = describe;
+exports.xdescribe = xdescribe;
 
 var Template = require("templating").Template;
 

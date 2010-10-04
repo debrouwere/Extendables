@@ -47,8 +47,9 @@ jasmine.getGlobal = function() {
  * @param base {Object} bound 'this' for the function
  * @param name {Function} function to find
  */
+
+/*
 jasmine.bindOriginal_ = function(base, name) {
-	return false;
   var original = base[name];
   if (original.apply) {
     return function() {
@@ -64,6 +65,14 @@ jasmine.setTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'setTimeout');
 jasmine.clearTimeout = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearTimeout');
 jasmine.setInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'setInterval');
 jasmine.clearInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearInterval');
+*/
+
+// a small hack to make Jasmine ExtendScript-compatible.
+jasmine.bindOriginal_ = function() { return false; }
+jasmine.setTimeout = function(fn) { return fn(); }
+jasmine.clearTimeout = function(fn) { return; }
+jasmine.setInterval = function(fn) { return fn(); }
+jasmine.clearInterval = function(fn) { return; }
 
 jasmine.MessageResult = function(values) {
   this.type = 'log';
