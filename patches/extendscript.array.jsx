@@ -385,3 +385,38 @@ Array.prototype.flatten = function () {
 		return memo;
 	}, []);
 };
+
+/**
+ * @desc Returns a copy of the array with all falsy values removed.
+ * This includes ``false``, ``null``, ``0``, ``""``, ``undefined`` and ``NaN``.
+ */
+
+Array.prototype.compact = function () {
+	return this.reject(function (value) {
+		return new Boolean(value) == false;
+	});
+}
+
+/**
+ * @desc Returns the first item of this array
+ */
+
+Array.prototype.first = function () {
+	return this[0];
+}
+
+/**
+ * @desc Returns the last item of this array
+ */
+
+Array.prototype.last = function () {
+	return this.slice(-1)[0];
+}
+
+/**
+ * @desc Similar to indexOf
+ */
+
+Array.prototype.contains = function (obj) {
+	return this.indexOf(obj) != -1;
+}

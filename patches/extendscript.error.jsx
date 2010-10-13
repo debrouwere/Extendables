@@ -24,7 +24,12 @@
 
 Error.prototype.is = function (type) {
 	if (this instanceof type) {
-		return type == Error || this._type == type;
+		if ('_type' in this) {
+			return type == Error || this._type == type;
+		} else {
+			throw new TypeError("This method only works on built-in error types \
+				and those created using the Error.factory class method.");
+		}
 	} else {
 		return false;
 	}

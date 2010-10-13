@@ -1,6 +1,7 @@
 ﻿// convenience shortcuts
 // basic_auth (opt): any object that satisfies {'username': x, 'password': y}
 
+// exports
 exports.get = get;
 exports.head = head;
 exports.post = post;
@@ -10,12 +11,11 @@ exports.has_internet_access = has_internet_access;
 exports.HTTPError = HTTPError;
 exports.HTTPRequest = HTTPRequest;
 
-// hmm, this should work but doesn't: 
-// var url = require("http/url");
-// fix the module loader!
-
+// imports
+var url = exports.url = require("http/url");
 var ByteString = require("io/octals").ByteString;
 
+// definitions
 var HTTPError = Error.factory("HTTPError");
 
 // basic_auth: authentication with an intranet is a common use-case
@@ -38,7 +38,7 @@ function _push (request, data, basic_auth, timeout) {
  * @desc Performs a GET request on the specified resource.
  * @param {String} url The URL for the resource
  * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` properties will do.
- * @param {Number} [timeout=1] How long before the http client should give up.
+ * @param {Number} [timeout=5] How long before the http client should give up.
  */
 
 function get (url, basic_auth, timeout) {
@@ -89,7 +89,7 @@ function put (url, data, basic_auth, timeout) {
 }
 
 /**
- * @desc Performs a DEL request on the specified resource.
+ * @desc Performs a DELETE request on the specified resource.
  * @param {String} url The URL for the resource
  * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` 
  * properties will do.
@@ -97,7 +97,7 @@ function put (url, data, basic_auth, timeout) {
  */
 
 function del (url, basic_auth, timeout) {
-	var request = new HTTPRequest("DEL", url);
+	var request = new HTTPRequest("DELETE", url);
 	return _pull(request, basic_auth, timeout);
 }
 
@@ -110,8 +110,8 @@ function del (url, basic_auth, timeout) {
 
 function has_internet_access () {
 	var response = head("http://www.w3.org/");
-	// the socket won't even open, so there are probably
-	// more robust tests we could do than this one
+	// the socket won't even open if we don't have an internet connection, 
+	// so there are probably more robust tests we could do than this one
 	if (response.status = 200) {
 		return true;
 	} else {
@@ -128,14 +128,13 @@ function has_internet_access () {
  *
  * Supports:
  *
- * * two methods: GET and POST
+ * * most HTTP methods: ``GET``, ``HEAD``, ``POST``, ``PUT``, ``DELETE``
  * * persistent connections
  * * chunked responses
  *
  * Soon:
  *
- * * redirects
- * * PUT and DEL support
+ * * focus on reliability, more tests
  * * basic authentication
  *
  * Most likely never: 
@@ -143,7 +142,7 @@ function has_internet_access () {
  * * digest authentication
  * * cookies
  * * proxies
- * * caching
+ * * caching / 304 Not Modified
  *
  * HTTPRequest objects are entirely getter/setter-based, so e.g. use ``req.method()``
  * to get the current request method, and use ``req.method("POST")`` to change the 
@@ -188,7 +187,7 @@ function HTTPRequest (method, url, timeout) {
 	}
 	
 	this._method = method || "GET";
-	/** @desc The request method. One of ``GET``, ``HEAD``, ``POST``, ``PUT`` or ``DEL``. ``GET`` by default. */
+	/** @desc The request method. One of ``GET``, ``HEAD``, ``POST``, ``PUT`` or ``DELETE``. ``GET`` by default. */
 	this.method = function (type) {
 		if (type) {
 			this._method = type;
@@ -201,7 +200,8 @@ function HTTPRequest (method, url, timeout) {
 	/** @desc How long before the http client should give up the request. 5 seconds by default. */
 	this.timeout = function (duration) {
 		if (duration) {
-			this._timeout = duration.to('int');
+			if (!duration.is(Number)) throw new TypeError("Timeout should be a number of seconds.");
+			this._timeout = duration;
 		} else {
 			return this._timeout;
 		}
@@ -217,6 +217,7 @@ function HTTPRequest (method, url, timeout) {
 		}		
 	}
 
+	// From the HTTP 1.1 specs: 
 	// "If the 307 status code is received in response to a request other than GET or HEAD, the
 	// user agent MUST NOT automatically redirect the request unless it can be confirmed by the
 	// user, since this might change the conditions under which the request was issued."
@@ -275,6 +276,8 @@ function HTTPRequest (method, url, timeout) {
 	this.header = function (name, value) {
 		if (value) {
 			this._headers[name] = value;
+		} else if (value === false) {
+			delete this._headers[name];
 		} else {
 			return this._headers[name];
 		}
@@ -293,6 +296,10 @@ function HTTPRequest (method, url, timeout) {
 			}
 			this.header("Content-Type", "application/x-www-form-urlencoded");
 			this.header("Content-Length", data.length);
+		} else if (data === false) {
+			this._content = '';
+			this.header("Content-Type", false);
+			this.header("Content-Length", false);
 		} else {
 			return this._content;
 		}
@@ -353,6 +360,19 @@ function HTTPRequest (method, url, timeout) {
 		return response;
 	}
 
+	this.redirect = function (response) {
+		var redirects = 0;
+		while (response.is_redirect && redirects < this.max_redirects) {
+			response = response.follow();
+			redirects += 1;
+		}
+		if (response.is_redirect) {
+			throw new HTTPError("Gave up after {} redirects.".format(redirects));
+		} else {
+			return response;
+		}
+	}
+
 	/** 
 	 * @desc Executes the request.
 	 * @returns {Object} Returns a :func:`HTTPResponse` object.
@@ -367,6 +387,8 @@ function HTTPRequest (method, url, timeout) {
 		} else {
 			throw new HTTPError("Could not connect to {}".format(host));
 		}
+		// handle redirects, if any
+		response = this.redirect(response);
 		response.response_time = new Date().getTime() - start.getTime();
 		return response.process();
 	}
@@ -436,8 +458,20 @@ function HTTPResponse (method, encoding, request) {
 		var raw_headers = raw_head.slice(1).join('\n');
 		this.status = raw_head[0].split(' ')[1].to('int');
 		this.headers = raw_headers.deserialize('key-value', {'separator': ': ', 'eol': '\n'});
+		// flagging chunked responses
 		if (this.headers["Transfer-Encoding"] && this.headers["Transfer-Encoding"] == "chunked") {
 			this._chunked = true;
+		}
+		// flagging redirects
+		// 303 requests, according to the spec, should be changed into a GET request,
+		// whereas 301, 302 and 307 requests should be reissued as-is, albeit using the 
+		// new URL.
+		if (this.status == 303) {
+			this.is_redirect = true;
+			this.redirection_type = 'get';
+		} else if (this.status in [301, 302, 307]) {
+			this.is_redirect = true;
+			this.redirection_type = 'repeat';
 		}
 	}
 
@@ -452,23 +486,21 @@ function HTTPResponse (method, encoding, request) {
 		return this;
 	}
 
-	this.follow = function () {
-		// rough pseudocode
-		throw new NotImplementedError();
-		
-		if (!this.redirects) {
-			throw new HTTPError("No redirects to follow.");
-		}
-		
-		var request = this.clone();
-		add_to_this.redirects;
-		while (redirects < request.max_redirects && this.redirects) {
-			request.url(to_redirect_wherever);
-			request.do();
-		}
-		
-		if (redirects > request.max_redirects) {
-			throw new HTTPError("Gave up after {} redirects.".format(redirects));
+	this.follow = function () {	
+		if (!this.is_redirect) {
+			throw new HTTPError("No redirect to follow.");
+		} else {
+			var request = this.request.clone();
+			var from = this.request.url.href;
+			var to = this.headers["Location"];
+			request.url(to);
+			if (this.redirection_type == 'get') {
+				request.method("GET");
+				request.content(false);
+			}
+			var response = request.do();
+			response.redirects.push(from);
+			return response;
 		}
 	}
 
@@ -477,6 +509,17 @@ function HTTPResponse (method, encoding, request) {
 	/** @desc Whether the response is corrupt. Currently not implemented. */
 	this.corrupt = false;
 	this.processed = false;
+	/**
+	 * @desc Whether we've received a response with a redirect code.
+	 * @type {Boolean}
+	 */
+	this.is_redirect = false;
+	/**
+	 * @desc If redirected, distinguishes between requests that should be re-issued
+	 * with a GET request (303) and those that should be re-issued as-is (all the others).
+	 * @type {String} Either ``get`` or ``repeat``.
+	 */
+	this.redirection_type = null;
 	/**
 	 * @desc An array of any redirects the request might have followed.
 	 * @type String[]

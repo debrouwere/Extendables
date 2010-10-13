@@ -88,8 +88,14 @@ Object.prototype.is = function(type) {
  * @returns {Bool} True or false.
  */
 
-Object.prototype.has = function (key) {
-	return this[key] !== undefined;
+// REFACTOR: considering "key in obj" works just as well, 
+// it'd be best to limit .has to what is currently the non-empty functionality
+Object.prototype.has = function (key, non_empty) {
+	if (non_empty && key in this) {
+		return new Boolean(this[key]) != false;
+	} else {
+		return key in this;
+	}
 }
 
 /**

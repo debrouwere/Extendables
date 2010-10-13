@@ -127,7 +127,7 @@ Object.prototype.deserialize = function (type, options) {
  * Use this method instead of functions like ``parseInt`` and methods like ``str.toLowerCase()``.
  *
  * @param {String} type
- *     One of ``int``, ``float``, ``string``, ``array``, ``alphanumeric``, ``slug``, ``lower`` and ``upper``.
+ *     One of ``boolean``, ``number``, ``int``, ``float``, ``string``, ``array``, ``alphanumeric``, ``slug``, ``lower`` and ``upper``.
  *
  * @example
  *     > var list = [1.4, 2.2, 4.3];
@@ -145,6 +145,8 @@ Object.prototype.to = function (type) {
 	var conversions = {
 		/* types */
 		// REFACTOR: 'int' should be 'number', to correspond to the class name!
+		'boolean': function () { return !!result; },
+		'number': function () { return new Number(result); },
 		'int': function () { return parseInt(result); },
 		'float': function () { return parseFloat(result); },
 		'string': function () { return result.toString() },

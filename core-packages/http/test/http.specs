@@ -8,7 +8,9 @@ describe('HTTP: url parsing', function () {
 	it('parses urls into host, pathname, port and auth parts', function () {
         var parsed_url = url.parse("http://one:two@extendables.org:80/a/path/");
         expect(parsed_url.auth).toEqual("one:two");
-        expect(parsed_url.host).toEqual("extendables.org");
+        expect(parsed_url.href).toEqual("http://one:two@extendables.org:80/a/path/");
+        expect(parsed_url.host).toEqual("one:two@extendables.org:80");
+        expect(parsed_url.hostname).toEqual("extendables.org");
         expect(parsed_url.port).toEqual(80);
         expect(parsed_url.pathname).toEqual("/a/path/");
 	});
@@ -28,7 +30,13 @@ describe('HTTP: request and response objects', function () {
 	}); 
 
 	it('gives users control over port, method and timeout', function () {
-		expect('have tests').toEqual(true);
+		var req = new http.HTTPRequest("HEAD", "http://www.w3.org/");
+		req.method("GET");
+		req.timeout(10);
+		req.port(20000);
+		expect(req.method()).toEqual("GET");
+		expect(req.timeout()).toEqual(10);
+		expect(req.port()).toEqual(20000);
 	}); 
 
 	it('has an interface to add and view http headers', function () {
@@ -37,10 +45,6 @@ describe('HTTP: request and response objects', function () {
 		req.header("User-Agent", "Something completely different.");
 		expect(req.header("User-Agent")).toEqual("Something completely different.");		
 	}); 
-
-	it('has enough unit tests', function () {
-	  expect(false).toEqual(true);
-	});
 });
 
 describe('HTTP: requests', function () {
@@ -68,7 +72,7 @@ describe('HTTP: requests', function () {
 	}); 
 
 	it('has a high-level shortcut for PUT requests', function () {
-		expect(http.put("http://www.w3.org/").status).toEqual(200);
+		expect(http.put("http://www.w3.org/").status).toEqual(307);
 	});
 
 	it('has a high-level shortcut for DEL requests', function () {
@@ -77,13 +81,16 @@ describe('HTTP: requests', function () {
 
 	it('can follow redirects', function () {
 		expect('have tests').toEqual(true);
-	}); 
+	});
+
+	it('by default, only follows redirects for GET and HEAD requests', function () {
+		var req = new http.HTTPRequest("GET", "http://www.example.com/");
+		expect(req.follow_redirects()).toEqual(true);
+		req = new http.HTTPRequest("POST", "http://www.example.com/");
+		expect(req.follow_redirects()).toEqual(false);		
+	});
 
 	it('is tested in a variety of scenarios', function () {
 		expect(http.get("http://www.example.com/").status).toEqual(200);
-	}); 
-
-	it('has enough unit tests', function () {
-	  expect(false).toEqual(true);
-	});	
+	});
 });

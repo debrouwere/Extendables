@@ -25,7 +25,7 @@ var TestRunner = function () {
 			var specs = suite.children.map(function (spec) {
 				return {'name': spec.name, 
 					'result': results[spec.id].result, 
-					'message': results[spec.id].messages[0]
+					'messages': results[spec.id].messages
 					}
 			});
 
@@ -105,7 +105,10 @@ var TestRunner = function () {
 			var tests = [];
 			suite.specs.forEach(function(spec) {
 				if (spec.result == 'failed') {
-					var problem = '<p class="problem">{}</p>'.format(spec.message);
+					var messages = spec.messages.reject(function (message) {
+						return message == 'Passed.';
+					});
+					var problem = '<p class="problem">{}</p>'.format(messages.join("<br />"));
 				} else {
 					var problem = '';
 				}

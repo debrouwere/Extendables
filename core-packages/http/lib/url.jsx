@@ -64,11 +64,7 @@ function urlParse (url) {
         
         // pull out the auth and port.
         var p = parseHost(out.host);
-        var keys = Object.keys(p);
-        for (var i = 0, l = keys.length; i < l; i++) {
-            var key = keys[i];
-            out[key] = p[key];
-        }
+        out.merge(p);
         // we've indicated that there is a hostname, so even if it's empty, it has to be present.
         out.hostname = out.hostname || "";    
     }
@@ -92,7 +88,7 @@ function urlParse (url) {
     if (rest) out.pathname = rest;
     return out;
 }
-    
+
 function parseHost (host) {
     var out = {};
     var at = host.indexOf("@");
@@ -103,7 +99,7 @@ function parseHost (host) {
     var port = portPattern.exec(host);
     if (port) {
         port = port[0];
-        out.port = port.substr(1);
+        out.port = port.substr(1).to('int');
         host = host.substr(0, host.length - port.length);
     }
     if (host) out.hostname = host;

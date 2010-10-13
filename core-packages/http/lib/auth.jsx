@@ -1,4 +1,6 @@
-﻿exports.AuthenticationDialog = AuthenticationDialog;
+﻿// this is just a rough prototype, doesn't actually work yet.
+
+exports.AuthenticationDialog = AuthenticationDialog;
 
 var ui = require("ui");
 
@@ -33,10 +35,12 @@ function AuthenticationDialog (request) {
 	
 }
 
-// usage example: 
+/*
+usage example: 
 
 while (response.status == 401) {
 	var response = new AuthenticationDialog(request).do();
 	// retry login
 	dialog.confirmation.status.update("Authentication failed. Please try again.");
 }
+*/

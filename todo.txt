@@ -1,13 +1,15 @@
 - 3h	finish the http library
 	- req/res objects
 	- URL sublibrary (clean)
-	- basic auth + dialog
+	- basic auth (we can finish the dialog later)
+	- redirects
+	- optimizations based on content length
 - 2h	more unit tests for the http library
 - 1h	more docs for the http library
 - 1h	test and clean up the logging library
 - 1h	docs for the logging library
 - 3h	tests for the module loader, patches and conversions
-- 1h	design decision and implementation for current()
-- 2h	intro docs for conversions, monkeypatches, best practices
+- 2h	intro docs for conversions, monkeypatches
+- split off best practices into its own project
 - 1h	dev docs (contributing, running the test suite, jsdoc, building the docs, fabric, semver, roadmap, acknowledgements, unit test results)
 - 1h	final go through the docs, clean up old files, finish website, blogpost and forum post
