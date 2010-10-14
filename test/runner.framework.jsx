@@ -1,4 +1,5 @@
-﻿#include "bootstrapper.jsx"
+﻿#include "../extendables.jsx"
+extract("testing");
 
 var specs = new File($.fileName).parent.getFiles("*.specs");
 

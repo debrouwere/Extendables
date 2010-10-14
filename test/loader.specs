@@ -1,24 +1,36 @@
-﻿describe('Extendables module loader', function () {
-	var folder = new File($.fileName).parent;
-	folder.changePath("./fixtures/core-packages");
-	var packages = folder.getFiles(_is_valid_module);
-	
-	packages.forEach(function(file_or_folder) {
-			var module = new Module(file_or_folder, true);
-			__modules__[module.id] = module;
-	});	
-	
-	it('can determine the difference between a valid module and empty directories etc.', function () {
-		expect(packages.contains("package.b").toEqual(true);
-		expect(packages.contains("nonpackage").toEqual(false);
+﻿__modules__ = {};
+load_modules(['./test/fixtures/core-packages']);
+
+describe('Extendables module loader', function () {	
+	it('can determine the difference between a valid module and other files/folders', function () {
+		// currently also registers empty modules, but that's pretty harmless.
+		expect("package-b" in __modules__).toEqual(true);
+		expect("nonpackage-b" in __modules__).toEqual(false);
 	});
 	it('can fetch test specs from modules', function () {
-		expect(false).toEqual(true);
+		expect(__modules__["package-b"].get_tests().length).toEqual(1);
+		expect(__modules__["package-b"].get_tests()[0].absoluteURI.endswith("testspecs.specs")).toEqual(true);
 	});
 	it('can handle submodule files', function () {
-		expect(false).toEqual(true);
+		expect(require("package-b/real").this_is).toEqual('Package B submodule');
 	});
 	it('can handle submodule directories', function () {
-		expect(false).toEqual(true);
+		expect(require("package-b/subpackage").this_is).toEqual('Package B sub-submodule');
+	});
+	// see fixtures
+	it('provides a context for each module containing an exports object, \
+	the module id and module uri', function () {
+		var b = __modules__["package-b"].load().exports;
+		// our .id implementation is currently incorrect
+		expect(b.id).toEqual("package-b");
+		expect(b.uri.contains("package-b")).toEqual(true);
+	});
+	it('has a require function that works according to the CommonJS specs', function () {
+		var b = require("package-b");
+		expect(b.this_is).toEqual('Package B core');
+	});
+	it('has an extract function that can extract a module into the global namespace', function () {
+		extract("package-b/real");
+		expect(this_is).toBeDefined();
 	});
 });

@@ -3,7 +3,6 @@
  * Namespaces for Javascript -- yay!
  */
 
-var PACKAGEFOLDERS = ['./core-packages', './site-packages'];
 var __modules__ = {};
 function require (module_id) {
 	// CommonJS: A module identifier is a String of "terms"
@@ -113,15 +112,15 @@ function Module (file_or_folder, is_package) {
 	}
 }
 
-/* main */
-
-PACKAGEFOLDERS.forEach(function(packagefolder) {
-	var folder = new File($.fileName).parent;
-	folder.changePath(packagefolder);
-	var packages = folder.getFiles(_is_valid_module);
-	
-	packages.forEach(function(file_or_folder) {
+function load_modules (packagefolders) {
+	packagefolders.forEach(function(packagefolder) {
+		var folder = new File($.fileName).parent;
+		folder.changePath(packagefolder);
+		var packages = folder.getFiles(_is_valid_module);
+		
+		packages.forEach(function(file_or_folder) {
 			var module = new Module(file_or_folder, true);
 			__modules__[module.id] = module;
-	});	
-});
+		});	
+	});
+}

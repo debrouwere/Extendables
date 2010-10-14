@@ -1,5 +1,6 @@
 ﻿#include "patches/__all__.jsx"
 #include "loader.jsx"
+load_modules(['./core-packages', './site-packages']);
 
 // note: if we want some modules to be available in the global namespace, we can simply extract() 'em here
 
