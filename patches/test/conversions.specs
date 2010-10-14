@@ -1,5 +1,13 @@
+﻿describe('Patches: object serialization', function () {
+	it('can (de)serialize to and from JSON', function () {
+		alert({'hello': 'there'}.serialize('json'));
+		var obj = {'hello': 'there'}.serialize('json').deserialize('json');
+		expect(obj.has('hello')).toBeTruthy();
+	});
+});
+
 describe('Patches: object conversions', function () {
-	it('should have unit tests', function () {
-	  expect(false).toEqual(true);
+	it('can do a number of object conversions', function () {
+		expect("§This 1 works!!!".to('alphanumeric')).toEqual("This 1 works");
 	});
 });

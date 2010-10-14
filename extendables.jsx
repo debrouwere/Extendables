@@ -34,7 +34,7 @@ function current (item) {
 		'spread': app.documents.item(0).spreads.item(0)
 	}
 
-	if (items.has(item)) {
+	if (item in items) {
 		return items[item];		
 	} else {
 		throw RangeError();

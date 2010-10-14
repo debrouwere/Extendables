@@ -80,24 +80,10 @@ function Module (file_or_folder, is_package) {
 		});
 	}
 
-	/**
-	  * @static
-	  * @constant
-	  * @desc nothing special, but static!
-	  */
 	this.has_subpackages = function () {
 		return !!self.get_subpackages().length;
 	}
 
-	/** 
-	 * let's document this one for kicks 
-	 * @example
-	 *	module.get_tests().map(function () { do_something(); });
-	 *
-	 * @since 0.1
-	 * @see You'll find a higher-level API at :js:func:`current`
-	 * @author Stijn Debrouwere, Rens Dusseldorf
-	 */
 	this.get_tests = function () {
 		var testfolder = new Folder(self.uri);
 		testfolder.changePath("./test");
@@ -108,10 +94,6 @@ function Module (file_or_folder, is_package) {
 		}
 	}
 
-	/**
-	 * @param {Bool} packaged Nah not really!
-	 * @returns {Module} the module itself
-	 */
 	this.load = function () {
 		if (self.packaged) {
 			self.exports = self.submodules['__core__'].load().exports;

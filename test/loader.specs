@@ -1,5 +1,24 @@
 ﻿describe('Extendables module loader', function () {
-	it('should have unit tests', function () {
-	  expect(false).toEqual(true);
+	var folder = new File($.fileName).parent;
+	folder.changePath("./fixtures/core-packages");
+	var packages = folder.getFiles(_is_valid_module);
+	
+	packages.forEach(function(file_or_folder) {
+			var module = new Module(file_or_folder, true);
+			__modules__[module.id] = module;
+	});	
+	
+	it('can determine the difference between a valid module and empty directories etc.', function () {
+		expect(packages.contains("package.b").toEqual(true);
+		expect(packages.contains("nonpackage").toEqual(false);
+	});
+	it('can fetch test specs from modules', function () {
+		expect(false).toEqual(true);
+	});
+	it('can handle submodule files', function () {
+		expect(false).toEqual(true);
+	});
+	it('can handle submodule directories', function () {
+		expect(false).toEqual(true);
 	});
 });

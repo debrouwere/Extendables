@@ -45,6 +45,15 @@ describe('HTTP: request and response objects', function () {
 		req.header("User-Agent", "Something completely different.");
 		expect(req.header("User-Agent")).toEqual("Something completely different.");		
 	}); 
+
+	it('signals redirects (301, 302, 303, 307) in the response object', function () {
+		// nytimes.com redirects to www.nytimes.com using a 301 redirect
+		var req = new http.HTTPRequest("GET", "http://nytimes.com");
+		req.follow_redirects(false);
+		var res = req.do();
+		expect(res.is_redirect).toEqual(true);
+		expect(res.redirection_type).toEqual('repeat');
+	});
 });
 
 describe('HTTP: requests', function () {
@@ -80,7 +89,20 @@ describe('HTTP: requests', function () {
 	}); 
 
 	it('can follow redirects', function () {
-		expect('have tests').toEqual(true);
+		// nytimes.com redirects to www.nytimes.com using a 301 redirect
+		var req = new http.HTTPRequest("GET", "http://nytimes.com");
+		var res = req.do();
+		expect(res.status).toEqual(200);		
+		expect(res.redirects).toEqual(["http://nytimes.com"]);
+		expect(res.for_request.url().href).toEqual("http://www.nytimes.com/");
+	});
+
+	it('can follow redirects manually, using the .follow() method', function () {
+		var req = new http.HTTPRequest("GET", "http://nytimes.com");
+		req.follow_redirects(false);
+		var res = req.do();
+		res = res.follow();
+		expect(res.status).toEqual(200);
 	});
 
 	it('by default, only follows redirects for GET and HEAD requests', function () {
@@ -90,7 +112,18 @@ describe('HTTP: requests', function () {
 		expect(req.follow_redirects()).toEqual(false);		
 	});
 
-	it('is tested in a variety of scenarios', function () {
+	it('can be configured to never redirect', function () {
+		// nytimes.com redirects to www.nytimes.com using a 301 redirect
+		var req = new http.HTTPRequest("GET", "http://nytimes.com");
+		req.follow_redirects(false);
+		var res = req.do();
+		expect(res.status).toEqual(301);		
+	});
+
+	it('is thoroughly stress-tested', function () {
+		// So far, the http library has been able to handle everything
+		// I've thrown at it, with the sole exception of example.<tld>
+		// urls. No clue why, as connecting via telnet works just fine.
 		expect(http.get("http://www.example.com/").status).toEqual(200);
 	});
 });

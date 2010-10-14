@@ -1,4 +1,4 @@
-﻿var only_test = ['http'];
+﻿var only_test = [];
 
 #include "../extendables.jsx"
 extract("testing");

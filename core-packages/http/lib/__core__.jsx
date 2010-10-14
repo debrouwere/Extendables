@@ -131,6 +131,7 @@ function has_internet_access () {
  * * most HTTP methods: ``GET``, ``HEAD``, ``POST``, ``PUT``, ``DELETE``
  * * persistent connections
  * * chunked responses
+ * * redirects
  *
  * Soon:
  *
@@ -165,11 +166,50 @@ function has_internet_access () {
 
 function HTTPRequest (method, url, timeout) {
 	var self = this;
-	
+
+	this._headers = {
+		"User-Agent": "Adobe ExtendScript",
+		"Accept": "*/*",
+		"Connection": "close"
+	}
+	/**
+	 * @desc The headers for this request.
+	 * By default, these headers are included: 
+	 * User-Agent
+	 *     InDesign ExtendScript
+	 * Accept
+	 *	*\/*
+	 * Connection
+	 *	close
+	 *
+	 * @param {Object} An key-value object. Replaces all existing headers.
+	 * Use the ``header`` method instead when fetching or changing a single header.
+	 */
+	this.headers = function (hash) {
+		if (hash) {
+			// todo: check if we're passed a hash, not a string
+			this._headers = hash;
+		} else {
+			return this._headers;
+		}
+	}
+
+	/** @desc Get or set a single header. */
+	this.header = function (name, value) {
+		if (value) {
+			this._headers[name] = value;
+		} else if (value === false) {
+			delete this._headers[name];
+		} else {
+			return this._headers[name];
+		}
+	}
+
 	/** @desc The resource to request */
 	this.url = function (url) {
 		if (url) {
 			this._url = require("http/url").parse(url);
+			this.header("Host", this._url.host);
 		} else {
 			return this._url;
 		}
@@ -211,7 +251,7 @@ function HTTPRequest (method, url, timeout) {
 	/** @desc How much redirects the http client should follow before giving up. 5 redirects by default. */
 	this.max_redirects = function (value) {
 		if (value) {
-			this._max_redirects = true;
+			this._max_redirects = value;
 		} else {
 			return this._max_redirects;
 		}		
@@ -228,8 +268,8 @@ function HTTPRequest (method, url, timeout) {
 	}
 	/** @desc Whether to follow redirects when requesting a resource. By default, true for GET and HEAD requests, false for POST and PUT requests. */
 	this.follow_redirects = function (value) {
-		if (value) {
-			this._follow_redirects = true;
+		if (value || value === false) {
+			this._follow_redirects = value;
 		} else {
 			return this._follow_redirects;
 		}
@@ -241,45 +281,6 @@ function HTTPRequest (method, url, timeout) {
 			// set header
 		} else {
 			// return value
-		}
-	}
-
-	this._headers = {
-		"Host": this.url().host,
-		"User-Agent": "Adobe ExtendScript",
-		"Accept": "*/*",
-		"Connection": "close"
-	}
-	/**
-	 * @desc The headers for this request.
-	 * By default, these headers are included: 
-	 * User-Agent
-	 *     InDesign ExtendScript
-	 * Accept
-	 *	*\/*
-	 * Connection
-	 *	close
-	 *
-	 * @param {Object} An key-value object. Replaces all existing headers.
-	 * Use the ``header`` method instead when fetching or changing a single header.
-	 */
-	this.headers = function (hash) {
-		if (hash) {
-			// todo: check if we're passed a hash, not a string
-			this._headers = hash;
-		} else {
-			return this._headers;
-		}
-	}
-
-	/** @desc Get or set a single header. */
-	this.header = function (name, value) {
-		if (value) {
-			this._headers[name] = value;
-		} else if (value === false) {
-			delete this._headers[name];
-		} else {
-			return this._headers[name];
 		}
 	}
 
@@ -320,11 +321,17 @@ function HTTPRequest (method, url, timeout) {
 	this._encoding = "UTF-8";
 	/** @desc The character encoding in which to send this request, which is also the preferred response encoding. */
 	this.encoding = function (encoding) {
+		var encodings = ['ASCII', 'BINARY', 'UTF-8'];
 		if (encoding) {
 			// normalize encoding name
-			name = name.to('lower').replace('-', '');
-			// test if encoding is one of ASCII, BINARY or UTF-8, throw an error otherwise
-			this._encoding = encoding;
+			encoding = encoding.to('upper');
+			// todo: test if encoding is one of ASCII, BINARY or UTF-8, throw an error otherwise
+			if (!encodings.contains(encoding)) {
+				throw new HTTPError("Encoding should be one of {}. \
+					Received {} instead.".format(encodings.join(", "), encoding));
+			} else {
+				this._encoding = encoding;
+			}
 		} else {
 			return this._encoding;
 		}
@@ -360,17 +367,17 @@ function HTTPRequest (method, url, timeout) {
 		return response;
 	}
 
-	this.redirect = function (response) {
-		var redirects = 0;
-		while (response.is_redirect && redirects < this.max_redirects) {
+	// _redirect can be safely called even when no redirects are needed;
+	// it'll just return the original response.
+	this._redirect = function (response) {
+		var max = this.max_redirects();
+		while (response.is_redirect && response.redirects.length < max) {
 			response = response.follow();
-			redirects += 1;
 		}
 		if (response.is_redirect) {
-			throw new HTTPError("Gave up after {} redirects.".format(redirects));
-		} else {
-			return response;
+			throw new HTTPError("Gave up after {} redirects.".format(max));
 		}
+		return response;
 	}
 
 	/** 
@@ -382,13 +389,15 @@ function HTTPRequest (method, url, timeout) {
 		var socket = new Socket();
 		socket.timeout = this.timeout();
 		var host = "{}:{}".format(this.url().host, this.port());
-		if (socket.open(host, "UTF-8")) {
+		if (socket.open(host, this.encoding())) {
 			var response = this._execute(socket);
 		} else {
 			throw new HTTPError("Could not connect to {}".format(host));
 		}
 		// handle redirects, if any
-		response = this.redirect(response);
+		if (this.follow_redirects()) {
+			response = this._redirect(response);
+		}
 		response.response_time = new Date().getTime() - start.getTime();
 		return response.process();
 	}
@@ -469,7 +478,7 @@ function HTTPResponse (method, encoding, request) {
 		if (this.status == 303) {
 			this.is_redirect = true;
 			this.redirection_type = 'get';
-		} else if (this.status in [301, 302, 307]) {
+		} else if ([301, 302, 307].contains(this.status)) {
 			this.is_redirect = true;
 			this.redirection_type = 'repeat';
 		}
@@ -486,19 +495,22 @@ function HTTPResponse (method, encoding, request) {
 		return this;
 	}
 
-	this.follow = function () {	
+	this.follow = function () {
 		if (!this.is_redirect) {
 			throw new HTTPError("No redirect to follow.");
 		} else {
-			var request = this.request.clone();
-			var from = this.request.url.href;
+			var request = {}.merge(this.for_request);
+			var from = this.for_request.url().href;
 			var to = this.headers["Location"];
 			request.url(to);
+			// no recursion
+			request.follow_redirects(false);
 			if (this.redirection_type == 'get') {
 				request.method("GET");
 				request.content(false);
 			}
 			var response = request.do();
+			response.redirects = this.redirects;
 			response.redirects.push(from);
 			return response;
 		}

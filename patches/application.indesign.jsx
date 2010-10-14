@@ -86,7 +86,7 @@ LayoutWindow.prototype.page = function(name) {
 
 /** getter/setter */
 var tag = function(name) {
-	if (this.has('associatedXMLElement', true)) {
+	if (this.has('associatedXMLElement')) {
 		// assocXMLElement is read-only, dus weet niet of dit zal werken
 		return this.associatedXMLElement.tag(name);		
 	} else {

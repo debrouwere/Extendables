@@ -38,6 +38,8 @@ Object.prototype.clone = function () {
 	if (this instanceof Array) return this.slice(0);
 	if (this instanceof String) return this.substring(0);
 	// the normal route for any other object
+	// though it might not work on some built-in
+	// application-specific objects
 	return new this.constructor().merge(this);
 }
 
@@ -84,17 +86,15 @@ Object.prototype.is = function(type) {
 }
 
 /**
- * @desc Checks whether the object has the specified property.
+ * @desc Checks whether the object has a value for the specified property.
  * @returns {Bool} True or false.
  */
 
-// REFACTOR: considering "key in obj" works just as well, 
-// it'd be best to limit .has to what is currently the non-empty functionality
-Object.prototype.has = function (key, non_empty) {
-	if (non_empty && key in this) {
+Object.prototype.has = function (key) {
+	if (key in this) {
 		return new Boolean(this[key]) != false;
 	} else {
-		return key in this;
+		return false;
 	}
 }
 

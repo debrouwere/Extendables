@@ -1,5 +1,64 @@
-describe('Patches: monkeypatches', function () {
-	it('should have unit tests', function () {
-	  expect(false).toEqual(true);
+﻿describe('Patches: monkeypatches on Object', function () {
+	it('gives quick access to objects\' keys and values', function () {
+		var nation = {'name': 'Belgium', 'continent': 'Europe'}
+		expect(nation.values()).toEqual(['Belgium', 'Europe']);
+		expect(nation.keys()).toEqual(['name', 'continent']);		
+	});
+
+	it('can merge an object with another', function () {
+		var nation = {'name': 'Belgium'}.merge({'continent': 'Europe'});
+		expect(nation.has('continent')).toBeTruthy();		
+	});
+
+	it('can test whether an object has a value for a property', function () {
+		var nation = {'name': 'Belgium', 'continent': ''};
+		expect(nation.has('name')).toBeTruthy();	
+		expect(nation.has('continent')).toBeFalsy();	
+	});
+});
+
+describe('Patches: monkeypatches on Array', function () {	
+	it('has a number of already vetted methods, \
+	courtesy of underscore.js and the Mozilla Developer Network', function () {
+		/*
+			these include: indexOf, lastIndexOf, every, filter, forEach, 
+			map, some, reduce, reduceRight, select, reject and flatten
+		*/
+		expect(true).toBeTruthy();
+	});
+
+	it('has min and max methods that work on objects', function () {
+		var array = [
+			{'first': 'Abraham', 'last': 'Lincoln'},
+			{'first': 'Joe', 'last': 'Pesci'},
+			{'first': 'Zed', 'last': 'Alastair'}
+			];
+		function first (obj) {
+			return obj.first;
+		}
+		function last (obj) {
+			return obj.last;
+		}
+		expect(array.min(first).first).toEqual('Abraham');
+		expect(array.max(first).first).toEqual('Zed');
+		expect(array.min(last).first).toEqual('Zed');
+		expect(array.max(last).first).toEqual('Joe');
+	});
+});
+
+describe('Patches: monkeypatches on String', function () {
+	it('has a very simple string formatting method', function () {
+		expect("hello {} {}!".format("mister", "Jones")).toEqual("hello mister Jones!");
+	});
+});
+
+describe('Patches: monkeypatches on Date', function () {
+	it('has a simple timer', function () {
+		Date.timer.set();
+		$.sleep(100);
+		var time_passed = Date.timer.get();
+		var time_passed_s = Date.timer.get('s');
+		expect(time_passed < 200).toBeTruthy();
+		expect(time_passed_s < 1).toBeTruthy();
 	});
 });

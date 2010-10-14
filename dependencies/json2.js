@@ -433,6 +433,7 @@ if (!this.JSON) {
 // Unicode characters with escape sequences. JavaScript handles many characters
 // incorrectly, either silently deleting them, or treating them as line endings.
 
+
             text = String(text);
             cx.lastIndex = 0;
             if (cx.test(text)) {
