@@ -1,7 +1,6 @@
 .DS_Store
 site-packages/*
 _experiments_
-log/*
 doc/_build
 doc/jsdoc
 patches/doc/jsdoc

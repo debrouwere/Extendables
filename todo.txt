@@ -3,3 +3,6 @@
 - 1h	tests for conversions
 - 2h	intro docs for conversions, monkeypatches
 - 1h	final go through the docs, clean up old files, finish website, blogpost and forum post
+- 1h	clean up fabric
+- 1h	make the primary code sample more Adobe-specific -- it's an extendscript framework, not a javascript framework.
+- 1h	document InDesign enhancements

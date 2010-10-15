@@ -21,11 +21,16 @@ Include the framework in your code simply by including the ``extendables.jsx`` f
     #include "extendables/extendables.jsx";
     
     var ui = require("ui");
+    var http = require("http");
+    
     var dialog = new ui.Dialog();
     dialog.text('hello', 'Hi there!').button('ok', 'Close this please.');
     dialog.ok.on('click').do(function(){
-        dialog.hello.text = 'Bye!';
-        $.sleep(1000);
+        var response = http.get("http://whatthefuckshouldimakefordinner.com/").body;
+        var recipe = new XML(recipe);
+        var name = recipe.html.body.dt[1].dl;
+        dialog.hello.text = name;
+        $.sleep(2000);
         this.window.close();
     });
 
@@ -61,8 +66,6 @@ More
 .. toctree::
    :maxdepth: 2
    
-   learning-extendscript
-   best-practices
-   core/contribute
+   core/index
       
 You can also :ref:`search through the docs <search>`. 

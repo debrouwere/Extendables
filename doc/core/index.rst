@@ -8,3 +8,5 @@ Core
    :maxdepth: 2
    
    writing-a-module
+   contribute
+   roadmap
