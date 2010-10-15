@@ -14,16 +14,19 @@ describe('Extendables module loader', function () {
 	it('can handle submodule files', function () {
 		expect(require("package-b/real").this_is).toEqual('Package B submodule');
 	});
-	it('can handle submodule directories', function () {
+	it('can handle submodule directories', function () { 
 		expect(require("package-b/subpackage").this_is).toEqual('Package B sub-submodule');
 	});
 	// see fixtures
 	it('provides a context for each module containing an exports object, \
 	the module id and module uri', function () {
 		var b = __modules__["package-b"].load().exports;
+		expect(b.id).toEqual("__core__");
+		expect(b.uri.contains("package-b")).toEqual(true);
+	});
+	it('is entirely CommonJS-compliant', function () {
 		// our .id implementation is currently incorrect
 		expect(b.id).toEqual("package-b");
-		expect(b.uri.contains("package-b")).toEqual(true);
 	});
 	it('has a require function that works according to the CommonJS specs', function () {
 		var b = require("package-b");
