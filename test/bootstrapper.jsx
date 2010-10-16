@@ -15,9 +15,9 @@ function require () {
 }
 var module = {
 	'id': 'testing',
-	'uri': new File($.fileName).parent
+	'uri': new File("core-packages/testing/lib/__core__.jsx").at(Folder.extendables)
 }
-module.uri.changePath("../core-packages/testing/lib/__core__.jsx")
+
 #include "../core-packages/testing/lib/__core__.jsx"
 
 for (name in exports) {

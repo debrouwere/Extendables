@@ -1,50 +1,4 @@
-﻿/*
- * The pony on my todo list: allow .to() conversions to work with
- * obj.toNumber, obj.toFunction, obj.toArray, obj.toBool,
- * similarly to how __int__, __float__, __call__, __iter__ and __nonzero__ work
- *
- * this would look nice: 
- * function MyConstructor () {
- * 	this.to.number = function () {}
- * }
- * 
- * also: a .has() method, that can work with something similar to __contains__ in Python
- *
- * Before I get started though, check out what javascript will allow for out of the box
- * and see how "native" I can make this look -- e.g. new Array(obj)) may need to override 
- * the constructor, and if we can't do this, we'll have to note to people that they can only
- * use .to() as well as integrate this functionality with stuff like
- * comp: max, min
- * func: map, filter, reduce, select, reject
- * array: forEach
- *
- * Its usefulness would depend entirely on the range of functions able to work with these emulations
- * out of the box. If that range is too small, it'll just be confusing. Either way, it might just
- * be a little too magical for javascripters who are not used to this type of functionality.
- */
-
-/*
-// this works:
-
-Object.prototype.to = function (type) {
-	if (this.to.hasOwnProperty(type)) {
-		return this.to[type]();
-	}
-}
-
-function Person () {
-	var self = this;
-	this.phone;
-	this.to.number = function () { return self.phone; }
-}
-
-var guy = new Person();
-guy.phone = 1234;
-
-guy.to('number');
-*/
-
-var exports = {};
+﻿var exports = {};
 var base64 = exports;
 
 #include "../dependencies/json2.js"
@@ -57,9 +11,9 @@ keyvalue.encode = function (obj, options) {
 	var separator = options["separator"] || "=";
 	var eol = options["eol"] || "\n";
 	var output = "";
-	var properties = obj.reflect.properties.reject(function (property) { 
-		return property.name.startswith("_") || property.name == 'reflect'; 
-	})
+	var properties = obj.reflect.properties.reject(function (property) {
+		return property.name.startswith("_") || property.name == 'reflect';
+	});
 	properties.forEach(function (property) {
 		output += property.name + separator + obj[property.name] + eol;
 	});

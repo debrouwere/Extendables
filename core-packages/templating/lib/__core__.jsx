@@ -1,10 +1,7 @@
 ﻿exports.Template = Template;
 
 function Template (path, module) {
-	var base = new File(module.uri).parent.parent;
-	base.changePath("templates");
-	base.changePath(path);
-	var template_file = new File(base);
+	var template_file = new File(path).at("templates").at(new File(module.uri).parent.parent);
 	if (!template_file.exists) {
 		throw IOError("Couldn't open template {}".format(template_file));
 	}
@@ -19,10 +16,7 @@ function Template (path, module) {
 	}
 
 	this.write_to = function (path) {
-		var base = new File($.fileName).parent.parent.parent.parent;
-		base.changePath("./log");
-		base.changePath(path);
-		var out = new File(base.absoluteURI);
+		var out = new File(path).at("log").at(Folder.extendables);
 		if (this._output) {
 			out.open("w");
 			out.write(this._output);

@@ -84,8 +84,7 @@ function Module (file_or_folder, is_package) {
 	}
 
 	this.get_tests = function () {
-		var testfolder = new Folder(self.uri);
-		testfolder.changePath("./test");
+		var testfolder = new Folder("test").at(self.uri);
 		if (testfolder.exists) {
 			return testfolder.getFiles("*.specs");
 		} else {
@@ -114,8 +113,7 @@ function Module (file_or_folder, is_package) {
 
 function load_modules (packagefolders) {
 	packagefolders.forEach(function(packagefolder) {
-		var folder = new File($.fileName).parent;
-		folder.changePath(packagefolder);
+		var folder = new Folder(packagefolder).at(Folder.extendables);
 		var packages = folder.getFiles(_is_valid_module);
 		
 		packages.forEach(function(file_or_folder) {

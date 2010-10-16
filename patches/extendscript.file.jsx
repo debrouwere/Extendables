@@ -10,18 +10,39 @@
  */
 Folder.extendables = new File($.fileName).parent.parent;
 
-/**
- * @desc Get a file or folder starting from an existing path.
- * A foolproof way to join paths together.
- */
-
-function from_base (folder) {
-	var path = File.path.join(folder.absoluteURI, this.relativeURI);
+function from_basepath (folder) {
+	if (folder.is(String)) folder = new Folder(folder);
+	var path = [folder.relativeURI, this.relativeURI].join('/');
 	return new this.constructor(path);
 }
 
-File.prototype.from = from_base;
-Folder.prototype.from = from_base;
+/**
+ * @desc Get a file or folder starting from an existing path.
+ * A foolproof way to join paths together.
+ *
+ * Similar to File.getRelativeURI, but returns a new File object
+ * instead of a path.
+ */
+
+File.prototype.at = from_basepath;
+
+/**
+ * @desc Get a file or folder starting from an existing path.
+ * A foolproof way to join paths together.
+ *
+ * Similar to File.getRelativeURI, but returns a new Folder object
+ * instead of a path.
+ */
+
+Folder.prototype.at = from_basepath;
+
+File.here = function () {
+	return new File($.fileName);
+}
+
+Folder.here = function () {
+	return File.here().parent;
+}
 
 File.prototype.component = function (type) {
 	switch (type) {

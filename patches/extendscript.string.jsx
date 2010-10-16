@@ -1,31 +1,52 @@
 ﻿/**
  * @desc This is a simple string formatting method, loosely inspired on the one in Python 3.
- * Specify placeholders with the **{}** symbol.
+ * 
+ * * In unnamed mode, specify placeholders with the **{}** symbol.
+ * * In named mode, specify placeholders with **{propname}**.
  *
- * @param {Object} replacements
+ * @param {String} replacements
  *     For each **{}** symbol in the text, ``format`` expects a replacement argument.
  *     Calls `.toString()` on each replacement, so you can pass in any data type.
+ *
+ *	You may also specify a single replacement object, which will do named formatting.
  *
  * @example
  *     > var person = {'salutation': 'mister', 'name': 'John Smith'};
  *     > var hello = "Hello there, {}, I've heard your name is {}!".format(person.salutation, person.name);
  *     > $.writeln(hello);
  *     "Hello there, mister, I've heard your name is John Smith"
+ *
+ * @example
+ *     > var person = {'salutation': 'mister', 'name': 'John Smith'};
+ *     > var hello = "Hello there, {salutation}, I've heard your name is {name}!".format(person);
+ *     > $.writeln(hello);
+ *     "Hello there, mister, I've heard your name is John Smith"
  */
 
-String.prototype.format = function() {	
-	// split the string into parts around the substring replacement symbols ({}).
-	var chunks = this.split("{}");
+String.prototype.format = function() {
+	var str = this;
 	var replacements = arguments.to('array');
+	var named = replacements.length == 1 && replacements[0].reflect.name == 'Object';
+	
+	if (named) {
+		var dict = replacements[0];
+        dict.keys().forEach(function (key) {
+			str = str.replace("{" + key + "}", dict[key]);
+		});
+		return str;
+	} else {
+		// split the string into parts around the substring replacement symbols ({}).
+		var chunks = str.split("{}");
 
-	// fill in the replacements
-	for (var i in chunks) {
-		var replacement = replacements.shift();
-		if (replacement) {
-			chunks[i] += replacement.toString();
+		// fill in the replacements
+		for (var i in chunks) {
+			var replacement = replacements.shift();
+			if (replacement) {
+				chunks[i] += replacement.toString();
+			}
 		}
+		return chunks.join('');		
 	}
-	return chunks.join('');
 }
 
 /**
@@ -35,7 +56,7 @@ String.prototype.format = function() {
  */
 
 String.prototype.startswith = function (substring) {
-	return new Boolean(this.length && this.indexOf(substring) == 0);
+	return new Boolean(this.length && this.indexOf(substring) === 0).valueOf();
 }
 
 /**
@@ -45,7 +66,7 @@ String.prototype.startswith = function (substring) {
  */
 
 String.prototype.endswith = function (substring) {
-	return new Boolean(this.length && this.indexOf(substring) == (this.length - substring.length));
+	return new Boolean(this.length && this.indexOf(substring) == (this.length - substring.length)).valueOf();
 }
 
 /**
