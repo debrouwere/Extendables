@@ -15,8 +15,6 @@ var slashedProtocol = {
     "http:":true, "https:":true, "ftp:":true, "gopher:":true, "file:":true
 };
 
-var path = require("path");
-
 function urlParse (url) {
     if (url && typeof(url) === "object" && url.href) {
         throw TypeError("The unparsed url should be a string.");

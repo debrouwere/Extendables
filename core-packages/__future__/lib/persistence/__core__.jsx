@@ -4,12 +4,19 @@ stuff you do on an individual instance: save, destroy, refresh
 stuff you do on collections / querysets: flush(), values()
 
 all of this, you do using an engine
+
+Inspiration: 
+http://documentcloud.github.com/backbone/docs/backbone.html
+http://github.com/benpickles/js-model
+
+Note to self: test whether obj.watch() works like addEventListener (i.e. you can add a bunch of them)
+or whether you can only have a single watch function for each property.
 */
 
 //var engines = require("persistence/engines");
 // quick testing: 
 var exports = {};
-#include ../../../patches/extendscript.jsx
+#include ../../../patches/__all__.jsx
 #include engines.jsx
 var engines = exports;
 

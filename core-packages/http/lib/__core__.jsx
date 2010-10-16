@@ -65,7 +65,7 @@ function head (url, basic_auth, timeout) {
  * will be passed along unchanged.
  * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password`` 
  * properties will do.
- * @param {Number} [timeout=1] How long before the http client should give up.
+ * @param {Number} [timeout=5] How long before the http client should give up.
  */
 
 function post (url, data, basic_auth, timeout) {

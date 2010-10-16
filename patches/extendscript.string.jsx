@@ -29,49 +29,13 @@ String.prototype.format = function() {
 }
 
 /**
- * @desc Removes leading and trailing whitespace characters, including tabs, line endings and the like.
- *
- * @example
- *     > $.writeln("   hello there   ".trim());
- *     "hello there"
- */
-
-String.prototype.trim = function() {
-	return this.replace(/^\s+|\s+$/g, "");
-}
-
-/**
- * @desc Removes leading whitespace characters, including tabs, line endings and the like.
- *
- * @example
- *     > $.writeln("   hello there   ".trim());
- *     "hello there   "
- */
-
-String.prototype.ltrim = function() {
-	return this.replace(/^\s+/, "");
-}
-
-/**
- * @desc Removes trailing whitespace characters, including tabs, line endings and the like.
- *
- * @example
- *     > $.writeln("   hello there   ".trim());
- *     "   hello there"
- */
-
-String.prototype.rtrim = function() {
-	return this.replace(/\s+$/, "");
-}
-
-/**
  * @desc Tests whether the string starts with the specified substring.
  * @param {String} substring
  * @returns {Bool} True or false.
  */
 
 String.prototype.startswith = function (substring) {
-	return this.indexOf(substring) == 0;
+	return new Boolean(this.length && this.indexOf(substring) == 0);
 }
 
 /**
@@ -81,7 +45,7 @@ String.prototype.startswith = function (substring) {
  */
 
 String.prototype.endswith = function (substring) {
-	return this.indexOf(substring) == (this.length - substring.length);
+	return new Boolean(this.length && this.indexOf(substring) == (this.length - substring.length));
 }
 
 /**
@@ -106,5 +70,67 @@ String.prototype.indexAfter = function (substring) {
 		return index;
 	} else {
 		return index + substring.length;
+	}
+}
+
+/**
+ * @desc Removes leading whitespace characters, including tabs, line endings and the like.
+ * @param {String} [character] if specified, removes leading characters matching the parameter
+ * instead of whitespace.
+ *
+ * @example
+ *     > $.writeln("   hello there   ".trim());
+ *     "hello there   "
+ */
+
+String.prototype.ltrim = function(character) {
+	if (character) {
+		if (this.endswith(character) == true) {
+			return this.substr(1).ltrim(character);
+		} else {
+			return this;
+		}
+	} else {
+		return this.replace(/^\s+/, "");
+	}
+}
+
+/**
+ * @desc Removes trailing whitespace characters, including tabs, line endings and the like.
+ * @param {String} [character] if specified, removes trailing characters matching the parameter
+ * instead of whitespace.
+ *
+ * @example
+ *     > $.writeln("   hello there   ".trim());
+ *     "   hello there"
+ */
+
+String.prototype.rtrim = function (character) {
+	if (character) {
+		if (this.endswith(character) == true) {
+			return this.slice(0, -1).rtrim(character);
+		} else {
+			return this;
+		}
+	} else {
+		return this.replace(/\s+$/, "");
+	}
+}
+
+/**
+ * @desc Removes leading and trailing whitespace characters, including tabs, line endings and the like.
+ * @param {String} [character] if specified, removes leading and trailing characters matching the 
+ * parameter instead of whitespace.
+ * 
+ * @example
+ *     > $.writeln("   hello there   ".trim());
+ *     "hello there"
+ */
+
+String.prototype.trim = function(character) {
+	if (character) {
+		return this.ltrim(character).rtrim(character);
+	} else {
+		return this.replace(/^\s+|\s+$/g, "");
 	}
 }

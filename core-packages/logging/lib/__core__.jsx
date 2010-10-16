@@ -2,8 +2,6 @@
  * Basic file-based logging, loosely modelled after the logging module in the Python standard library
  * (alert-based debugging still a work in progress)
  */
-
-var path = require("path");
  
 exports.Log = Log;
 
@@ -94,9 +92,8 @@ var Log = function (name) {
 	}
 
 	// init
-	var logfolder = new File($.fileName).parent.parent.parent.parent;
-	logfolder.changePath("./log")
-	this.filename  = path.join(logfolder, this.name);
+	var logfolder = new Folder("log").from(Folder.extendables);
+	this.filename  = new File(this.name).from(logfolder);
 	this.truncate();
 	this.create();
 }

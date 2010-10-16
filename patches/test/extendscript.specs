@@ -1,4 +1,4 @@
-﻿describe('Patches: monkeypatches on Object', function () {
+﻿describe('Monkeypatches on Object', function () {
 	it('gives quick access to objects\' keys and values', function () {
 		var nation = {'name': 'Belgium', 'continent': 'Europe'}
 		expect(nation.values()).toEqual(['Belgium', 'Europe']);
@@ -17,7 +17,7 @@
 	});
 });
 
-describe('Patches: monkeypatches on Array', function () {	
+describe('Monkeypatches on Array', function () {	
 	it('has a number of already vetted methods, \
 	courtesy of underscore.js and the Mozilla Developer Network', function () {
 		/*
@@ -46,13 +46,13 @@ describe('Patches: monkeypatches on Array', function () {
 	});
 });
 
-describe('Patches: monkeypatches on String', function () {
+describe('Monkeypatches on String', function () {
 	it('has a very simple string formatting method', function () {
 		expect("hello {} {}!".format("mister", "Jones")).toEqual("hello mister Jones!");
 	});
 });
 
-describe('Patches: monkeypatches on Date', function () {
+describe('Monkeypatches on Date', function () {
 	it('has a simple timer', function () {
 		Date.timer.set();
 		$.sleep(100);
@@ -62,3 +62,45 @@ describe('Patches: monkeypatches on Date', function () {
 		expect(time_passed_s < 1).toBeTruthy();
 	});
 });
+
+describe('Monkeypatches on File and Folder', function () {
+	var path = require("path");
+	
+	it('can join paths', function () {
+		var joined_path = path.join("/one/two/", "/three/four", "five/six");
+		expect(joined_path).toEqual("/one/two/three/four/five/six");
+	});
+
+	it('can return the directory name', function () {
+		var dirname = path.dirname("/one/two/three.jsx");
+		expect(dirname).toEqual("/one/two");
+	});
+
+	it('can return the base name (file name)', function () {
+		var basename = path.basename("/one/two/three.jsx");
+		expect(basename).toEqual("three.jsx");
+	});
+
+	it('can return the file extension', function () {
+		var ext = path.extname("/one/two/three.jsx");
+		expect(ext).toEqual(".jsx");
+	});
+});
+
+/*
+var file = new File("log/tests.framework.html");
+var frm = file.from(Folder.extendables);
+alert(frm.path);
+
+alert(new File("/log/tests.framework.html").from(Folder.extendables).path)
+
+var file = new File("fixtures/file.ext");
+alert(file.component('basename'));
+alert(file.component('extension'));
+var file = new File("fixtures/file");
+alert(file.component('basename'));
+alert(file.component('extension'));
+var file = new File("fixtures/.ext");
+alert(file.component('basename'));
+alert(file.component('extension'));
+*/
