@@ -31,20 +31,19 @@ String.prototype.format = function() {
 	if (named) {
 		var dict = replacements[0];
         dict.keys().forEach(function (key) {
-			str = str.replace("{" + key + "}", dict[key]);
+			// replace globally (flagged g)
+			str = str.replace("{" + key + "}", dict[key], "g");
 		});
 		return str;
 	} else {
 		// split the string into parts around the substring replacement symbols ({}).
 		var chunks = str.split("{}");
-
 		// fill in the replacements
 		for (var i in chunks) {
 			var replacement = replacements.shift();
-			if (replacement) {
-				chunks[i] += replacement.toString();
-			}
+			if (replacement) chunks[i] += replacement.toString();
 		}
+		// join everything together
 		return chunks.join('');		
 	}
 }

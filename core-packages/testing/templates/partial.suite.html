@@ -1,5 +1,5 @@
 <div class="suite">
-    <h3>Suite: {} ({} tests, {} failures)</h3>
+    <h3>Suite: {name} ({total} tests, {failed} failures)</h3>
     <table>
         <thead>
             <tr>
@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            {}
+            {specs => partial.test.html}
         </tbody>
     </table>
 </div>

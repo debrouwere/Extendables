@@ -48,15 +48,18 @@ var TestRunner = function () {
 	}
 
 	this.get_environment = function () {
-		return {
-			'<strong>OS</strong>': $.os,
-			'<strong>ExtendScript build</strong>': $.build,
-			'<strong>ExtendScript version</strong>': $.version,
-			'<strong>path</strong>': $.includePath,
-			'<strong>locale</strong>': $.locale,
-			'<strong>app</strong>': app.name,
-			'<strong>app version</strong>': app.version
+		var env = {
+			'OS': $.os,
+			'ExtendScript build': $.build,
+			'ExtendScript version': $.version,
+			'path': $.includePath,
+			'locale': $.locale,
+			'app': app.name,
+			'app version': app.version
 		}
+		return env.keys().map(function (key) {
+			return {'key': key, 'value': env[key]};
+		});
 	}
 
 	// we'll add this into the html representation, 
@@ -85,45 +88,39 @@ var TestRunner = function () {
 		var datetime = new Date();
 		var date = datetime.toDateString();
 		var time = "{}:{}".format(datetime.getHours(), datetime.getMinutes());
-		var environment = this.get_environment().serialize('key-value', {'separator': ': ', 'eol': '<br />'});		
-
-		// output templates
-		var tpl = {
-			'report': new Template("report.html", module),
-			'suite': new Template("partial.suite.html", module),
-			'test': new Template("partial.test.html", module)
-		};
+		var environment = this.get_environment();	
 
 		// run tests
 		var results = this.run();
 		
-		// render results
-		var suites = [];
-		var testcount = 0;
-		
+		// tidy up results
 		results.forEach(function(suite) {
-			var tests = [];
 			suite.specs.forEach(function(spec) {
 				if (spec.result == 'failed') {
 					var messages = spec.messages.reject(function (message) {
 						return message == 'Passed.';
 					});
-					var problem = '<p class="problem">{}</p>'.format(messages.join("<br />"));
+					spec.problem = '<p class="problem">{}</p>'.format(messages.join("<br />"));
 				} else {
-					var problem = '';
+					spec.problem = '';
 				}
-				var test = tpl.test.render(spec.result, spec.result, spec.name, problem);
-				tests.push(test);
-				testcount++;
 			});
-			var suite = tpl.suite.render(suite.name, suite.total, suite.failed, tests.join("\n"));
-			suites.push(suite);
 		});
-	
+		
 		var duration = ((new Date().getTime() - datetime.getTime())/1000).toFixed(2);
 
-		tpl.report.render(date, time, testcount, duration, suites.join('\n\n'), environment);
-		tpl.report.write_to(filename);
+        var template = new Template("report.html", module);
+		template.render({
+		  'date': date, 
+		  'time': time, 
+		  'duration': duration, 
+		  'suites': results, 
+		  'total': results.sum('total'),
+		  'fails': results.sum('failed'),
+		  'passes': results.sum('passed'),
+		  'environment': environment
+		});
+		template.write_to(filename);
 	}
 
 	// would be incredibly interesting to see usage patterns and whether certain tests

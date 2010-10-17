@@ -39,7 +39,7 @@ var Log = function (name, log_level) {
 	var self = this;
 	this.name = name;
 	// log level can be specified both by name or directly as a level.
-	if (log_level.is(String)) log_level = SEVERITY.indexOf(log_level);
+	if (log_level && log_level.is(String)) log_level = SEVERITY.indexOf(log_level);
 	this.log_level = log_level || settings.LOGGING_LOG_LEVEL || 4;
 	
 	this.truncate = function (forced) {

@@ -33,16 +33,37 @@ describe('Monkeypatches on Array', function () {
 			{'first': 'Joe', 'last': 'Pesci'},
 			{'first': 'Zed', 'last': 'Alastair'}
 			];
-		function first (obj) {
+		function get_first (obj) {
 			return obj.first;
 		}
-		function last (obj) {
+		function get_last (obj) {
 			return obj.last;
 		}
-		expect(array.min(first).first).toEqual('Abraham');
-		expect(array.max(first).first).toEqual('Zed');
-		expect(array.min(last).first).toEqual('Zed');
-		expect(array.max(last).first).toEqual('Joe');
+		expect(array.min(get_first).first).toEqual('Abraham');
+		expect(array.min('first').first).toEqual('Abraham');
+		expect(array.max(get_first).first).toEqual('Zed');
+		expect(array.max('first').first).toEqual('Zed');
+		expect(array.min(get_last).first).toEqual('Zed');
+		expect(array.min('last').first).toEqual('Zed');
+		expect(array.max(get_last).first).toEqual('Joe');
+		expect(array.max('last').first).toEqual('Joe');
+	});
+
+	it('has a sum method that works on objects', function () {
+		var numbers = [3, 2, 5];
+		var persons = [
+			{'name': 'Abraham', 'children': 5},
+			{'name': 'Joe', 'children': 3},
+			{'name': 'Zed', 'children': 0}
+			];
+			
+		function get_children (obj) {
+			return obj.children;
+		}
+			
+		expect(numbers.sum()).toEqual(10);
+		expect(persons.sum(get_children)).toEqual(8);
+		expect(persons.sum('children')).toEqual(8);
 	});
 });
 

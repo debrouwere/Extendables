@@ -314,7 +314,9 @@ Array.prototype.indexAfter = function (element) {
 /**
  * @desc Returns the maximum value in an array.
  *
- * @param {Function} [salient_feature] ``min`` can also order objects if you provide a salient feature for it to work on.
+ * @param {Function|String} [salient_feature] ``min`` can also order objects
+ *     if you provide a salient feature for it to work on, either a function
+ *     or the name of an object property
  *
  * @example
  *     > var people = [{'name': 'Alfred'}, {'name': 'Zed'}];
@@ -325,9 +327,14 @@ Array.prototype.indexAfter = function (element) {
  */
 
 Array.prototype.max = function (salient) {
-	var salient = salient || function (obj) { return obj; }
+	if (salient && salient.is(String)) {
+		var mapper = function (obj) { return obj[salient]; }
+	} else {
+		var mapper = salient || function (obj) { return obj; }
+	}
+	
 	function fn (a, b) {
-		return salient(a) > salient(b);
+		return mapper(a) > mapper(b);
 	}
 	var array = this.clone();
 	array.sort(fn);
@@ -335,19 +342,51 @@ Array.prototype.max = function (salient) {
 };
 
 /**
- * @desc Returns the minimum value in an array. Works like :func:`Array#max`
+ * @returns The minimum value in an array. Works like :func:`Array#max`
  *
- * @param {Function} [salient_feature] ``min``
+ * @param {Function|String} [salient_feature] See ``max``.
  */
 
 Array.prototype.min = function (salient) {
-	var salient = salient || function (obj) { return obj; }
+	if (salient && salient.is(String)) {
+		var mapper = function (obj) { return obj[salient]; }
+	} else {
+		var mapper = salient || function (obj) { return obj; }
+	}
+	
 	function fn (a, b) {
-		return salient(a) > salient(b);
+		return mapper(a) > mapper(b);
 	}
 	var array = this.clone();
 	array.sort(fn);
 	return array.shift();
+}
+
+/**
+ * @returns The sum of all array values.
+ *
+ * @param {Function|String} [salient_feature] See ``max``.
+ *
+ * @example
+ *     > var persons = [
+ *     ... {'name': 'Abraham', 'children': 5},
+ *     ... {'name': 'Joe', 'children': 3},
+ *     ... {'name': 'Zed', 'children': 0}
+ *     ... ];
+ *     > persons.sum('children');
+ *     8
+ */
+
+Array.prototype.sum = function (salient) {
+	if (salient && salient.is(String)) {
+		var mapper = function (obj) { return obj[salient]; }
+	} else {
+		var mapper = salient || function (obj) { return obj; }
+	}
+
+	var features = this.map(mapper);
+	
+	return features.reduce(function (a, b) { return a + b; });	
 }
 
 /**

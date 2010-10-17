@@ -166,17 +166,17 @@
         <li><a href="tests.packages.html">package tests</a></li>
     </ul>
 	<h1>Extendables test report</h1>
-	<p class="date"><strong>{}</strong> at <strong>{}</strong></p>
+	<p class="date"><strong>{date}</strong> at <strong>{time}</strong></p>
 	<div class="overview">
-	   <a href="http://pivotal.github.com/jasmine/">Jasmine</a> ran <strong>{}</strong> tests in <strong>{}</strong> seconds
+	   <a href="http://pivotal.github.com/jasmine/">Jasmine</a> ran <strong>{total}</strong> tests in <strong>{duration}</strong> seconds
 	   <form id="filter">
 	       <input type="checkbox" id="show-passes" value="passed" checked="checked" />
-	       <label for="show-passes">passes</label>
+	       <label for="show-passes">{passes} passes</label>
 	       <input type="checkbox" id="show-failures" value="failed" checked="checked" />
-	       <label for="show-failures">failures</label>
+	       <label for="show-failures">{fails} failures</label>
 	   </form>
-	   </div>
-    {}
-    <div class="overview environment"><p>{}</p></div>
+    </div>
+    {suites => partial.suite.html}
+    <div class="overview environment"><p>{environment => partial.environment.html}</p></div>
 	</body>
 </html>
