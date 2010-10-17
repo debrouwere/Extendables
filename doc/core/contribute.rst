@@ -44,7 +44,7 @@ JSDoc syntax gets picked up by the JSDoc toolkit and from there finds its way in
 
 .. seealso::
 
-    A full JSDoc reference document is up at `http://code.google.com/p/jsdoc-toolkit/wiki/TagReference`_.
+    A full JSDoc reference document is up at http://code.google.com/p/jsdoc-toolkit/wiki/TagReference.
 
 Sphinx
 ------

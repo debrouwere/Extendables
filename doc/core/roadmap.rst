@@ -10,6 +10,7 @@ Extendables is strictly scratch-your-own-itch material, so there's no strict roa
 * more consistent error handling across the framework (proper error types, limited try/catches, throwing errors instead of returning false or simply crashing, exception logging)
 * an exceptions module that provides a generic, standard way of alerting end-users when something went wrong, and which can create error reports for developers.
 * enhancements to the UI module (more styling options)
+* support for partials in the templating module
 
 Good documentation will remain a priority: 
 

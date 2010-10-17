@@ -1,6 +1,4 @@
-- 1h	test and clean up the logging library
-- 1h	docs for the logging library
-- 1h	tests for conversions
+- 1h	fix the json conversions
 - 1h	intro docs for conversions, monkeypatches
 - 0.5h	final go through the docs, clean up old files, finish website, blogpost and forum post
 - 1h	make the primary code sample more Adobe-specific -- it's an extendscript framework, not a javascript framework.

@@ -1,25 +1,12 @@
 ﻿#include "patches/__all__.jsx"
+#include "settings.jsx"
 #include "loader.jsx"
 load_modules(['./core-packages', './site-packages']);
 
-// note: if we want some modules to be available in the global namespace, we can simply extract() 'em here
+// note: if we want some modules to be available in the global namespace, 
+// we can simply extract() 'em here
 
 /* additional context for modules */
-/*
-var current = {
-	window: app.layoutWindows.item(0),
-	doc: app.documents.item(0),
-	page: app.documents.item(0).
-	spread: function () {
-		var spread = app.documents.item(0).spreads.firstItem();
-		while (spread.pages.count() < 2) {
-			spread = app.documents.item(0).spreads.nextItem(spread);
-		}
-		return spread;
-	}()
-}*/
-
-// example use
 
 /**
  * @param {String} item Can be any one of ``window``, ``doc``, ``page`` or ``spread``.

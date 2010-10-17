@@ -1,14 +1,14 @@
-﻿#include "extendscript.object.jsx"
-#include "extendscript.string.jsx"
-#include "extendscript.array.jsx"
-#include "extendscript.conversions.jsx"
-#include "extendscript.error.jsx"
-#include "extendscript.file.jsx"
-#include "extendscript.date.jsx"
-#include "application.jsx"
+﻿#include "object.jsx"
+#include "string.jsx"
+#include "array.jsx"
+#include "object.conversions.jsx"
+#include "error.jsx"
+#include "file.jsx"
+#include "date.jsx"
+#include "DOM/application.jsx"
 if (!app.is("toolkit")) {
-	#include "application.suite.jsx"
+	#include "DOM/suite.jsx"
 }
 if (app.is("indesign")) {
-	#include "application.indesign.jsx"
+	#include "DOM/indesign.jsx"
 }

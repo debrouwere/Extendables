@@ -70,6 +70,19 @@ describe('Monkeypatches on Date', function () {
 	});
 });
 
+describe('Monkeypatches on Number', function () {
+	it('has a range class method that works like the Python range() implementation', function () {
+        // these examples come straight out of Python docs
+        expect(Number.range(10)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        expect(Number.range(1, 11)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+        expect(Number.range(0, 30, 5)).toEqual([0, 5, 10, 15, 20, 25]);
+        expect(Number.range(0, 10, 3)).toEqual([0, 3, 6, 9]);
+        expect(Number.range(0, -10, -1)).toEqual([0, -1, -2, -3, -4, -5, -6, -7, -8, -9]);
+        expect(Number.range(0)).toEqual([]);
+        expect(Number.range(1, 0)).toEqual([]);
+    });
+});
+
 describe('Monkeypatches on File and Folder', function () {
 	it('can join paths', function () {
         var identical = [];
