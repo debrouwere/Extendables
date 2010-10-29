@@ -1,5 +1,12 @@
-﻿Document.prototype.xml = function () {
-	return this.xmlElements.item(0);
+﻿// perhaps a getter/setter would be better, 
+// which either returns the xml root or replaces it
+// with the value of the argument (either a string, 
+// using a temp file, or a file, using the native
+// importXML directly.
+
+Document.prototype.xml = function (name) {
+	var i = name || 0;
+	return this.xmlElements.item(i);
 }
 
 XMLElement.prototype.find = function (name) {
@@ -50,15 +57,50 @@ XMLElement.prototype.children = function() {
 	return children;
 }
 
-// A poor man's XML deserializer.
+/**
+ * @desc ``el.repr()`` is a poor man's XML deserializer.
+ * It recursively transforms an XML tree into a native
+ * ExtendScript object.
+ *
+ * Known limitations: 
+ * * Ignores attributes and comments.
+ * * If an element has children, it processes those, but any surrounding 
+ *   text content will be ignored. ``<el>this text will be ignored <sub>but this won't be</sub></el>``
+ *
+ * @example
+ *     // <root>
+ *     //     <story>
+ *     //         A fun little story.
+ *     //         <title>An evening in Bristol</title>
+ *     //         <authors>
+ *     //             <name>Joel</name>
+ *     //             <name>Liza</name>
+ *     //         </authors>
+ *     //     </story>
+ *     // </root>
+ *     > var root = doc.xml().repr()
+ *     > root.story.title
+ *     'An evening in Bristol'
+ *     > root.story.authors
+ *     ['Joel', 'Liza']
+ */
+
 XMLElement.prototype.repr = function () {
 	var repr = {};
 	this.children().forEach(function (element) {
+		var tag = element.tag();
+		
 		if (element.children().length) {
-			repr[element.tag()] = element.repr();
+			repr[tag] = element.repr();
 		} else {
-			// todo: indien de tag al bestaat, de val omvormen tot een array en daar naar pushen!
-			repr[element.tag()] = element.val();
+			// don't replace existing values, but transform 'em
+			// into an array instead, and push to that array
+			if (tag in repr) {
+				if (!repr[tag].is(Array)) repr[tag] = [].push(repr[tag]);
+				repr[tag].push(element.val());
+			} else {
+				repr[tag] = element.val();
+			}			
 		}
 	});
 	return repr;
@@ -106,9 +148,20 @@ TextFrame.prototype.tag = tag;
  *
  * @param {Object} positioning A positioning object has three attributes: 
  * ``page`` (a string or number), ``x`` and ``y`` (both unitless numbers).
+ * Optionally, you may define a ``layer`` attribute, containing either a
+ * layer name or a layer object.
  *
  * @returns {Object[]} Returns an array with the page items that make up the
  * library asset.
+ *
+ * @example
+ *     var library = app.libraries.item('storylayouts.indl');
+ *     var asset = library.assets.item('full-spread');
+ *     var page_items = asset.place({
+ *         'page': 5, 
+ *         'x': 20, 
+ *         'y': 50
+ *     });
  */
 
 Asset.prototype.place = function (positioning) {
@@ -134,6 +187,7 @@ Asset.prototype.place = function (positioning) {
 	var _margins_ = 20; // todo!
 	var x = positioning.x || _margins_;
 	var y = positioning.y || _margins_;
+	var pos_layer = false; // todo!
 	// put asset on the right page on a temporary layer
 	window.activePage = page;
 	var active_layer = doc.activeLayer;

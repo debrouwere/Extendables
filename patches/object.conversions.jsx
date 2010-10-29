@@ -1,7 +1,5 @@
 ﻿var exports = {};
 var base64 = exports;
-
-#include "../dependencies/json2.js"
 #include "../dependencies/base64.js"
 
 // keyvalue encoding comes in handy to create things like INI files and HTTP headers
@@ -32,15 +30,26 @@ keyvalue.decode = function (str, options) {
 }
 
 /**
- * @desc The result of serialization followed by deserialization is the original object, whereas
+ * @desc Object serialization.
+ * 
+ * The result of serialization followed by deserialization is the original object, whereas
  * a conversion is not reversible.
+ *
+ * @param {String} type Either ``base64`` or ``key-value``.
+ * @param {Object} [options] Options, if applicable for the serialization type.
+ *
+ * @example
+ *     > var obj = {'key1': 'value1', 'key2': 'value2'};
+ *     > obj.serialize('key-value', {'separator': ': ', 'eol': '\n'});
+ *     "key1: value1\nkey2: value2\n"
  */
 
 Object.prototype.serialize = function (type, options) {
 	var obj = this;
 	// type: json, keyvalue
 	var serializations = {
-		'json': function () { return JSON.stringify(obj, undefined, options || 4); },
+		'xml': function () { throw new NotImplementedError(); },
+		'json': function () { throw new NotImplementedError(); },
 		'base64': function () { return base64.encode64(obj); },
 		'key-value': function () { return keyvalue.encode(obj, options); }
 	};
@@ -52,11 +61,19 @@ Object.prototype.serialize = function (type, options) {
 	}
 }
 
+/**
+ * @desc Object deserialization.
+ *
+ * @param {String} type Either ``xml``, ``base64`` or ``key-value``.
+ * @param {Object} [options] Options, if applicable for the deserialization type.
+ */
+
 Object.prototype.deserialize = function (type, options) {
 	var obj = this;
 	
 	var deserializations = {
-		'json': function () { return JSON.parse(obj); },
+		'xml': function () { return new XML(obj); },
+		'json': function () { throw new NotImplementedError(); },
 		'base64': function () { return base64.decode64(obj); },
 		'key-value': function () { return keyvalue.decode(obj, options); }
 	}

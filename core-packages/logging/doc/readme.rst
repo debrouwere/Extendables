@@ -6,7 +6,9 @@ Logging is useful when debugging (nobody likes code interspersed with ``alert()`
 
 Extendables comes with a logging library, loosely inspired on the eponymous `Python library <http://docs.python.org/library/logging.html>`_.
 
-After initializing a log, using ``var log = new logging.Log("logfile.log");``, log messages using ``log.debug(msg)``, ``log.info(msg)``, ``log.warning(msg)``, ``log.error(msg)`` and ``log.critical(msg)``.
+Initialize a log using ``var log = new logging.Log("logfile.log");``.
+
+After that, you can log messages using ``log.debug(msg)``, ``log.info(msg)``, ``log.warning(msg)``, ``log.error(msg)`` and ``log.critical(msg)``.
 
 All logs reside in the ``log`` directory under the Extendables root.
 

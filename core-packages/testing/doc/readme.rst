@@ -46,3 +46,7 @@ Try this instead:
     // or alternatively: tests.to_console();
 
 HTML test results will reside under ``log`` in the Extendables project root.
+
+.. note::
+
+    While it's usually not a good idea to extract an entire module into the global namespace, ``testing`` is the exception. It would be very tiresome to prefix every ``expect``, ``it``, ``describe`` etc. with a namespace, so we don't. To avoid polluting the global namespace of our script, test runners and specs are usually a separate script, rather than part of the script itself.

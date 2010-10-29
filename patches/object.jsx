@@ -99,7 +99,7 @@ Object.prototype.has = function (key) {
 }
 
 /**
- * @desc Alias for obj.hasOwnProperty
+ * @desc Alias for ``obj.hasOwnProperty``
  * @returns {Bool} True or false.
  */
 
@@ -110,8 +110,8 @@ Object.prototype.has_own = function (key) {
 /**
  * @desc A debugging utility. When used without the ``dump`` argument,
  * equivalent to ``$.writeln(obj.toString())``.
- * @param {Bool} dump Dump all properties of this object;
- * otherwise just returns a string representation.
+ * @param {Bool} [dump=false] Dump all properties of this object;
+ *     otherwise just returns a string representation.
  */
 
 Object.prototype.to_console = function (dump) {

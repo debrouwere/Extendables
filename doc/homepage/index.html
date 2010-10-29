@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<title>Extendables: a stalwart little framework for Adobe ExtendScript</title>
+        <style>
+        body {
+            margin: 40px;
+        }
+        
+        div#main {
+            width: 600px;
+            margin: 0 auto 0 auto;
+        }
+        
+        p, ul {
+            font-family: georgia, serif;
+            font-size: 14pt;
+            line-height: 1.45;
+        }
+        
+        a {
+            color: #1469ab;
+        }
+        
+        li {
+            margin-bottom: 20px;
+        }
+        
+        img.badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 0;
+        }
+        
+        ul#menu {
+            font-family: arial, sans-serif;
+            padding: 0;
+        }
+        
+        ul#menu li {
+            display: inline;
+            border: 1px solid #aaa;
+            background: #eee;
+            padding: 4px 8px;
+        }
+        
+        strong {
+            border-bottom: 1px solid #ccc;
+        }
+        
+        em {
+            background: #ffc;
+            font-style: normal;
+        }
+        
+        pre {
+            border: solid #aaa;
+            border-width: 1px 0;
+            background: #eeeeee;
+            padding: 20px 25px;
+        }
+        </style>
+	</head>
+	<body>
+        <div id="main">
+        <a href="http://github.com/stdbrouw/extendables"><img class="badge" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+            <img src="extendables.png" />
+            <ul id="menu">
+                <li><a href="">download</a></li>
+                <li><a href="">documentation</a></li>
+            </ul>
+            <p>Extendables is a developers' framework for Adobe ExtendScript. Writing heavy-duty automations for InDesign, or anything more than just a throwaway script? This is for you.</p>
+            <ul>
+                <li><strong>Javascript goodies</strong>: we've added in as much <em>features from Javascript 1.6+</em> as we could, like the <code>.forEach()</code> and <code>.filter()</code> methods on arrays.</li>
+                <li><strong>Helpful shortcuts</strong> make your code less verbose. We've monkeypatched a bunch of <em>additional methods on DOM objects</em> like <code>Document</code> and <code>XMLElement</code>.</li>
+                <li><strong>(Some) batteries included</strong>, like an HTTP library and a UI mini-framework.</li>
+                <li><strong>Keep your sanity</strong> with support for <em>logging and unit testing</em> (using the excellent <a href="http://pivotal.github.com/jasmine/">Jasmine</a> framework). And we've got <a href="http://wiki.commonjs.org/wiki/Modules/1.1.1">CommonJS-inspired</a> <em>namespaced modules</em>. Because namespaces are one honking great idea.</li>
+                <li><strong>Free as in freedom.</strong> Extendables comes with a very permissive MIT license. Feel free to use this framework in commercial closed-source projects — it's totally okay.</li>
+            </ul>
+            <p>Code looks a little bit like this:</p>
+            <p>
+                <pre><code>#include extendables.jsx
+                
+var http = require("http");
+var placer = require("autoplacer");
+
+var response = http.HttpRequest("http://www.example.org").toJSON();
+response.forEach(function (story, i) {
+    var page = current.doc.pages[i];
+    var master = current.doc.masters[0];
+    placer.place(story, page, master);
+});</code></pre>
+            </p>
+            <p>Check out the <a href="">documentation for developers</a>. <a href="">Porting existing scripts</a> is easy.</p>
+            <p><em>A few caveats.</em> Extendables is still pretty young. Any Creative Suite scripter will find a lot to like, but the framework was created with InDesign scripting in mind. There's a ton of potential cool stuff that's not in there right now. But maybe, just maybe, even in its current incarnation, it'll make coding in ExtendScript fun again.</p>
+        </div>
+	</body>
+</html>

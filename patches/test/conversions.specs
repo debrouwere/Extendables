@@ -19,12 +19,6 @@
     it('can base64-encode binary data', function () {
         expect('tested').toEqual(false);        
     });
-
-	it('can (de)serialize to and from JSON', function () {
-		alert({'hello': 'there'}.serialize('json'));
-		var obj = {'hello': 'there'}.serialize('json').deserialize('json');
-		expect(obj.has('hello')).toBeTruthy();
-	});
 });
 
 describe('Patches: object conversions', function () {

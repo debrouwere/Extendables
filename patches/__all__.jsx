@@ -5,10 +5,11 @@
 #include "error.jsx"
 #include "file.jsx"
 #include "date.jsx"
-#include "DOM/application.jsx"
+#include "math.jsx"
+#include "dom.application.jsx"
 if (!app.is("toolkit")) {
-	#include "DOM/suite.jsx"
+	#include "dom.suite.jsx"
 }
 if (app.is("indesign")) {
-	#include "DOM/indesign.jsx"
+	#include "dom.indesign.jsx"
 }

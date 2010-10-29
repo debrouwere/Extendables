@@ -1,5 +1,4 @@
 .DS_Store
-site-packages/*
 _experiments_
 doc/_build
 doc/jsdoc

@@ -312,6 +312,21 @@ Array.prototype.indexAfter = function (element) {
   };
 
 /**
+ * @desc Allows you to quickly pluck a single attribute from an array of objects.
+ *
+ * @example
+ *     > var people = [{'name': 'Alfred', age: 33}, {'name': 'Zed', age: 45}];
+ *     > people.pluck('age');
+ *     [33,45]
+ */
+
+Array.prototype.pluck = function (name) {
+	return this.map(function (item) {
+		return item[name];
+	});
+}
+
+/**
  * @desc Returns the maximum value in an array.
  *
  * @param {Function|String} [salient_feature] ``min`` can also order objects

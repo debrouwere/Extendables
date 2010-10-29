@@ -2,7 +2,8 @@
 Application methods
 ===================
 
-.. contents::
+.. code-block: extendscript
 
-.. include:: ../../patches/doc/jsdoc/_global_.rst
-   :start-after: class-methods
+    alert(app.is('indesign'));       // any version
+    alert(app.is('aftereffects', 4); // Creative Suite 2
+    alert(app.is('incopy', '6.0');   // Creative Suite 4.0

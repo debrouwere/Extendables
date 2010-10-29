@@ -25,8 +25,8 @@ Aside from high-level functions like ``get`` and ``post``, there's also a lower-
     req.timeout(10);
     $.writeln("Changing timeout from {} to {} seconds".format(timeout, 10));
     req.header("User-Agent", "My ExtendScript app");
-	var res = req.do();
-	$.writeln(res.status == 200)	
+    var res = req.do();
+    $.writeln(res.status == 200);	
     
 The ``Socket`` object is available in Adobe **Bridge**, Adobe **InDesign**, Adobe **InCopy**, Adobe **After Effects** and Adobe **Photoshop**, and you may also use it in the ExtendScript Toolkit. No luck for Illustrator fiends.
 
