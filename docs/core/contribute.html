@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Contribute &mdash; Extendables v0.2a documentation</title>
+    <title>Contribute &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,8 +22,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../index.html" />
-    <link rel="prev" title="Best practices" href="../best-practices.html" /> 
+    <link rel="top" title="Extendables v0.3b documentation" href="../index.html" />
+    <link rel="up" title="Core" href="index.html" />
+    <link rel="next" title="A roadmap" href="roadmap.html" />
+    <link rel="prev" title="Writing your own module for Extendables" href="writing-a-module.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,9 +35,13 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../best-practices.html" title="Best practices"
+          <a href="roadmap.html" title="A roadmap"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="writing-a-module.html" title="Writing your own module for Extendables"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Core</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -46,7 +52,90 @@
             
   <div class="section" id="contribute">
 <h1>Contribute<a class="headerlink" href="#contribute" title="Permalink to this headline">¶</a></h1>
-<p>todo</p>
+<p>You can contribute to Extendables simply by using the framework. The more people use the framework, the more bugs we&#8217;ll find and squash, and the more reliable the framework will thus become. If you encounter an issue, please run the test suite (so we have as much diagnostic information as possible) and report your issue using the GitHub issue tracker.</p>
+<p>Another way to contribute is by writing your own libraries and open-sourcing those. <a class="reference internal" href="writing-a-module.html#writing-a-module"><em>Learn more about writing your own modules.</em></a></p>
+<p>Last but not least, contributions — bugfixes, new code or documentation — to Extendables itself are much appreciated. You can check the issue tracker on GitHub to see open issues or feature requests, or you can implement new features by forking the repository on GitHub and doing a push request once you have something you want to push back into the main repository. Read on to learn more.</p>
+<div class="section" id="running-the-test-suite">
+<h2>Running the test suite<a class="headerlink" href="#running-the-test-suite" title="Permalink to this headline">¶</a></h2>
+<p>To run the test suite, open <tt class="docutils literal"><span class="pre">tools/testrunner.jsx</span></tt> in the ExtendScript Toolkit, and run the script. Test results will reside in Extendables&#8217; <tt class="docutils literal"><span class="pre">log</span></tt> directory.</p>
+</div>
+<div class="section" id="writing-documentation">
+<h2>Writing documentation<a class="headerlink" href="#writing-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Extendables uses the <a class="reference external" href="http://code.google.com/p/jsdoc-toolkit/">JSDoc toolkit</a> to autogenerate documentation, a toolkit template that outputs to <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> and finally the Sphinx documentation generator to bundle that automatically extracted documentation together with free-flowing documentation. The combination of JSDoc and Sphinx makes it possible to have documentation that serves as both a complete reference and a broader overview of how different components of the framework hang together and how best to use certain libraries.</p>
+<div class="section" id="jsdoc">
+<h3>JSDoc<a class="headerlink" href="#jsdoc" title="Permalink to this headline">¶</a></h3>
+<p>JSDoc is a special syntax for documenting Javascript code inline. It looks like this:</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * @desc Performs a POST request on the specified resource.</span>
+<span class="cm"> * @param {String} url The URL for the resource</span>
+<span class="cm"> * @param {Object|String} data Either an object, to be urlencoded by this function, or a string that</span>
+<span class="cm"> * will be passed along unchanged.</span>
+<span class="cm"> * @param {Object} [basic_auth] Basic authentication — any object with ``username`` and ``password``</span>
+<span class="cm"> * properties will do.</span>
+<span class="cm"> * @param {Number} [timeout=1] How long before the http client should give up.</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">post</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">basic_auth</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HTTPRequest</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="nx">url</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">_push</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">basic_auth</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSDoc syntax gets picked up by the JSDoc toolkit and from there finds its way into the Sphinx documentation. With JSDoc, it&#8217;s easier to keep code documentation in sync with the code — whenever you change an interface, change the associated inline documentation.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">A full JSDoc reference document is up at <a class="reference external" href="http://code.google.com/p/jsdoc-toolkit/wiki/TagReference">http://code.google.com/p/jsdoc-toolkit/wiki/TagReference</a>.</p>
+</div>
+</div>
+<div class="section" id="sphinx">
+<h3>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://sphinx.pocoo.org/">Sphinx</a> is a documentation generator originally out of the <a class="reference external" href="http://python.org/">Python</a> world, but with good support for documenting Javascript (and thus ExtendScript) projects.</p>
+<p>Sphinx works with reStructuredText. While its syntax can be a bit off-putting at first, it remains the best way to create beautiful documentation for software projects.</p>
+<p>Documentation for Sphinx lives at <a class="reference external" href="http://sphinx.pocoo.org/">http://sphinx.pocoo.org/</a></p>
+</div>
+<div class="section" id="what-goes-where">
+<h3>What goes where<a class="headerlink" href="#what-goes-where" title="Permalink to this headline">¶</a></h3>
+<p>The documentation to Extendables resides in the <tt class="docutils literal"><span class="pre">doc</span></tt> directory. Per <a class="reference external" href="http://wiki.commonjs.org/wiki/Packages/1.1#Package_Directory_Layout">the CommonJS specifications</a>, documentation for modules belongs in a <tt class="docutils literal"><span class="pre">doc</span></tt> dir under each module&#8217;s root directory, e.g. <tt class="docutils literal"><span class="pre">site-packages/http/doc/readme.rst</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="committing-and-making-a-new-build">
+<h2>Committing and making a new build<a class="headerlink" href="#committing-and-making-a-new-build" title="Permalink to this headline">¶</a></h2>
+<p>Making a new build takes a couple of steps:</p>
+<ul class="simple">
+<li>generating new autodocs</li>
+<li>generating new Sphinx docs</li>
+<li>committing any new files to the repository and deleting old ones</li>
+<li>building the documentation and committing it to the <tt class="docutils literal"><span class="pre">gh-pages</span></tt> branch</li>
+<li>finally pushing the new version to GitHub</li>
+</ul>
+<p>However, if you&#8217;re on a UNIX-compatible system — either Apple OS X or Microsoft Windows using an emulator like <a class="reference external" href="http://www.cygwin.com/">Cygwin</a> or <a class="reference external" href="http://www.mingw.org/">MinGW</a>), you can use <a class="reference external" href="http://docs.fabfile.org/">Fabric</a> to do one-click builds.</p>
+<div class="section" id="id2">
+<h3>Fabric<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://docs.fabfile.org/">Fabric</a> helps automate administrative tasks. Installing Fabric is outside the scope of this documentation. Once installed, open a command-line interface, navigate to the <tt class="docutils literal"><span class="pre">extendables</span></tt> directory and use <tt class="docutils literal"><span class="pre">fab</span> <span class="pre">--list</span></tt> to get an overview of all tasks you can execute.</p>
+<p>Notably, use <tt class="docutils literal"><span class="pre">fab</span> <span class="pre">docbuild</span></tt> to build both the autodocs and Sphinx docs, <tt class="docutils literal"><span class="pre">fab</span> <span class="pre">commit</span></tt> to commit to the Git repository and optionally push to the central repository at <a class="reference external" href="http://github.com/stdbrouw/Extendables">http://github.com/stdbrouw/Extendables</a> as well.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you know a little bit of Python, it&#8217;s easy to add new Fabric commands. Take a quick look at <tt class="docutils literal"><span class="pre">fabfile.py</span></tt> where all tasks are defined.</p>
+</div>
+</div>
+<div class="section" id="git-and-github">
+<h3>Git and GitHub<a class="headerlink" href="#git-and-github" title="Permalink to this headline">¶</a></h3>
+<p>Extendables is under revision control, using the excellent Git VCS. The central repository is over at <a class="reference external" href="http://github.com/stdbrouw/Extendables">http://github.com/stdbrouw/Extendables</a>. GitHub has <a class="reference external" href="http://help.github.com/">excellent help pages</a> that will get you started with both Git and GitHub.</p>
+<p>If you&#8217;re uncomfortable using Git, just use <tt class="docutils literal"><span class="pre">fab</span> <span class="pre">commit</span></tt> instead and it will guide you through the commit process.</p>
+</div>
+<div class="section" id="guidelines">
+<h3>Guidelines<a class="headerlink" href="#guidelines" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>versioning: <a class="reference external" href="http://semver.org/">semver spec</a>. Since we&#8217;re currently still in the experimental phase (version 0), semver places no restrictions on how we use version numbers, but this will become important once we graduate to version 1.</li>
+<li>In time, if necessary, we may adopt the <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">nvie branching strategy</a>.</li>
+<li>what belongs in the framework and core-packages, what should be a site-package, what should be a script; experimentation</li>
+<li>we don&#8217;t commit things that aren&#8217;t documented or tested &#8211; there&#8217;s no point having functionality in the framework if nobody knows it&#8217;s there or if it&#8217;s not dependable; though we will look at unfinished</li>
+<li>version control messages: see Django style guide</li>
+<li>keep commits as atomic as possible: smaller is better</li>
+<li>style guide: none yet; tbd</li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -55,9 +144,32 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contribute</a><ul>
+<li><a class="reference internal" href="#running-the-test-suite">Running the test suite</a></li>
+<li><a class="reference internal" href="#writing-documentation">Writing documentation</a><ul>
+<li><a class="reference internal" href="#jsdoc">JSDoc</a></li>
+<li><a class="reference internal" href="#sphinx">Sphinx</a></li>
+<li><a class="reference internal" href="#what-goes-where">What goes where</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#committing-and-making-a-new-build">Committing and making a new build</a><ul>
+<li><a class="reference internal" href="#id2">Fabric</a></li>
+<li><a class="reference internal" href="#git-and-github">Git and GitHub</a></li>
+<li><a class="reference internal" href="#guidelines">Guidelines</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../best-practices.html"
-                        title="previous chapter">Best practices</a></p>
+  <p class="topless"><a href="writing-a-module.html"
+                        title="previous chapter">Writing your own module for Extendables</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="roadmap.html"
+                        title="next chapter">A roadmap</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/core/contribute.txt"
@@ -87,9 +199,13 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../best-practices.html" title="Best practices"
+          <a href="roadmap.html" title="A roadmap"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="writing-a-module.html" title="Writing your own module for Extendables"
              >previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
+          <li><a href="index.html" >Core</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

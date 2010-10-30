@@ -38,6 +38,15 @@ Learn more:
     * Testing
 * About this project
 
+Installing a new Extendables module
+===================================
+
+Extendables comes with a bunch of built-in modules, but you can also `write your own <writing-a-module>`_ and install modules other people have contributed. Contributed modules are installed by simply downloading them and  putting them inside of ``extendables/site-packages``.
+
+.. note::
+
+    Because Extendables is so new, there are currently no contributed modules the author is aware of. However, even if you're not planning on open-sourcing any of your own work, it still makes sense to put code that you plan to reuse in different projects into its own module. Code in a module gets its own namespace and the package layout makes it easy to include documentation and unit tests alongside your code. Modules make it easy to keep track of library code and they keep a project directory from getting cluttered with files full of helper functions.
+
 Issues
 ======
 

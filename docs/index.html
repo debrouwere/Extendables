@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to Extendables’ documentation! &mdash; Extendables v0.2a documentation</title>
+    <title>Welcome to Extendables’ documentation! &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="#" />
+    <link rel="top" title="Extendables v0.3b documentation" href="#" />
     <link rel="next" title="ui: The UI framework" href="packages/ui/doc/readme.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="packages/ui/doc/readme.html" title="ui: The UI framework"
              accesskey="N">next</a> |</li>
-        <li><a href="#">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="#">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,21 +49,55 @@
 <p>Extendables is an <a class="reference internal" href="license.html#license"><em>MIT-licensed</em></a> developers&#8217; <strong>framework for Adobe ExtendScript</strong>. If you&#8217;re writing heavy-duty automations for a Creative Suite app like <strong>InDesign</strong>, or anything more than just a throwaway script, this is for you.</p>
 <p>Extendables comes with three big blocks of functionality.</p>
 <ol class="arabic simple">
-<li>Additional methods on built-in objects like String and Array that give you the <strong>Javascript 1.8 features</strong> you&#8217;re used to (think <tt class="docutils literal"><span class="pre">forEach</span></tt>), conveniences for functional programming (think <tt class="docutils literal"><span class="pre">map</span></tt>, <tt class="docutils literal"><span class="pre">reduce</span></tt>, <tt class="docutils literal"><span class="pre">filter</span></tt>), easy serialization to JSON or base64 and more.</li>
+<li>Additional methods on built-in objects like String and Array that give you the <strong>Javascript 1.8 features</strong> you&#8217;re used to (think <tt class="docutils literal"><span class="pre">forEach</span></tt>), conveniences for functional programming (think <tt class="docutils literal"><span class="pre">map</span></tt>, <tt class="docutils literal"><span class="pre">reduce</span></tt>, <tt class="docutils literal"><span class="pre">filter</span></tt>), easy serialization to base64 and more.</li>
 <li>Additional methods on InDesign DOM objects that make coding in InDesign <strong>less verbose</strong>.</li>
-<li>Packages for <strong>logging</strong>, <strong>unit testing</strong>, <strong>http</strong>, <strong>user interface development</strong>, and a couple of other goodies.</li>
+<li>Packages for <strong>logging</strong>, <strong>unit testing</strong>, <strong>http requests</strong>, <strong>user interface development</strong>, and a couple of other goodies.</li>
 </ol>
 <p>Include the framework in your code simply by including the <tt class="docutils literal"><span class="pre">extendables.jsx</span></tt> file. Code looks like this:</p>
-<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span><span class="p">;</span>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;../extendables.jsx&quot;</span><span class="p">;</span>
 
+<span class="c1">// namespaces, so there are no variables all over the place</span>
 <span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">();</span>
-<span class="nx">dialog</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;Hi there!&#39;</span><span class="p">).</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="s1">&#39;Close this please.&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">fetch_recipes</span> <span class="p">(</span><span class="nx">amount</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">http</span><span class="p">.</span><span class="nx">has_internet_access</span><span class="p">())</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;No internet, no recipes.&quot;</span><span class="p">);</span>
+	<span class="c1">// range returns an array containing the asked range of numbers, </span>
+	<span class="c1">// and each number gets mapped to / replaced by a recipe</span>
+	<span class="k">return</span> <span class="nb">Number</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">amount</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;http://whatthefuckshouldimakefordinner.com/&quot;</span><span class="p">);</span>
+		<span class="c1">// the first link on the page is a recipe; </span>
+		<span class="c1">// don&#39;t do this at home -- parsing html with</span>
+		<span class="c1">// regular expressions is evil</span>
+		<span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/&lt;a.+&gt;(.+)&lt;\/a&gt;/</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+	<span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// the UI library allows us to separate style from structure, </span>
+<span class="c1">// leading to cleaner code</span>
+<span class="kd">var</span> <span class="nx">styling</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="s1">&#39;big&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>
+		<span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s2">&quot;I&#39;m hungry&quot;</span><span class="p">).</span><span class="kd">with</span><span class="p">(</span><span class="nx">styling</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">suggestion</span> <span class="o">=</span> <span class="nx">dialog</span><span class="p">.</span><span class="nx">row</span><span class="p">(</span><span class="s1">&#39;suggestion&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;food&#39;</span><span class="p">,</span> <span class="s1">&#39;Want some food suggestions?&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;big&#39;</span><span class="p">).</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="s1">&#39;Sure thing!&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;No thanks&#39;</span><span class="p">);</span>
+
+<span class="c1">// event handlers, the easy way</span>
 <span class="nx">dialog</span><span class="p">.</span><span class="nx">ok</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="nx">dialog</span><span class="p">.</span><span class="nx">hello</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;Bye!&#39;</span><span class="p">;</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+	<span class="nx">dialog</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;Wait a sec, coming up!&quot;</span><span class="p">;</span>
+	<span class="nx">dialog</span><span class="p">.</span><span class="nx">food</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">fetch_recipes</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">first</span><span class="p">();</span>
+	<span class="nx">dialog</span><span class="p">.</span><span class="nx">ok</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="s2">&quot;Hmm...&quot;</span><span class="p">;</span>
 <span class="p">});</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">no</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+	<span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// let&#39;s show this dialog</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
 </pre></div>
 </div>
 <p>You&#8217;ll code more quickly and more reliably.</p>
@@ -78,7 +112,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="packages/ui/doc/readme.html"><tt class="docutils literal"><span class="pre">ui</span></tt>: The UI framework</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="packages/ui/doc/readme.html#creating-a-ui">Creating a UI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="packages/ui/doc/readme.html#why-use-this-instead-of-a-gui-designer">Why use this instead of a GUI designer?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/ui/doc/readme.html#what-s-wrong-with-a-gui-designer">What&#8217;s wrong with a GUI designer?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="packages/testing/doc/readme.html"><tt class="docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript</a><ul>
@@ -92,7 +126,11 @@
 <li class="toctree-l2"><a class="reference internal" href="packages/http/doc/readme.html#response-objects">Response objects</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="packages/logging/doc/readme.html"><tt class="docutils literal"><span class="pre">logging</span></tt>: a logging utility for ExtendScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages/logging/doc/readme.html"><tt class="docutils literal"><span class="pre">logging</span></tt>: a logging utility for ExtendScript</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="packages/logging/doc/readme.html#log-levels">Log levels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packages/logging/doc/readme.html#class-log">Class Log</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -101,15 +139,73 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="patches/index.html">DOM enhancements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="patches/application-specific/indesign.html">InDesign enhancements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/application-specific/indesign.html#xml-traversal">XML traversal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/application-specific/indesign.html#handy-helpers">Handy helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/application-specific/indesign.html#placing-library-assets">Placing library assets</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="patches/application.html">Application methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="patches/array.html">Array methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patches/array.html"><tt class="docutils literal"><span class="pre">Array</span></tt> methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#compact">compact</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#contains">contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#every">every</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#filter">filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#first">first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#flatten">flatten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#foreach">forEach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#indexafter">indexAfter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#indexof">indexOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#last">last</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#lastindexof">lastIndexOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#map">map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#max">max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#min">min</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#pluck">pluck</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#reduce">reduce</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#reduceright">reduceRight</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#reject">reject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#select">select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#some">some</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/array.html#sum">sum</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="patches/error.html">Error handling</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="patches/error.html#id1">Error methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/error.html#id1"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="patches/error.html#error-types">Error types</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="patches/object.html">Object methods</a></li>
-<li class="toctree-l2"><a class="reference internal" href="patches/string.html">String methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patches/file-and-folder.html"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/file-and-folder.html#class-file">Class File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/file-and-folder.html#class-folder">Class Folder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="patches/object.html"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#clone">clone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#deserialize">deserialize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#extend">extend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#has">has</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#has-own">has_own</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#is">is</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#keys">keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#merge">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#serialize">serialize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#to">to</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#to-console">to_console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/object.html#values">values</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="patches/string.html"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#contains">contains</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#endswith">endswith</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#format">format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#indexafter">indexAfter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#ltrim">ltrim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#rtrim">rtrim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#startswith">startswith</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/string.html#trim">trim</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -119,19 +215,13 @@
 <h2>More<a class="headerlink" href="#more" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="learning-extendscript.html">Learning ExtendScript</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="learning-extendscript.html#i-know-how-to-code">I know how to code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="learning-extendscript.html#i-m-new-to-programming">I&#8217;m new to programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core/writing-a-module.html">Writing your own module for Extendables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/contribute.html">Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/roadmap.html">A roadmap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/changes.html">Changelog</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="best-practices.html">Best practices</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="best-practices.html#organizing-a-project">Organizing a project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="best-practices.html#code-style">Code style</a></li>
-<li class="toctree-l2"><a class="reference internal" href="best-practices.html#how-to-do-error-handling">How to do error handling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="best-practices.html#patterns">Patterns</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="core/contribute.html">Contribute</a></li>
 </ul>
 </div>
 <p>You can also <a class="reference internal" href="search.html"><em>search through the docs</em></a>.</p>
@@ -194,7 +284,7 @@
         <li class="right" >
           <a href="packages/ui/doc/readme.html" title="ui: The UI framework"
              >next</a> |</li>
-        <li><a href="#">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="#">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

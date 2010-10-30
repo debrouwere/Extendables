@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Error handling &mdash; Extendables v0.2a documentation</title>
+    <title>Error handling &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../index.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../index.html" />
     <link rel="up" title="DOM enhancements" href="index.html" />
-    <link rel="next" title="Object methods" href="object.html" />
+    <link rel="next" title="File and Folder objects" href="file-and-folder.html" />
     <link rel="prev" title="Array methods" href="array.html" /> 
   </head>
   <body>
@@ -35,12 +35,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="object.html" title="Object methods"
+          <a href="file-and-folder.html" title="File and Folder objects"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="array.html" title="Array methods"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li>
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">DOM enhancements</a> &raquo;</li> 
       </ul>
     </div>  
@@ -53,20 +53,87 @@
   <div class="section" id="error-handling">
 <span id="error-methods"></span><h1><a class="toc-backref" href="#id2">Error handling</a><a class="headerlink" href="#error-handling" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2><a class="toc-backref" href="#id3">Error methods</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#error-handling" id="id2">Error handling</a><ul>
-<li><a class="reference internal" href="#id1" id="id3">Error methods</a></li>
-<li><a class="reference internal" href="#error-types" id="id4">Error types</a></li>
+<li><a class="reference internal" href="#id1" id="id3"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#factory" id="id4">factory</a></li>
+<li><a class="reference internal" href="#is" id="id5">is</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#error-types" id="id6">Error types</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="factory">
+<h3><a class="toc-backref" href="#id4">factory</a><a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Error.factory">
+<tt class="descclassname">Error.</tt><tt class="descname">factory</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Error.factory" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>String</em>) &#8211; Preferably the same name as the variable you&#8217;re associating the error with.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Use this classmethod to make sure your custom error types work
+just like the built-in ones.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">DatabaseError</span> <span class="o">=</span> <span class="nb">Error</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s2">&quot;DatabaseError&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="is">
+<h3><a class="toc-backref" href="#id5">is</a><a class="headerlink" href="#is" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Error#is">
+<tt class="descname">Error#is</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#Error#is" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> (<em>Constructor</em>) &#8211; Use the constructor itself, not a string or an instance.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false. Any error type matches the base class, so <tt class="docutils literal"><span class="pre">new</span> <span class="pre">SyntaxError().is(Error)</span></tt> would return <tt class="docutils literal"><span class="pre">true</span></tt>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This method overloads <a class="reference internal" href="object.html#Object#is" title="Object#is"><tt class="xref js js-func docutils literal"><span class="pre">Object#is()</span></tt></a> to combat a problem with some versions of ExtendScript
+that leads to all error types being considered the base class Error. This problem makes it impossible to
+do simple comparisons on errors, for example <tt class="docutils literal"><span class="pre">new</span> <span class="pre">EvalError()</span> <span class="pre">instanceof</span> <span class="pre">SyntaxError</span></tt>. The previous
+expression should return false but will return true.</p>
+<p>When testing whether you&#8217;re dealing with a specific kind of error, use this method, and refrain
+from using <tt class="docutils literal"><span class="pre">instanceof</span></tt>.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">error-handling</em> has some useful advice on how to handle errors in ExtendScript.</p>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">try</span> <span class="p">{</span>
+    <span class="nx">raise</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;This displays in case of a type error, but not in case of a syntax error.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="error-types">
-<h2><a class="toc-backref" href="#id4">Error types</a><a class="headerlink" href="#error-types" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Error types</a><a class="headerlink" href="#error-types" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">These errors are available in the global namespace. You don&#8217;t need to prefix them with <tt class="docutils literal"><span class="pre">errors</span></tt>.</p>
@@ -83,7 +150,11 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Error handling</a><ul>
-<li><a class="reference internal" href="#id1">Error methods</a></li>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#factory">factory</a></li>
+<li><a class="reference internal" href="#is">is</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#error-types">Error types</a></li>
 </ul>
 </li>
@@ -91,10 +162,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="array.html"
-                        title="previous chapter">Array methods</a></p>
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Array</span></tt> methods</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="object.html"
-                        title="next chapter">Object methods</a></p>
+  <p class="topless"><a href="file-and-folder.html"
+                        title="next chapter"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/patches/error.txt"
@@ -124,12 +195,12 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="object.html" title="Object methods"
+          <a href="file-and-folder.html" title="File and Folder objects"
              >next</a> |</li>
         <li class="right" >
           <a href="array.html" title="Array methods"
              >previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li>
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
           <li><a href="index.html" >DOM enhancements</a> &raquo;</li> 
       </ul>
     </div>

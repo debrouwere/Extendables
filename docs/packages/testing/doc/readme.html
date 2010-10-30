@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>testing: unit testing in ExtendScript &mdash; Extendables v0.2a documentation</title>
+    <title>testing: unit testing in ExtendScript &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../../../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../../../index.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../../../index.html" />
     <link rel="next" title="http: sending and receiving http requests" href="../../http/doc/readme.html" />
     <link rel="prev" title="ui: The UI framework" href="../../ui/doc/readme.html" /> 
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../ui/doc/readme.html" title="ui: The UI framework"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,7 +49,7 @@
           <div class="body">
             
   <div class="section" id="testing-unit-testing-in-extendscript">
-<h1><tt class="docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript<a class="headerlink" href="#testing-unit-testing-in-extendscript" title="Permalink to this headline">¶</a></h1>
+<span id="testing"></span><h1><tt class="docutils literal"><span class="pre">testing</span></tt>: unit testing in ExtendScript<a class="headerlink" href="#testing-unit-testing-in-extendscript" title="Permalink to this headline">¶</a></h1>
 <p>Extendables comes with <a class="reference external" href="http://pivotallabs.com/">Pivotal Labs</a>&#8216; excellent Jasmine unit-testing framework, ever-so-slightly modified to make it work with ExtendScript. Jasmine defines a very intuitive domain-specific language on top of Javascript:</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;Calculator&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span>
@@ -73,6 +73,7 @@
 </div>
 <div class="section" id="running-tests">
 <h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<img alt="../../../_images/unit-testing.png" src="../../../_images/unit-testing.png" />
 <p>You don&#8217;t need to use the Extendables test runner if you don&#8217;t want to, or if you want to test a script that isn&#8217;t a registered CommonJS module.</p>
 <p>Try this instead:</p>
 <div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span>
@@ -84,6 +85,10 @@
 </pre></div>
 </div>
 <p>HTML test results will reside under <tt class="docutils literal"><span class="pre">log</span></tt> in the Extendables project root.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While it&#8217;s usually not a good idea to extract an entire module into the global namespace, <tt class="docutils literal"><span class="pre">testing</span></tt> is the exception. It would be very tiresome to prefix every <tt class="docutils literal"><span class="pre">expect</span></tt>, <tt class="docutils literal"><span class="pre">it</span></tt>, <tt class="docutils literal"><span class="pre">describe</span></tt> etc. with a namespace, so we don&#8217;t. To avoid polluting the global namespace of our script, test runners and specs are usually a separate script, rather than part of the script itself.</p>
+</div>
 </div>
 </div>
 
@@ -142,7 +147,7 @@
         <li class="right" >
           <a href="../../ui/doc/readme.html" title="ui: The UI framework"
              >previous</a> |</li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

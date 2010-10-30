@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>DOM enhancements &mdash; Extendables v0.2a documentation</title>
+    <title>DOM enhancements &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,8 +22,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../index.html" />
-    <link rel="next" title="Application methods" href="application.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../index.html" />
+    <link rel="next" title="InDesign enhancements" href="application-specific/indesign.html" />
     <link rel="prev" title="logging: a logging utility for ExtendScript" href="../packages/logging/doc/readme.html" /> 
   </head>
   <body>
@@ -34,12 +34,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="application.html" title="Application methods"
+          <a href="application-specific/indesign.html" title="InDesign enhancements"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../packages/logging/doc/readme.html" title="logging: a logging utility for ExtendScript"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,17 +50,78 @@
             
   <div class="section" id="dom-enhancements">
 <h1>DOM enhancements<a class="headerlink" href="#dom-enhancements" title="Permalink to this headline">¶</a></h1>
+<p>While Extendables includes a number of enhancements to the DOM objects you&#8217;ll find in Adobe software, it works most of its magic at the Javascript level: it adds all kinds of methods to <tt class="docutils literal"><span class="pre">Array</span></tt>, <tt class="docutils literal"><span class="pre">String</span></tt>, <tt class="docutils literal"><span class="pre">Object</span></tt>, <tt class="docutils literal"><span class="pre">Function</span></tt> and other prototypes, allowing for more expressive code with less boilerplate.</p>
+<p>These helper methods range from <tt class="docutils literal"><span class="pre">obj.has(property)</span></tt> which checks whether an object contains a value for the specified property, to <tt class="docutils literal"><span class="pre">array.flatten()</span></tt> which flattens a nested array, to <tt class="docutils literal"><span class="pre">str.to('lower')</span></tt> which lowercases a string.</p>
+<p>Extendables contains a number of array methods for <a class="reference external" href="http://en.wikipedia.org/wiki/Functional_programming">functional programming</a> which come in handy when filtering and manipulating arrays.</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="application-specific/indesign.html">InDesign enhancements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application-specific/indesign.html#xml-traversal">XML traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-specific/indesign.html#handy-helpers">Handy helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application-specific/indesign.html#placing-library-assets">Placing library assets</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="application.html">Application methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="array.html">Array methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="array.html"><tt class="docutils literal"><span class="pre">Array</span></tt> methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="array.html#compact">compact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#contains">contains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#every">every</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#filter">filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#first">first</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#flatten">flatten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#foreach">forEach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#indexafter">indexAfter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#indexof">indexOf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#last">last</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#lastindexof">lastIndexOf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#map">map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#max">max</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#min">min</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#pluck">pluck</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#reduce">reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#reduceright">reduceRight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#reject">reject</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#select">select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#some">some</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array.html#sum">sum</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="error.html#id1">Error methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#id1"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="error.html#error-types">Error types</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="object.html">Object methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="string.html">String methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file-and-folder.html"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file-and-folder.html#class-file">Class File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file-and-folder.html#class-folder">Class Folder</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="object.html"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="object.html#clone">clone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#deserialize">deserialize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#extend">extend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#has">has</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#has-own">has_own</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#is">is</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#keys">keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#merge">merge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#serialize">serialize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#to">to</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#to-console">to_console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="object.html#values">values</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="string.html"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="string.html#contains">contains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#endswith">endswith</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#format">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#indexafter">indexAfter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#ltrim">ltrim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#rtrim">rtrim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#startswith">startswith</a></li>
+<li class="toctree-l2"><a class="reference internal" href="string.html#trim">trim</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -75,8 +136,8 @@
   <p class="topless"><a href="../packages/logging/doc/readme.html"
                         title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">logging</span></tt>: a logging utility for ExtendScript</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="application.html"
-                        title="next chapter">Application methods</a></p>
+  <p class="topless"><a href="application-specific/indesign.html"
+                        title="next chapter">InDesign enhancements</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/patches/index.txt"
@@ -106,12 +167,12 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="application.html" title="Application methods"
+          <a href="application-specific/indesign.html" title="InDesign enhancements"
              >next</a> |</li>
         <li class="right" >
           <a href="../packages/logging/doc/readme.html" title="logging: a logging utility for ExtendScript"
              >previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

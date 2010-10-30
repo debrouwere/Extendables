@@ -1,3 +1,5 @@
+.. _testing:
+
 =========================================
 ``testing``: unit testing in ExtendScript
 =========================================
@@ -30,6 +32,8 @@ A test suite is simply a Javascript file which calls ``describe``. Conventionall
 Running tests
 =============
 
+.. image:: unit-testing.png
+
 You don't need to use the Extendables test runner if you don't want to, or if you want to test a script that isn't a registered CommonJS module.
 
 Try this instead: 
@@ -44,3 +48,7 @@ Try this instead:
     // or alternatively: tests.to_console();
 
 HTML test results will reside under ``log`` in the Extendables project root.
+
+.. note::
+
+    While it's usually not a good idea to extract an entire module into the global namespace, ``testing`` is the exception. It would be very tiresome to prefix every ``expect``, ``it``, ``describe`` etc. with a namespace, so we don't. To avoid polluting the global namespace of our script, test runners and specs are usually a separate script, rather than part of the script itself.

@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting started with Extendables &mdash; Extendables v0.2a documentation</title>
+    <title>Getting started with Extendables &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="index.html" /> 
+    <link rel="top" title="Extendables v0.3b documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +31,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -48,6 +48,26 @@
 </div>
 <div class="section" id="first-steps">
 <h2>First steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="current">
+<h4>current<a class="headerlink" href="#current" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt>
+<tt class="descname">current</tt><big>(</big><em>item</em><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>item</strong> (<em>String</em>) &#8211; Can be any one of <tt class="docutils literal"><span class="pre">window</span></tt>, <tt class="docutils literal"><span class="pre">doc</span></tt>, <tt class="docutils literal"><span class="pre">page</span></tt> or <tt class="docutils literal"><span class="pre">spread</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <p>... now let&#8217;s see whether that worked.</p>
 <ul class="simple">
 <li>loading a package (e.g. http) and the concept of namespaces</li>
@@ -84,6 +104,16 @@
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="section" id="installing-a-new-extendables-module">
+<h2>Installing a new Extendables module<a class="headerlink" href="#installing-a-new-extendables-module" title="Permalink to this headline">¶</a></h2>
+<p>Extendables comes with a bunch of built-in modules, but you can also <a class="reference external" href="writing-a-module">write your own</a> and install modules other people have contributed. Contributed modules are installed by simply downloading them and  putting them inside of <tt class="docutils literal"><span class="pre">extendables/site-packages</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because Extendables is so new, there are currently no contributed modules the author is aware of. However, even if you&#8217;re not planning on open-sourcing any of your own work, it still makes sense to put code that you plan to reuse in different projects into its own module. Code in a module gets its own namespace and the package layout makes it easy to include documentation and unit tests alongside your code. Modules make it easy to keep track of library code and they keep a project directory from getting cluttered with files full of helper functions.</p>
+</div>
+</div>
 <div class="section" id="issues">
 <h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
 <p>Any issues or feature requests should be posted on <a class="reference external" href="http://github.com/stdbrouw/extendables/issues">our GitHub page</a>. You can also reach the maintainer at <a class="reference external" href="mailto:stijn&#37;&#52;&#48;stdout&#46;be">stijn<span>&#64;</span>stdout<span>&#46;</span>be</a>.</p>
@@ -100,7 +130,14 @@
   <ul>
 <li><a class="reference internal" href="#">Getting started with Extendables</a><ul>
 <li><a class="reference internal" href="#download">Download</a></li>
-<li><a class="reference internal" href="#first-steps">First steps</a></li>
+<li><a class="reference internal" href="#first-steps">First steps</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#current">current</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-a-new-extendables-module">Installing a new Extendables module</a></li>
 <li><a class="reference internal" href="#issues">Issues</a></li>
 </ul>
 </li>
@@ -134,7 +171,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,0 +1,63 @@
+
+
+
+
+
+
+..
+    Classes and methods
+
+Built-In Namespace _global_
+================================================================================
+
+..
+   class-title
+
+
+
+
+Methods
+-------
+
+..
+   class-methods
+
+
+ByteString
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: ByteString(input)
+
+
+    
+    :param String|Array input: 
+        Accepts either a plain string or a byte array; 
+    
+
+
+
+
+provides ByteString / ByteArray functionality for ExtendScript.
+Handy when handling HTTP responses: UTF-8 can be multi-byte, but
+the content-length header is always passed along as the number of octals, 
+not the number of characters.
+
+Be aware that the implementation is not particularly fast: it takes
+about 75 milliseconds to process a 1000 character string.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+

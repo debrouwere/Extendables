@@ -1,0 +1,477 @@
+
+
+
+
+
+
+..
+    Classes and methods
+
+Class HTTPRequest
+================================================================================
+
+..
+   class-title
+
+
+An incomplete but "good enough" implementation of the hypertext transfer protocol
+for the client side. This is a lower-level interface. It feeds the :func:`get`, :func:`head`, 
+:func:`post`, :func:`put` and :func:`del` convenience functions.
+
+Supports:
+
+* most HTTP methods: ``GET``, ``HEAD``, ``POST``, ``PUT``, ``DELETE``
+* persistent connections
+* chunked responses
+* redirects
+
+Soon:
+
+* focus on reliability, more tests
+* basic authentication
+
+Most likely never: 
+
+* digest authentication
+* cookies
+* proxies
+* caching / 304 Not Modified
+
+HTTPRequest objects are entirely getter/setter-based, so e.g. use ``req.method()``
+to get the current request method, and use ``req.method("POST")`` to change the 
+request method.
+
+
+
+
+
+
+
+
+    
+
+Examples
+--------
+
+
+.. code-block:: javascript
+
+    var http = require("http");
+     var example = "http://www.example.com"
+     var response = http.HTTPRequest("GET", example);
+     if (response.status == 200) {
+         $.writeln(response.body);
+     } else {
+         $.writeln("Couldn't fetch {}".format(example));
+     }
+
+
+
+Constructor
+-----------
+
+.. js:class:: HTTPRequest([method], url, [timeout])
+
+
+    
+    :param String method: 
+         
+    
+    :param String url: 
+         
+    
+    :param Number timeout: 
+         
+    
+
+
+
+
+
+
+
+Methods
+-------
+
+..
+   class-methods
+
+
+content
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#content(data)
+
+
+    
+    :param  data: 
+         
+    
+
+
+
+
+Any content to send along with a ``PUT`` or ``POST`` request.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+do
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#do()
+
+
+
+
+    
+    :returns Object:
+        Returns a :func:`HTTPResponse` object. 
+    
+
+
+Executes the request.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+encoding
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#encoding(encoding)
+
+
+    
+    :param  encoding: 
+         
+    
+
+
+
+
+The character encoding in which to send this request, which is also the preferred response encoding.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+follow_redirects
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#follow_redirects(value)
+
+
+    
+    :param  value: 
+         
+    
+
+
+
+
+Whether to follow redirects when requesting a resource. By default, true for GET and HEAD requests, false for POST and PUT requests.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+header
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#header(name, value)
+
+
+    
+    :param  name: 
+         
+    
+    :param  value: 
+         
+    
+
+
+
+
+Get or set a single header.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+headers
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#headers(hash)
+
+
+    
+    :param Object hash: 
+        A key-value object. Replaces all existing headers.
+Use the ``header`` method instead when fetching or changing a single header. 
+    
+
+
+
+
+The headers for this request.
+By default, these headers are included: 
+User-Agent
+    InDesign ExtendScript
+Accept
+	*\/*
+Connection
+	close
+
+
+
+
+
+
+
+
+
+    
+
+
+
+max_redirects
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#max_redirects(value)
+
+
+    
+    :param  value: 
+         
+    
+
+
+
+
+How much redirects the http client should follow before giving up. 5 redirects by default.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+method
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#method(type)
+
+
+    
+    :param  type: 
+         
+    
+
+
+
+
+The request method. One of ``GET``, ``HEAD``, ``POST``, ``PUT`` or ``DELETE``. ``GET`` by default.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+persistent
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#persistent(value)
+
+
+    
+    :param  value: 
+         
+    
+
+
+
+
+Whether to establish a persistent connection. False by default, and best left that way.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+port
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#port(number)
+
+
+    
+    :param  number: 
+         
+    
+
+
+
+
+The server port the request should be directed to.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+timeout
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#timeout(duration)
+
+
+    
+    :param  duration: 
+         
+    
+
+
+
+
+How long before the http client should give up the request. 5 seconds by default.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+url
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: HTTPRequest#url(url)
+
+
+    
+    :param  url: 
+         
+    
+
+
+
+
+The resource to request
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+Attributes
+----------
+
+..
+   class-attributes
+
+
+auth
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:attribute:: auth   
+
+
+Basic authentication
+
+
+
+
+
+
+
+
+    
+
+
+
+
+

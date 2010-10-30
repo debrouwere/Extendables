@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>String methods &mdash; Extendables v0.2a documentation</title>
+    <title>String methods &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../index.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../index.html" />
     <link rel="up" title="DOM enhancements" href="index.html" />
-    <link rel="next" title="Learning ExtendScript" href="../learning-extendscript.html" />
+    <link rel="next" title="Core" href="../core/index.html" />
     <link rel="prev" title="Object methods" href="object.html" /> 
   </head>
   <body>
@@ -35,12 +35,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../learning-extendscript.html" title="Learning ExtendScript"
+          <a href="../core/index.html" title="Core"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="object.html" title="Object methods"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li>
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">DOM enhancements</a> &raquo;</li> 
       </ul>
     </div>  
@@ -51,13 +51,228 @@
           <div class="body">
             
   <div class="section" id="string-methods">
-<h1><a class="toc-backref" href="#id1">String methods</a><a class="headerlink" href="#string-methods" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id1"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a><a class="headerlink" href="#string-methods" title="Permalink to this headline">¶</a></h1>
 <p>Extendables provides a number of additional string munging and manipulation methods for <cite>String</cite> objects. Most of these will look familiar if you&#8217;ve coded in other languages before.</p>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#string-methods" id="id1">String methods</a></li>
+<li><a class="reference internal" href="#string-methods" id="id1"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#contains" id="id2">contains</a></li>
+<li><a class="reference internal" href="#endswith" id="id3">endswith</a></li>
+<li><a class="reference internal" href="#format" id="id4">format</a></li>
+<li><a class="reference internal" href="#indexafter" id="id5">indexAfter</a></li>
+<li><a class="reference internal" href="#ltrim" id="id6">ltrim</a></li>
+<li><a class="reference internal" href="#rtrim" id="id7">rtrim</a></li>
+<li><a class="reference internal" href="#startswith" id="id8">startswith</a></li>
+<li><a class="reference internal" href="#trim" id="id9">trim</a></li>
 </ul>
+</li>
+</ul>
+</div>
+<div class="section" id="contains">
+<h2><a class="toc-backref" href="#id2">contains</a><a class="headerlink" href="#contains" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#contains">
+<tt class="descname">String#contains</tt><big>(</big><em>substring</em><big>)</big><a class="headerlink" href="#String#contains" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>substring</strong> (<em>String</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Tests whether the string contains the specified substring.
+This is equal to <tt class="docutils literal"><span class="pre">str.indexOf(substring)</span> <span class="pre">!=</span> <span class="pre">-1</span></tt>.</p>
+</div>
+<div class="section" id="endswith">
+<h2><a class="toc-backref" href="#id3">endswith</a><a class="headerlink" href="#endswith" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#endswith">
+<tt class="descname">String#endswith</tt><big>(</big><em>substring</em><big>)</big><a class="headerlink" href="#String#endswith" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>substring</strong> (<em>String</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Tests whether the string ends with the specified substring.</p>
+</div>
+<div class="section" id="format">
+<h2><a class="toc-backref" href="#id4">format</a><a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#format">
+<tt class="descname">String#format</tt><big>(</big><em>replacements</em><big>)</big><a class="headerlink" href="#String#format" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>replacements</strong> (<em>String</em>) &#8211; For each <strong>{}</strong> symbol in the text, <tt class="docutils literal"><span class="pre">format</span></tt> expects a replacement argument.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Calls <cite>.toString()</cite> on each replacement, so you can pass in any data type.</p>
+<blockquote>
+You may also specify a single replacement object, which will do named formatting.</blockquote>
+</dd></dl>
+
+<p>This is a simple string formatting method, loosely inspired on the one in Python 3.</p>
+<ul class="simple">
+<li>In unnamed mode, specify placeholders with the <strong>{}</strong> symbol.</li>
+<li>In named mode, specify placeholders with <strong>{propname}</strong>.</li>
+</ul>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;salutation&#39;</span><span class="o">:</span> <span class="s1">&#39;mister&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">};</span>
+<span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="s2">&quot;Hello there, {}, I&#39;ve heard your name is {}!&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">salutation</span><span class="p">,</span> <span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="o">&gt;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">hello</span><span class="p">);</span>
+<span class="s2">&quot;Hello there, mister, I&#39;ve heard your name is John Smith&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;salutation&#39;</span><span class="o">:</span> <span class="s1">&#39;mister&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">};</span>
+<span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="s2">&quot;Hello there, {salutation}, I&#39;ve heard your name is {name}!&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">person</span><span class="p">);</span>
+<span class="o">&gt;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">hello</span><span class="p">);</span>
+<span class="s2">&quot;Hello there, mister, I&#39;ve heard your name is John Smith&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="indexafter">
+<h2><a class="toc-backref" href="#id5">indexAfter</a><a class="headerlink" href="#indexafter" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#indexAfter">
+<tt class="descname">String#indexAfter</tt><big>(</big><em>substring</em><big>)</big><a class="headerlink" href="#String#indexAfter" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>substring</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Does what it says.
+Does not check whether the string actually extends beyond the the substring.</p>
+</div>
+<div class="section" id="ltrim">
+<h2><a class="toc-backref" href="#id6">ltrim</a><a class="headerlink" href="#ltrim" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#ltrim">
+<tt class="descname">String#ltrim</tt><big>(</big><span class="optional">[</span><em>character</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#String#ltrim" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>character</strong> (<em>String</em>) &#8211; if specified, removes leading characters matching the parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>instead of whitespace.</p>
+<p>Removes leading whitespace characters, including tabs, line endings and the like.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;   hello there   &quot;</span><span class="p">.</span><span class="nx">trim</span><span class="p">());</span>
+<span class="s2">&quot;hello there   &quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rtrim">
+<h2><a class="toc-backref" href="#id7">rtrim</a><a class="headerlink" href="#rtrim" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#rtrim">
+<tt class="descname">String#rtrim</tt><big>(</big><span class="optional">[</span><em>character</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#String#rtrim" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>character</strong> (<em>String</em>) &#8211; if specified, removes trailing characters matching the parameter</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>instead of whitespace.</p>
+<p>Removes trailing whitespace characters, including tabs, line endings and the like.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;   hello there   &quot;</span><span class="p">.</span><span class="nx">trim</span><span class="p">());</span>
+<span class="s2">&quot;   hello there&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="startswith">
+<h2><a class="toc-backref" href="#id8">startswith</a><a class="headerlink" href="#startswith" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#startswith">
+<tt class="descname">String#startswith</tt><big>(</big><em>substring</em><big>)</big><a class="headerlink" href="#String#startswith" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>substring</strong> (<em>String</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Tests whether the string starts with the specified substring.</p>
+</div>
+<div class="section" id="trim">
+<h2><a class="toc-backref" href="#id9">trim</a><a class="headerlink" href="#trim" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="String#trim">
+<tt class="descname">String#trim</tt><big>(</big><span class="optional">[</span><em>character</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#String#trim" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>character</strong> (<em>String</em>) &#8211; if specified, removes leading and trailing characters matching the</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>parameter instead of whitespace.</p>
+<p>Removes leading and trailing whitespace characters, including tabs, line endings and the like.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;   hello there   &quot;</span><span class="p">.</span><span class="nx">trim</span><span class="p">());</span>
+<span class="s2">&quot;hello there&quot;</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -67,12 +282,27 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#contains">contains</a></li>
+<li><a class="reference internal" href="#endswith">endswith</a></li>
+<li><a class="reference internal" href="#format">format</a></li>
+<li><a class="reference internal" href="#indexafter">indexAfter</a></li>
+<li><a class="reference internal" href="#ltrim">ltrim</a></li>
+<li><a class="reference internal" href="#rtrim">rtrim</a></li>
+<li><a class="reference internal" href="#startswith">startswith</a></li>
+<li><a class="reference internal" href="#trim">trim</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="object.html"
-                        title="previous chapter">Object methods</a></p>
+                        title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">Object</span></tt> methods</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../learning-extendscript.html"
-                        title="next chapter">Learning ExtendScript</a></p>
+  <p class="topless"><a href="../core/index.html"
+                        title="next chapter">Core</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/patches/string.txt"
@@ -102,12 +332,12 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../learning-extendscript.html" title="Learning ExtendScript"
+          <a href="../core/index.html" title="Core"
              >next</a> |</li>
         <li class="right" >
           <a href="object.html" title="Object methods"
              >previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.2a documentation</a> &raquo;</li>
+        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
           <li><a href="index.html" >DOM enhancements</a> &raquo;</li> 
       </ul>
     </div>

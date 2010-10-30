@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ui: The UI framework &mdash; Extendables v0.2a documentation</title>
+    <title>ui: The UI framework &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../../../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../../../index.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../../../index.html" />
     <link rel="next" title="testing: unit testing in ExtendScript" href="../../testing/doc/readme.html" />
     <link rel="prev" title="Welcome to Extendables’ documentation!" href="../../../index.html" /> 
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../../index.html" title="Welcome to Extendables’ documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,33 +53,35 @@
 <div class="section" id="creating-a-ui">
 <h2>Creating a UI<a class="headerlink" href="#creating-a-ui" title="Permalink to this headline">¶</a></h2>
 <p>It&#8217;s easiest to get acquainted with the UI mini-framework through an example. Here&#8217;s what a finished interface may look like:</p>
-<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;../extendables.jsx&quot;</span>
 
 <span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
 
 <span class="cm">/* stylings */</span>
 <span class="kd">var</span> <span class="nx">mixins</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;centered&#39;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-            <span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;square&#39;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">]</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s1">&#39;helpTip&#39;</span><span class="o">:</span> <span class="s1">&#39;clickerdy click&#39;</span><span class="p">,</span>
-    <span class="p">},</span>
-    <span class="s1">&#39;button&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;centered&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">]</span>
+	<span class="s1">&#39;centered&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+		<span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
+	<span class="p">},</span>
+	<span class="s1">&#39;square&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">]</span>
+	<span class="p">},</span>
+	<span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;helpTip&#39;</span><span class="o">:</span> <span class="s1">&#39;clickerdy click&#39;</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="s1">&#39;button&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;centered&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">]</span>
 <span class="p">};</span>
 
 <span class="cm">/* structure */</span>
 <span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s1">&#39;A friendly welcome&#39;</span><span class="p">).</span><span class="kd">with</span><span class="p">(</span><span class="nx">mixins</span><span class="p">);</span>
-<span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;centered&#39;</span><span class="p">).</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
+	<span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;centered&#39;</span><span class="p">)</span>
+	<span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
 
 
-<span class="cm">/* event handlers */</span>
+<span class="cm">/* event handlers */</span>   
 <span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+	<span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
 <span class="p">});</span>
 
 <span class="nx">dialog</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
@@ -97,68 +99,176 @@
 <p>Let&#8217;s build this example up from scratch.</p>
 <div class="section" id="creating-an-interface">
 <h3>Creating an interface<a class="headerlink" href="#creating-an-interface" title="Permalink to this headline">¶</a></h3>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">todo</p>
+<p>First, we need to call the UI library, using <tt class="xref js js-func docutils literal"><span class="pre">require()</span></tt>, and create a dialog. Dialogs usually come with a title, in this case <tt class="docutils literal"><span class="pre">A</span> <span class="pre">friendly</span> <span class="pre">welcome</span></tt>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s1">&#39;A friendly welcome&#39;</span><span class="p">);</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="adding-controls">
-<h3>Adding controls<a class="headerlink" href="#adding-controls" title="Permalink to this headline">¶</a></h3>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">todo</p>
+<div class="section" id="adding-controls-and-groups">
+<h3>Adding controls and groups<a class="headerlink" href="#adding-controls-and-groups" title="Permalink to this headline">¶</a></h3>
+<p>Once we&#8217;ve created our bare dialog, we should add some controls. It&#8217;s often best to add controls under a group. A group can be either a <tt class="docutils literal"><span class="pre">column</span></tt>, a <tt class="docutils literal"><span class="pre">row</span></tt> or a <tt class="docutils literal"><span class="pre">stack</span></tt>. Here, we arrange the controls in a column.</p>
+<p>For each control, specify a variable name and the text it should display, if any. We add a variable name so we can reference each individual control later on, in case we want to add some events or change things around.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>It&#8217;s best not to construct an entire layout on a single line. Javascript can handle line breaks in between chained method calls just fine, and it makes things more readable.</p>
+<p>We can chain controls together, like we did above, but we could also specify each control individually, or a couple at a time. If we do so, we can make use of the fact that each control is assigned to a variable. In this case, our column is available through <tt class="docutils literal"><span class="pre">dialog.stuff</span></tt>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">);</span>
+</pre></div>
 </div>
 <div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">You&#8217;ll find a reference of all element types (button, dropdown, etc.) and group types (row, column, stack) at <a class="reference internal" href="reference.html#ui-reference"><em>ui reference</em></a></p>
 </div>
 </div>
-<div class="section" id="adding-groups">
-<h3>Adding groups<a class="headerlink" href="#adding-groups" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>also show how accessing elements through the UI object works</li>
-</ul>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">todo</p>
-</div>
-</div>
 <div class="section" id="adding-element-properties-and-styling">
 <h3>Adding element properties and styling<a class="headerlink" href="#adding-element-properties-and-styling" title="Permalink to this headline">¶</a></h3>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">todo</p>
+<p>At this point, we&#8217;ll want to style our dialog a bit, so it looks a bit nicer.</p>
+<p>Styles are specified with what we call <tt class="docutils literal"><span class="pre">mixins</span></tt> because they are properties that we&#8217;ll <em>mix</em> in with our control objects. Each style has a name.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">mixins</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;centered&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+            <span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;helpTip&#39;</span><span class="o">:</span> <span class="s1">&#39;clickerdy click&#39;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
 </div>
+<p>Mixin properties correspond one-to-one with properties that are available on the control element you wish to style. For example, each ScriptUI <tt class="docutils literal"><span class="pre">Button</span></tt> object, and most other controls for that matter, have a <tt class="docutils literal"><span class="pre">size</span></tt> property, and we can change that size by adding an array of the form <tt class="docutils literal"><span class="pre">[width,</span> <span class="pre">height]</span></tt> to one of our mixins.</p>
+<p>Of course, we still have to apply those styles to the controls we want to style.</p>
+<p>First, we need to signal our dialog that we have a couple of mixins we&#8217;d like to use to style the dialog. That&#8217;s done using the <tt class="docutils literal"><span class="pre">with</span></tt> method on our dialog, when we create it. So let&#8217;s revise our code as follows:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
+
+<span class="cm">/* styles */</span>
+<span class="kd">var</span> <span class="nx">mixins</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;centered&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+            <span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s1">&#39;helpTip&#39;</span><span class="o">:</span> <span class="s1">&#39;clickerdy click&#39;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s1">&#39;A friendly welcome&#39;</span><span class="p">).</span><span class="kd">with</span><span class="p">(</span><span class="nx">mixins</span><span class="p">);</span>
+
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now, all that&#8217;s left to do, is applying the mixins we defined earlier to control elements of our choosing. We can apply a mixin with the <tt class="docutils literal"><span class="pre">using</span></tt> method.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;centered&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="combinations-of-mixins">
+<h3>Combinations of mixins<a class="headerlink" href="#combinations-of-mixins" title="Permalink to this headline">¶</a></h3>
+<p>It&#8217;s also possible to create styles that are a combination of other styles. Style combinations can make your layout definition less verbose. If we apply <tt class="docutils literal"><span class="pre">button</span></tt> to a control, it&#8217;ll receive both the styles from <tt class="docutils literal"><span class="pre">centered</span></tt> and those from <tt class="docutils literal"><span class="pre">help</span></tt>.</p>
+</div>
+<div class="section" id="why-use-mixins">
+<h3>Why use mixins?<a class="headerlink" href="#why-use-mixins" title="Permalink to this headline">¶</a></h3>
+<p>The follow code snippets are equal:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// with plain assignment...</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">welcome</span><span class="p">.</span><span class="nx">size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">];</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">welcome</span><span class="p">.</span><span class="nx">justify</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span><span class="p">;</span>
+
+<span class="c1">// ... or using a mixin</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">welcome</span><span class="p">.</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;centered&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Mixins are handy because they make it possible to re-use a certain style for different control objects, without having to type the same assignments over and over again.</p>
+<p>Just as important, mixins allow us to define how we want to style our dialog entirely separate from how it&#8217;s structured and which controls it contains. This separation will make your code easier to understand.</p>
 </div>
 <div class="section" id="adding-event-listeners">
 <h3>Adding event listeners<a class="headerlink" href="#adding-event-listeners" title="Permalink to this headline">¶</a></h3>
-<p>Add an event listener with:</p>
+<p>We&#8217;ve created a little dialog now. At the very least, we want to be able to close that dialog. We can do that by adding an event listener that jumps into action when we click the OK! button.</p>
+<p>As a quick reminder: control elements are accessible through the first argument specified on their construction. The button in <tt class="docutils literal"><span class="pre">dialog.row('a_row').button('a_button',</span> <span class="pre">'Click</span> <span class="pre">here);</span></tt> is accessed through <tt class="docutils literal"><span class="pre">dialog.a_row.a_button</span></tt>. Earlier, we gave our OK! button the name <tt class="docutils literal"><span class="pre">confirm</span></tt>, and placed it under the <tt class="docutils literal"><span class="pre">stuff</span></tt> column, so we&#8217;ll access that control element with <tt class="docutils literal"><span class="pre">dialog.stuff.confirm</span></tt>.</p>
 <div class="highlight-extendscript"><div class="highlight"><pre><span class="c1">// add an event, Extendables-style</span>
-<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">event_type</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="nx">handler</span><span class="p">)</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">event_type</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="nx">handler</span><span class="p">);</span>
 
 <span class="c1">// but you can still add an event the old way, if you prefer</span>
-<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">event_type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">event_type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">);</span>
 
 <span class="c1">// here&#39;s a practical example</span>
 <span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-<span class="p">})</span>
+<span class="p">});</span>
 </pre></div>
 </div>
 <p>Avoid adding an event handler through <tt class="docutils literal"><span class="pre">control.onClick</span> <span class="pre">=</span> <span class="pre">handler</span></tt>; it will push any previous handlers on the control.</p>
-<p>As a quick reminder: control elements are accessible through the first argument specified on their construction. The button in <tt class="docutils literal"><span class="pre">dialog.row('a_row').button('a_button',</span> <span class="pre">'Click</span> <span class="pre">here);</span></tt> is accessed through <tt class="docutils literal"><span class="pre">dialog.a_row.a_button</span></tt>.</p>
 <div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">You&#8217;ll find a reference of all event types (click, mouseover etc.) at <a class="reference internal" href="reference.html#ui-reference"><em>ui reference</em></a></p>
 </div>
 </div>
+<div class="section" id="putting-everything-together">
+<h3>Putting everything together<a class="headerlink" href="#putting-everything-together" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ve</p>
+<blockquote>
+<ul class="simple">
+<li>created a dialog</li>
+<li>added a column group and a couple of controls</li>
+<li>specified some mixins which specify how we want to style something</li>
+<li>added those mixins to the dialog (<tt class="docutils literal"><span class="pre">dialog.with</span></tt>) and applied them
+to a couple of elements (<tt class="docutils literal"><span class="pre">control.using</span></tt>)</li>
+<li>added an event to a button, so we can close our dialog</li>
+</ul>
+</blockquote>
+<p>There&#8217;s one last thing: we still need to show our dialog. Add <tt class="docutils literal"><span class="pre">dialog.window.show()</span></tt> to the bottom of your script, and we&#8217;re done.</p>
+<p>The end result is the code we showed at the top of this page:</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;../extendables.jsx&quot;</span>
+
+<span class="kd">var</span> <span class="nx">ui</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ui&quot;</span><span class="p">);</span>
+
+<span class="cm">/* stylings */</span>
+<span class="kd">var</span> <span class="nx">mixins</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="s1">&#39;centered&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+		<span class="s1">&#39;justify&#39;</span><span class="o">:</span> <span class="s1">&#39;center&#39;</span>
+	<span class="p">},</span>
+	<span class="s1">&#39;square&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;size&#39;</span><span class="o">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">120</span><span class="p">]</span>
+	<span class="p">},</span>
+	<span class="s1">&#39;help&#39;</span><span class="o">:</span> <span class="p">{</span>
+		<span class="s1">&#39;helpTip&#39;</span><span class="o">:</span> <span class="s1">&#39;clickerdy click&#39;</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="s1">&#39;button&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;centered&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="cm">/* structure */</span>
+<span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s1">&#39;A friendly welcome&#39;</span><span class="p">).</span><span class="kd">with</span><span class="p">(</span><span class="nx">mixins</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">column</span><span class="p">(</span><span class="s1">&#39;stuff&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
+	<span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span> <span class="s1">&#39;hello there&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;centered&#39;</span><span class="p">)</span>
+	<span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;confirm&#39;</span><span class="p">,</span> <span class="s1">&#39;OK!&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;button&#39;</span><span class="p">);</span>
+
+
+<span class="cm">/* event handlers */</span>   
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">stuff</span><span class="p">.</span><span class="nx">confirm</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="nx">dialog</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+</pre></div>
 </div>
-<div class="section" id="why-use-this-instead-of-a-gui-designer">
-<h2>Why use this instead of a GUI designer?<a class="headerlink" href="#why-use-this-instead-of-a-gui-designer" title="Permalink to this headline">¶</a></h2>
-<p>Software like Steven Bryant&#8217;s <a class="reference external" href="http://scriptui.com/">Rapid ScriptUI</a> or the <a class="reference external" href="http://www.scriptuibuilder.com/">ScriptUI Interface Builder</a> gives you a nice graphical interface in which you can build ScriptUI user interfaces. If a graphical approach is what you prefer, by all means, stick with it. However:</p>
+<p>You&#8217;ll find this exact script in <tt class="docutils literal"><span class="pre">extendables/examples/ui.jsx</span></tt>. You can copy-paste this file elsewhere and use it as a starting point to learn more about creating user interfaces with the Extendables UI library.</p>
+</div>
+</div>
+<div class="section" id="what-s-wrong-with-a-gui-designer">
+<h2>What&#8217;s wrong with a GUI designer?<a class="headerlink" href="#what-s-wrong-with-a-gui-designer" title="Permalink to this headline">¶</a></h2>
+<p>Software like Steven Bryant&#8217;s <a class="reference external" href="http://scriptui.com/">Rapid ScriptUI</a> or the <a class="reference external" href="http://www.scriptuibuilder.com/">ScriptUI Interface Builder</a> give you a nice graphical interface in which to build a ScriptUI user interface. If a graphical approach is what you prefer, by all means, stick to it. However:</p>
 <ol class="arabic simple">
-<li>When you need to make a UI programmatically, these tools won&#8217;t help.</li>
-<li>These tools fix a symptom (ScriptUI coding is very verbose and sometimes tough), this one fixes the problem.</li>
+<li>When you need to make a UI programmatically, GUI builders won&#8217;t help.</li>
+<li>GUI builders fix a symptom (ScriptUI coding is very verbose and sometimes tough), our approach fixes the problem.</li>
 </ol>
 </div>
 </div>
@@ -174,13 +284,15 @@
 <li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">ui</span></tt>: The UI framework</a><ul>
 <li><a class="reference internal" href="#creating-a-ui">Creating a UI</a><ul>
 <li><a class="reference internal" href="#creating-an-interface">Creating an interface</a></li>
-<li><a class="reference internal" href="#adding-controls">Adding controls</a></li>
-<li><a class="reference internal" href="#adding-groups">Adding groups</a></li>
+<li><a class="reference internal" href="#adding-controls-and-groups">Adding controls and groups</a></li>
 <li><a class="reference internal" href="#adding-element-properties-and-styling">Adding element properties and styling</a></li>
+<li><a class="reference internal" href="#combinations-of-mixins">Combinations of mixins</a></li>
+<li><a class="reference internal" href="#why-use-mixins">Why use mixins?</a></li>
 <li><a class="reference internal" href="#adding-event-listeners">Adding event listeners</a></li>
+<li><a class="reference internal" href="#putting-everything-together">Putting everything together</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#why-use-this-instead-of-a-gui-designer">Why use this instead of a GUI designer?</a></li>
+<li><a class="reference internal" href="#what-s-wrong-with-a-gui-designer">What&#8217;s wrong with a GUI designer?</a></li>
 </ul>
 </li>
 </ul>
@@ -225,7 +337,7 @@
         <li class="right" >
           <a href="../../../index.html" title="Welcome to Extendables’ documentation!"
              >previous</a> |</li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

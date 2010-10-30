@@ -1,0 +1,236 @@
+
+
+
+
+
+
+..
+    Classes and methods
+
+Built-In Namespace _global_
+================================================================================
+
+..
+   class-title
+
+
+
+
+Methods
+-------
+
+..
+   class-methods
+
+
+del
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: del(url, [basic_auth], [timeout])
+
+
+    
+    :param String url: 
+        The URL for the resource 
+    
+    :param Object basic_auth: 
+        Basic authentication — any object with ``username`` and ``password`` 
+properties will do. 
+    
+    :param Number timeout: 
+        How long before the http client should give up. (*Default*: 1)
+    
+
+
+
+
+Performs a DELETE request on the specified resource.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+get
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: get(url, [basic_auth], [timeout])
+
+
+    
+    :param String url: 
+        The URL for the resource 
+    
+    :param Object basic_auth: 
+        Basic authentication — any object with ``username`` and ``password`` properties will do. 
+    
+    :param Number timeout: 
+        How long before the http client should give up. (*Default*: 5)
+    
+
+
+
+
+Performs a GET request on the specified resource.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+has_internet_access
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: has_internet_access()
+
+
+
+
+
+Tests whether the application has access to the internet.
+If not, this might either imply that the user is simply not connected, 
+or otherwise that a firewall is blocking internet access for the active
+Creative Suite app.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+head
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: head(url, [basic_auth], [timeout])
+
+
+    
+    :param String url: 
+        The URL for the resource 
+    
+    :param Object basic_auth: 
+        Basic authentication — any object with ``username`` and ``password`` properties will do. 
+    
+    :param Number timeout: 
+        How long before the http client should give up. (*Default*: 1)
+    
+
+
+
+
+Performs a HEAD request on the specified resource. Similar to a GET request, but only returns the http headers.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+post
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: post(url, data, [basic_auth], [timeout])
+
+
+    
+    :param String url: 
+        The URL for the resource 
+    
+    :param Object|String data: 
+        Either an object, to be urlencoded by this function, or a string that 
+will be passed along unchanged. 
+    
+    :param Object basic_auth: 
+        Basic authentication — any object with ``username`` and ``password`` 
+properties will do. 
+    
+    :param Number timeout: 
+        How long before the http client should give up. (*Default*: 5)
+    
+
+
+
+
+Performs a POST request on the specified resource.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+put
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: put(url, data, [basic_auth], [timeout])
+
+
+    
+    :param String url: 
+        The URL for the resource 
+    
+    :param Object|String data: 
+        Either an object, to be urlencoded by this function, or a string that 
+will be passed along unchanged. 
+    
+    :param Object basic_auth: 
+        Basic authentication — any object with ``username`` and ``password`` 
+properties will do. 
+    
+    :param Number timeout: 
+        How long before the http client should give up. (*Default*: 1)
+    
+
+
+
+
+Performs a PUT request on the specified resource. PUT requests are like POST requests, but idempotent.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+

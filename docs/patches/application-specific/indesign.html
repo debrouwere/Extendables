@@ -1,0 +1,466 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>InDesign enhancements &mdash; Extendables v0.3b documentation</title>
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.3b',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../../index.html" />
+    <link rel="up" title="DOM enhancements" href="../index.html" />
+    <link rel="next" title="Application methods" href="../application.html" />
+    <link rel="prev" title="DOM enhancements" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../application.html" title="Application methods"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="DOM enhancements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Extendables v0.3b documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">DOM enhancements</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="indesign-enhancements">
+<h1>InDesign enhancements<a class="headerlink" href="#indesign-enhancements" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xml-traversal">
+<h2>XML traversal<a class="headerlink" href="#xml-traversal" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;../extendables.jsx&quot;</span><span class="p">;</span>
+
+<span class="cm">/* UNTESTED! Just a rough draft. */</span>
+
+<span class="c1">// todo: create a new document</span>
+
+<span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">current</span><span class="p">(</span><span class="s1">&#39;document&#39;</span><span class="p">);</span>
+<span class="nx">doc</span><span class="p">.</span><span class="nx">importXML</span><span class="p">(</span><span class="s1">&#39;stories.xml&#39;</span><span class="p">);</span>
+<span class="c1">// q: what with multiple stories, does it return all of them as you&#39;d expect?</span>
+<span class="c1">// var story = doc.xml().find(&#39;story&#39;);</span>
+
+<span class="c1">// Apply the &#39;B-culture&#39; master page if to page 5 if that page doesn&#39;t</span>
+<span class="c1">// derive from a master yet.</span>
+<span class="c1">// Page#master and LayoutWindow#page are both getter/setters.</span>
+<span class="nx">current</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">).</span><span class="nx">page</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">current</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">).</span><span class="nx">master</span><span class="p">())</span> <span class="p">{</span>
+	<span class="nx">current</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">).</span><span class="nx">master</span><span class="p">(</span><span class="s1">&#39;B-culture&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// layout a page with all the story titles from the culture section</span>
+<span class="nx">doc</span><span class="p">.</span><span class="nx">xml</span><span class="p">().</span><span class="nx">children</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">story</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// attr returns the value for the specified attribute on an element, </span>
+	<span class="c1">// in this case &#39;culture&#39;.</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nx">story</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;culture&#39;</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// val returns the value of an element, in this case the title</span>
+		<span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">story</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+		<span class="c1">// todo: make a new text frame with that title;</span>
+		<span class="nx">story</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;processed&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">());</span>
+	<span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">pageitemtag</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">pageItems</span><span class="p">.</span><span class="nx">item</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">tag</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">xmltag</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">xml</span><span class="p">().</span><span class="nx">find</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">tag</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">pageitemtag</span> <span class="o">==</span> <span class="nx">xmltag</span><span class="p">)</span> <span class="p">{</span>
+	<span class="s2">&quot;Associated page item 0 with a {} xml element.&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">xmltag</span><span class="p">).</span><span class="nx">to_console</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Extendables provides some shortcut methods that make traversing XML in InDesign less verbose.</p>
+<div class="section" id="xmlelement">
+<h3><tt class="docutils literal"><span class="pre">XMLElement</span></tt><a class="headerlink" href="#xmlelement" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="attr">
+<h4>attr<a class="headerlink" href="#attr" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="XMLElement#attr">
+<tt class="descname">XMLElement#attr</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="headerlink" href="#XMLElement#attr" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Returns undefined|String:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first last">Either nothing (when setting the attribute) or the attribute&#8217;s value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>An attribute getter/setter.</p>
+</div>
+<div class="section" id="children">
+<h4>children<a class="headerlink" href="#children" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="XMLElement#children">
+<tt class="descname">XMLElement#children</tt><big>(</big><big>)</big><a class="headerlink" href="#XMLElement#children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Returns the child xml elements as an array, instead of as an XMLElements collection.
+If you prefer a collection, use the built-in <tt class="docutils literal"><span class="pre">xmlElements</span></tt> property instead of this function.</p>
+<p>Note that this should be equivalent to xml.xmlElements.everyItem() if the documentation to the
+InDesign DOM were true, but everyItem() doesn&#8217;t actually return a proper array.</p>
+</div>
+<div class="section" id="find">
+<h4>find<a class="headerlink" href="#find" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="XMLElement#find">
+<tt class="descname">XMLElement#find</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#XMLElement#find" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This is equivalent to <tt class="docutils literal"><span class="pre">el.xmlElements.item(name)</span></tt></p>
+</div>
+<div class="section" id="repr">
+<h4>repr<a class="headerlink" href="#repr" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="XMLElement#repr">
+<tt class="descname">XMLElement#repr</tt><big>(</big><big>)</big><a class="headerlink" href="#XMLElement#repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p><tt class="docutils literal"><span class="pre">el.repr()</span></tt> is a poor man&#8217;s XML deserializer.
+It recursively transforms an XML tree into a native
+ExtendScript object.</p>
+<p>Known limitations:
+* Ignores attributes and comments.
+* If an element has children, it processes those, but any surrounding</p>
+<blockquote>
+text content will be ignored. <tt class="docutils literal"><span class="pre">&lt;el&gt;this</span> <span class="pre">text</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">ignored</span> <span class="pre">&lt;sub&gt;but</span> <span class="pre">this</span> <span class="pre">won't</span> <span class="pre">be&lt;/sub&gt;&lt;/el&gt;</span></tt></blockquote>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="c1">// &lt;root&gt;</span>
+<span class="c1">//     &lt;story&gt;</span>
+<span class="c1">//         A fun little story.</span>
+<span class="c1">//         &lt;title&gt;An evening in Bristol&lt;/title&gt;</span>
+<span class="c1">//         &lt;authors&gt;</span>
+<span class="c1">//             &lt;name&gt;Joel&lt;/name&gt;</span>
+<span class="c1">//             &lt;name&gt;Liza&lt;/name&gt;</span>
+<span class="c1">//         &lt;/authors&gt;</span>
+<span class="c1">//     &lt;/story&gt;</span>
+<span class="c1">// &lt;/root&gt;</span>
+<span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">xml</span><span class="p">().</span><span class="nx">repr</span><span class="p">()</span>
+<span class="o">&gt;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">story</span><span class="p">.</span><span class="nx">title</span>
+<span class="s1">&#39;An evening in Bristol&#39;</span>
+<span class="o">&gt;</span> <span class="nx">root</span><span class="p">.</span><span class="nx">story</span><span class="p">.</span><span class="nx">authors</span>
+<span class="p">[</span><span class="s1">&#39;Joel&#39;</span><span class="p">,</span> <span class="s1">&#39;Liza&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tag">
+<h4>tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="XMLElement#tag">
+<tt class="descname">XMLElement#tag</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#XMLElement#tag" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Returns undefined|String:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first last">Either nothing (when setting the tag) or the tag name</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>An element tag getter/setter.</p>
+</div>
+<div class="section" id="val">
+<h4>val<a class="headerlink" href="#val" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="XMLElement#val">
+<tt class="descname">XMLElement#val</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#XMLElement#val" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Returns undefined|String:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first last">Either nothing (when setting the element&#8217;s value) or the element&#8217;s value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>An element&#8217;s value getter/setter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For handling straight-up XML (not InDesign-aware XMLElement objects),
+use the built-in XML support in ExtendScript</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="handy-helpers">
+<h2>Handy helpers<a class="headerlink" href="#handy-helpers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructor">
+<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Page">
+<em class="property">class </em><tt class="descname">Page</tt><big>(</big><big>)</big><a class="headerlink" href="#Page" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="master">
+<h4>master<a class="headerlink" href="#master" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="Page#master">
+<tt class="descname">Page#master</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Page#master" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>n/a</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Constructor<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="LayoutWindow">
+<em class="property">class </em><tt class="descname">LayoutWindow</tt><big>(</big><big>)</big><a class="headerlink" href="#LayoutWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Methods<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="page">
+<h4>page<a class="headerlink" href="#page" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="LayoutWindow#page">
+<tt class="descname">LayoutWindow#page</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#LayoutWindow#page" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>n/a</p>
+</div>
+</div>
+</div>
+<div class="section" id="placing-library-assets">
+<h2>Placing library assets<a class="headerlink" href="#placing-library-assets" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Constructor<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="Asset">
+<em class="property">class </em><tt class="descname">Asset</tt><big>(</big><big>)</big><a class="headerlink" href="#Asset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="id4">
+<h3>Methods<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="place">
+<h4>place<a class="headerlink" href="#place" title="Permalink to this headline">¶</a></h4>
+<dl class="function">
+<dt id="Asset#place">
+<tt class="descname">Asset#place</tt><big>(</big><em>positioning</em><big>)</big><a class="headerlink" href="#Asset#place" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>positioning</strong> (<em>Object</em>) &#8211; A positioning object has three attributes:</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p><tt class="docutils literal"><span class="pre">page</span></tt> (a string or number), <tt class="docutils literal"><span class="pre">x</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt> (both unitless numbers).
+Optionally, you may define a <tt class="docutils literal"><span class="pre">layer</span></tt> attribute, containing either a
+layer name or a layer object.</p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">returns Object[]:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">Returns an array with the page items that make up the</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>library asset.</p>
+<p>the built-in <tt class="docutils literal"><span class="pre">asset.placeAsset()</span></tt> can only place on a document or on text
+whereas, most often, you want to place it on specific coordinates on a specific
+page. This method does that.</p>
+<p>Works on the active document.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">library</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">libraries</span><span class="p">.</span><span class="nx">item</span><span class="p">(</span><span class="s1">&#39;storylayouts.indl&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">asset</span> <span class="o">=</span> <span class="nx">library</span><span class="p">.</span><span class="nx">assets</span><span class="p">.</span><span class="nx">item</span><span class="p">(</span><span class="s1">&#39;full-spread&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">page_items</span> <span class="o">=</span> <span class="nx">asset</span><span class="p">.</span><span class="nx">place</span><span class="p">({</span>
+    <span class="s1">&#39;page&#39;</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;x&#39;</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s1">&#39;y&#39;</span><span class="o">:</span> <span class="mi">50</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">InDesign enhancements</a><ul>
+<li><a class="reference internal" href="#xml-traversal">XML traversal</a><ul>
+<li><a class="reference internal" href="#xmlelement"><tt class="docutils literal"><span class="pre">XMLElement</span></tt></a><ul>
+<li><a class="reference internal" href="#attr">attr</a></li>
+<li><a class="reference internal" href="#children">children</a></li>
+<li><a class="reference internal" href="#find">find</a></li>
+<li><a class="reference internal" href="#repr">repr</a></li>
+<li><a class="reference internal" href="#tag">tag</a></li>
+<li><a class="reference internal" href="#val">val</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#handy-helpers">Handy helpers</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#master">master</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Constructor</a></li>
+<li><a class="reference internal" href="#id2">Methods</a><ul>
+<li><a class="reference internal" href="#page">page</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#placing-library-assets">Placing library assets</a><ul>
+<li><a class="reference internal" href="#id3">Constructor</a></li>
+<li><a class="reference internal" href="#id4">Methods</a><ul>
+<li><a class="reference internal" href="#place">place</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">DOM enhancements</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../application.html"
+                        title="next chapter">Application methods</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/patches/application-specific/indesign.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../application.html" title="Application methods"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="DOM enhancements"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Extendables v0.3b documentation</a> &raquo;</li>
+          <li><a href="../index.html" >DOM enhancements</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>ui reference &mdash; Extendables v0.2a documentation</title>
+    <title>ui reference &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../../../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../../../index.html" /> 
+    <link rel="top" title="Extendables v0.3b documentation" href="../../../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +31,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -46,17 +46,478 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#ui-reference" id="id2"><tt class="docutils literal"><span class="pre">ui</span></tt> reference</a><ul>
-<li><a class="reference internal" href="#layout-elements" id="id3">Layout elements</a></li>
-<li><a class="reference internal" href="#event-names" id="id4">Event names</a></li>
+<li><a class="reference internal" href="#layout-elements" id="id3">Layout elements</a><ul>
+<li><a class="reference internal" href="#button" id="id4">button</a></li>
+<li><a class="reference internal" href="#checkbox" id="id5">checkbox</a></li>
+<li><a class="reference internal" href="#column" id="id6">column</a></li>
+<li><a class="reference internal" href="#dropdown" id="id7">dropdown</a></li>
+<li><a class="reference internal" href="#flash" id="id8">flash</a></li>
+<li><a class="reference internal" href="#icon" id="id9">icon</a></li>
+<li><a class="reference internal" href="#image" id="id10">image</a></li>
+<li><a class="reference internal" href="#input" id="id11">input</a></li>
+<li><a class="reference internal" href="#item" id="id12">item</a></li>
+<li><a class="reference internal" href="#list" id="id13">list</a></li>
+<li><a class="reference internal" href="#panel" id="id14">panel</a></li>
+<li><a class="reference internal" href="#progressbar" id="id15">progressbar</a></li>
+<li><a class="reference internal" href="#radio" id="id16">radio</a></li>
+<li><a class="reference internal" href="#row" id="id17">row</a></li>
+<li><a class="reference internal" href="#scrollbar" id="id18">scrollbar</a></li>
+<li><a class="reference internal" href="#slider" id="id19">slider</a></li>
+<li><a class="reference internal" href="#stack" id="id20">stack</a></li>
+<li><a class="reference internal" href="#tab" id="id21">tab</a></li>
+<li><a class="reference internal" href="#tabs" id="id22">tabs</a></li>
+<li><a class="reference internal" href="#text" id="id23">text</a></li>
+<li><a class="reference internal" href="#tree" id="id24">tree</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#event-names" id="id25">Event names</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="layout-elements">
 <h2><a class="toc-backref" href="#id3">Layout elements</a><a class="headerlink" href="#layout-elements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="button">
+<h3><a class="toc-backref" href="#id4">button</a><a class="headerlink" href="#button" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#button">
+<tt class="descname">UIShortcuts#button</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#button" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a button</p>
+</div>
+<div class="section" id="checkbox">
+<h3><a class="toc-backref" href="#id5">checkbox</a><a class="headerlink" href="#checkbox" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#checkbox">
+<tt class="descname">UIShortcuts#checkbox</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#checkbox" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a checkbox</p>
+</div>
+<div class="section" id="column">
+<h3><a class="toc-backref" href="#id6">column</a><a class="headerlink" href="#column" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#column">
+<tt class="descname">UIShortcuts#column</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#UIShortcuts#column" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a group, displayed as a column</p>
+</div>
+<div class="section" id="dropdown">
+<h3><a class="toc-backref" href="#id7">dropdown</a><a class="headerlink" href="#dropdown" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#dropdown">
+<tt class="descname">UIShortcuts#dropdown</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#dropdown" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a dropdown, equivalent to <tt class="docutils literal"><span class="pre">dropdownlist</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="flash">
+<h3><a class="toc-backref" href="#id8">flash</a><a class="headerlink" href="#flash" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#flash">
+<tt class="descname">UIShortcuts#flash</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#flash" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a flash element, equivalent to <tt class="docutils literal"><span class="pre">flashplayer</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="icon">
+<h3><a class="toc-backref" href="#id9">icon</a><a class="headerlink" href="#icon" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#icon">
+<tt class="descname">UIShortcuts#icon</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#icon" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds an icon button, equivalent to <tt class="docutils literal"><span class="pre">iconbutton</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="image">
+<h3><a class="toc-backref" href="#id10">image</a><a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#image">
+<tt class="descname">UIShortcuts#image</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#image" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds an image</p>
+</div>
+<div class="section" id="input">
+<h3><a class="toc-backref" href="#id11">input</a><a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#input">
+<tt class="descname">UIShortcuts#input</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#input" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds an input field, equivalent to <tt class="docutils literal"><span class="pre">edittext</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="item">
+<h3><a class="toc-backref" href="#id12">item</a><a class="headerlink" href="#item" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#item">
+<tt class="descname">UIShortcuts#item</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#item" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds an item (part of a list)</p>
+</div>
+<div class="section" id="list">
+<h3><a class="toc-backref" href="#id13">list</a><a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#list">
+<tt class="descname">UIShortcuts#list</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#list" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a list, equivalent to <tt class="docutils literal"><span class="pre">listbox</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="panel">
+<h3><a class="toc-backref" href="#id14">panel</a><a class="headerlink" href="#panel" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#panel">
+<tt class="descname">UIShortcuts#panel</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#panel" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a panel</p>
+</div>
+<div class="section" id="progressbar">
+<h3><a class="toc-backref" href="#id15">progressbar</a><a class="headerlink" href="#progressbar" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#progressbar">
+<tt class="descname">UIShortcuts#progressbar</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#progressbar" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a progress bar</p>
+</div>
+<div class="section" id="radio">
+<h3><a class="toc-backref" href="#id16">radio</a><a class="headerlink" href="#radio" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#radio">
+<tt class="descname">UIShortcuts#radio</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#radio" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a radio button, equivalent to <tt class="docutils literal"><span class="pre">radiobutton</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="row">
+<h3><a class="toc-backref" href="#id17">row</a><a class="headerlink" href="#row" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#row">
+<tt class="descname">UIShortcuts#row</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#UIShortcuts#row" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a group, displayed as a row</p>
+</div>
+<div class="section" id="scrollbar">
+<h3><a class="toc-backref" href="#id18">scrollbar</a><a class="headerlink" href="#scrollbar" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#scrollbar">
+<tt class="descname">UIShortcuts#scrollbar</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#scrollbar" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a scrollbar</p>
+</div>
+<div class="section" id="slider">
+<h3><a class="toc-backref" href="#id19">slider</a><a class="headerlink" href="#slider" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#slider">
+<tt class="descname">UIShortcuts#slider</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#slider" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a slider</p>
+</div>
+<div class="section" id="stack">
+<h3><a class="toc-backref" href="#id20">stack</a><a class="headerlink" href="#stack" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#stack">
+<tt class="descname">UIShortcuts#stack</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#UIShortcuts#stack" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a group, displayed as a stack</p>
+</div>
+<div class="section" id="tab">
+<h3><a class="toc-backref" href="#id21">tab</a><a class="headerlink" href="#tab" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#tab">
+<tt class="descname">UIShortcuts#tab</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#tab" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a tab (part of a tabs control)</p>
+</div>
+<div class="section" id="tabs">
+<h3><a class="toc-backref" href="#id22">tabs</a><a class="headerlink" href="#tabs" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#tabs">
+<tt class="descname">UIShortcuts#tabs</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#tabs" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a tabs container, equivalent to <tt class="docutils literal"><span class="pre">tabbedpanel</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="text">
+<h3><a class="toc-backref" href="#id23">text</a><a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#text">
+<tt class="descname">UIShortcuts#text</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#text" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a text element, equivalent to <tt class="docutils literal"><span class="pre">statictext</span></tt> in plain ScriptUI</p>
+</div>
+<div class="section" id="tree">
+<h3><a class="toc-backref" href="#id24">tree</a><a class="headerlink" href="#tree" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UIShortcuts#tree">
+<tt class="descname">UIShortcuts#tree</tt><big>(</big><em>name</em>, <em>text</em><big>)</big><a class="headerlink" href="#UIShortcuts#tree" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>text</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>adds a tree, equivalent to <tt class="docutils literal"><span class="pre">treeview</span></tt> in plain ScriptUI</p>
+</div>
 </div>
 <div class="section" id="event-names">
-<h2><a class="toc-backref" href="#id4">Event names</a><a class="headerlink" href="#event-names" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id25">Event names</a><a class="headerlink" href="#event-names" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>change</li>
 <li>move</li>
@@ -89,7 +550,30 @@
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">ui</span></tt> reference</a><ul>
-<li><a class="reference internal" href="#layout-elements">Layout elements</a></li>
+<li><a class="reference internal" href="#layout-elements">Layout elements</a><ul>
+<li><a class="reference internal" href="#button">button</a></li>
+<li><a class="reference internal" href="#checkbox">checkbox</a></li>
+<li><a class="reference internal" href="#column">column</a></li>
+<li><a class="reference internal" href="#dropdown">dropdown</a></li>
+<li><a class="reference internal" href="#flash">flash</a></li>
+<li><a class="reference internal" href="#icon">icon</a></li>
+<li><a class="reference internal" href="#image">image</a></li>
+<li><a class="reference internal" href="#input">input</a></li>
+<li><a class="reference internal" href="#item">item</a></li>
+<li><a class="reference internal" href="#list">list</a></li>
+<li><a class="reference internal" href="#panel">panel</a></li>
+<li><a class="reference internal" href="#progressbar">progressbar</a></li>
+<li><a class="reference internal" href="#radio">radio</a></li>
+<li><a class="reference internal" href="#row">row</a></li>
+<li><a class="reference internal" href="#scrollbar">scrollbar</a></li>
+<li><a class="reference internal" href="#slider">slider</a></li>
+<li><a class="reference internal" href="#stack">stack</a></li>
+<li><a class="reference internal" href="#tab">tab</a></li>
+<li><a class="reference internal" href="#tabs">tabs</a></li>
+<li><a class="reference internal" href="#text">text</a></li>
+<li><a class="reference internal" href="#tree">tree</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#event-names">Event names</a></li>
 </ul>
 </li>
@@ -123,7 +607,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

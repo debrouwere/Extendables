@@ -4,8 +4,8 @@
 Error handling
 ==============
 
-Error methods
-=============
+``Error`` methods
+=================
 
 .. contents::
 

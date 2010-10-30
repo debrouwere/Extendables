@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>http: sending and receiving http requests &mdash; Extendables v0.2a documentation</title>
+    <title>http: sending and receiving http requests &mdash; Extendables v0.3b documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '0.2a',
+        VERSION:     '0.3b',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../../../about.html" />
-    <link rel="top" title="Extendables v0.2a documentation" href="../../../index.html" />
+    <link rel="top" title="Extendables v0.3b documentation" href="../../../index.html" />
     <link rel="next" title="logging: a logging utility for ExtendScript" href="../../logging/doc/readme.html" />
     <link rel="prev" title="testing: unit testing in ExtendScript" href="../../testing/doc/readme.html" /> 
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="../../testing/doc/readme.html" title="testing: unit testing in ExtendScript"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,7 +53,7 @@
 <p>The <tt class="docutils literal"><span class="pre">http</span></tt> library allows scripts to fetch and push data from and to the internet. It is a high-level interface with the <tt class="docutils literal"><span class="pre">Socket</span></tt> object. The library implements a good subset of the <strong>HTTP 1.1</strong> protocol.</p>
 <div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;extendables/extendables.jsx&quot;</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;http://example.com&quot;</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;http://www.w3c.org&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -61,15 +61,626 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Aside from high-level functions like <tt class="docutils literal"><span class="pre">get</span></tt> and <tt class="docutils literal"><span class="pre">post</span></tt>, there&#8217;s also a lower-level interface providing, if you happen to need more flexibility.</p>
+<div class="highlight-extendscript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HTTPRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;http://nytimes.com&quot;</span><span class="p">);</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">follow_redirects</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">timeout</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">timeout</span><span class="p">();</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">timeout</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;Changing timeout from {} to {} seconds&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">timeout</span><span class="p">,</span> <span class="mi">10</span><span class="p">));</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">header</span><span class="p">(</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">,</span> <span class="s2">&quot;My ExtendScript app&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="k">do</span><span class="p">();</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">);</span>
+</pre></div>
+</div>
 <p>The <tt class="docutils literal"><span class="pre">Socket</span></tt> object is available in Adobe <strong>Bridge</strong>, Adobe <strong>InDesign</strong>, Adobe <strong>InCopy</strong>, Adobe <strong>After Effects</strong> and Adobe <strong>Photoshop</strong>, and you may also use it in the ExtendScript Toolkit. No luck for Illustrator fiends.</p>
 <div class="section" id="basic-requests">
 <h2>Basic requests<a class="headerlink" href="#basic-requests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="del">
+<h3>del<a class="headerlink" href="#del" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<tt class="descname">del</tt><big>(</big><em>url</em><span class="optional">[</span>, <em>basic_auth</em><span class="optional">]</span><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>String</em>) &#8211; The URL for the resource</li>
+<li><strong>basic_auth</strong> (<em>Object</em>) &#8211; Basic authentication — any object with <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">password</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>properties will do.</p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">param Number timeout:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">How long before the http client should give up. (<em>Default</em>: 1)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Performs a DELETE request on the specified resource.</p>
+</div>
+<div class="section" id="get">
+<h3>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<tt class="descname">get</tt><big>(</big><em>url</em><span class="optional">[</span>, <em>basic_auth</em><span class="optional">]</span><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>String</em>) &#8211; The URL for the resource</li>
+<li><strong>basic_auth</strong> (<em>Object</em>) &#8211; Basic authentication — any object with <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">password</span></tt> properties will do.</li>
+<li><strong>timeout</strong> (<em>Number</em>) &#8211; How long before the http client should give up. (<em>Default</em>: 5)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Performs a GET request on the specified resource.</p>
+</div>
+<div class="section" id="has-internet-access">
+<h3>has_internet_access<a class="headerlink" href="#has-internet-access" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="has_internet_access">
+<tt class="descname">has_internet_access</tt><big>(</big><big>)</big><a class="headerlink" href="#has_internet_access" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Tests whether the application has access to the internet.
+If not, this might either imply that the user is simply not connected,
+or otherwise that a firewall is blocking internet access for the active
+Creative Suite app.</p>
+</div>
+<div class="section" id="head">
+<h3>head<a class="headerlink" href="#head" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<tt class="descname">head</tt><big>(</big><em>url</em><span class="optional">[</span>, <em>basic_auth</em><span class="optional">]</span><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>String</em>) &#8211; The URL for the resource</li>
+<li><strong>basic_auth</strong> (<em>Object</em>) &#8211; Basic authentication — any object with <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">password</span></tt> properties will do.</li>
+<li><strong>timeout</strong> (<em>Number</em>) &#8211; How long before the http client should give up. (<em>Default</em>: 1)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Performs a HEAD request on the specified resource. Similar to a GET request, but only returns the http headers.</p>
+</div>
+<div class="section" id="post">
+<h3>post<a class="headerlink" href="#post" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<tt class="descname">post</tt><big>(</big><em>url</em>, <em>data</em><span class="optional">[</span>, <em>basic_auth</em><span class="optional">]</span><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>String</em>) &#8211; The URL for the resource</li>
+<li><strong>data</strong> (<em>Object|String</em>) &#8211; Either an object, to be urlencoded by this function, or a string that</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>will be passed along unchanged.</p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">param Object basic_auth:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">Basic authentication — any object with <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">password</span></tt></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>properties will do.</p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">param Number timeout:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">How long before the http client should give up. (<em>Default</em>: 5)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Performs a POST request on the specified resource.</p>
+</div>
+<div class="section" id="put">
+<h3>put<a class="headerlink" href="#put" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt>
+<tt class="descname">put</tt><big>(</big><em>url</em>, <em>data</em><span class="optional">[</span>, <em>basic_auth</em><span class="optional">]</span><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><big>)</big></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> (<em>String</em>) &#8211; The URL for the resource</li>
+<li><strong>data</strong> (<em>Object|String</em>) &#8211; Either an object, to be urlencoded by this function, or a string that</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>will be passed along unchanged.</p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">param Object basic_auth:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">Basic authentication — any object with <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">password</span></tt></td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>properties will do.</p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name" colspan="2">param Number timeout:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">How long before the http client should give up. (<em>Default</em>: 1)</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Performs a PUT request on the specified resource. PUT requests are like POST requests, but idempotent.</p>
+</div>
 </div>
 <div class="section" id="request-objects">
 <h2>Request objects<a class="headerlink" href="#request-objects" title="Permalink to this headline">¶</a></h2>
+<p>An incomplete but &#8220;good enough&#8221; implementation of the hypertext transfer protocol
+for the client side. This is a lower-level interface. It feeds the <tt class="xref js js-func docutils literal"><span class="pre">get()</span></tt>, <tt class="xref js js-func docutils literal"><span class="pre">head()</span></tt>,
+<tt class="xref js js-func docutils literal"><span class="pre">post()</span></tt>, <tt class="xref js js-func docutils literal"><span class="pre">put()</span></tt> and <tt class="xref js js-func docutils literal"><span class="pre">del()</span></tt> convenience functions.</p>
+<p>Supports:</p>
+<ul class="simple">
+<li>most HTTP methods: <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">HEAD</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt>, <tt class="docutils literal"><span class="pre">PUT</span></tt>, <tt class="docutils literal"><span class="pre">DELETE</span></tt></li>
+<li>persistent connections</li>
+<li>chunked responses</li>
+<li>redirects</li>
+</ul>
+<p>Soon:</p>
+<ul class="simple">
+<li>focus on reliability, more tests</li>
+<li>basic authentication</li>
+</ul>
+<p>Most likely never:</p>
+<ul class="simple">
+<li>digest authentication</li>
+<li>cookies</li>
+<li>proxies</li>
+<li>caching / 304 Not Modified</li>
+</ul>
+<p>HTTPRequest objects are entirely getter/setter-based, so e.g. use <tt class="docutils literal"><span class="pre">req.method()</span></tt>
+to get the current request method, and use <tt class="docutils literal"><span class="pre">req.method(&quot;POST&quot;)</span></tt> to change the
+request method.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
+ <span class="kd">var</span> <span class="nx">example</span> <span class="o">=</span> <span class="s2">&quot;http://www.example.com&quot;</span>
+ <span class="kd">var</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HTTPRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">example</span><span class="p">);</span>
+ <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+     <span class="nx">$</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t fetch {}&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">example</span><span class="p">));</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="HTTPRequest">
+<em class="property">class </em><tt class="descname">HTTPRequest</tt><big>(</big><span class="optional">[</span><em>method</em><span class="optional">]</span>, <em>url</em><span class="optional">[</span>, <em>timeout</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#HTTPRequest" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>method</strong> (<em>String</em>) &#8211; </li>
+<li><strong>url</strong> (<em>String</em>) &#8211; </li>
+<li><strong>timeout</strong> (<em>Number</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="content">
+<h3>content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#content">
+<tt class="descname">HTTPRequest#content</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#HTTPRequest#content" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Any content to send along with a <tt class="docutils literal"><span class="pre">PUT</span></tt> or <tt class="docutils literal"><span class="pre">POST</span></tt> request.</p>
+</div>
+<div class="section" id="do">
+<h3>do<a class="headerlink" href="#do" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#do">
+<tt class="descname">HTTPRequest#do</tt><big>(</big><big>)</big><a class="headerlink" href="#HTTPRequest#do" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns Object:</th><td class="field-body">Returns a <a class="reference internal" href="#HTTPResponse" title="HTTPResponse"><tt class="xref js js-func docutils literal"><span class="pre">HTTPResponse()</span></tt></a> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Executes the request.</p>
+</div>
+<div class="section" id="encoding">
+<h3>encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#encoding">
+<tt class="descname">HTTPRequest#encoding</tt><big>(</big><em>encoding</em><big>)</big><a class="headerlink" href="#HTTPRequest#encoding" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>encoding</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>The character encoding in which to send this request, which is also the preferred response encoding.</p>
+</div>
+<div class="section" id="follow-redirects">
+<h3>follow_redirects<a class="headerlink" href="#follow-redirects" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#follow_redirects">
+<tt class="descname">HTTPRequest#follow_redirects</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#HTTPRequest#follow_redirects" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Whether to follow redirects when requesting a resource. By default, true for GET and HEAD requests, false for POST and PUT requests.</p>
+</div>
+<div class="section" id="header">
+<h3>header<a class="headerlink" href="#header" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#header">
+<tt class="descname">HTTPRequest#header</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="headerlink" href="#HTTPRequest#header" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; </li>
+<li><strong>value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Get or set a single header.</p>
+</div>
+<div class="section" id="headers">
+<h3>headers<a class="headerlink" href="#headers" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#headers">
+<tt class="descname">HTTPRequest#headers</tt><big>(</big><em>hash</em><big>)</big><a class="headerlink" href="#HTTPRequest#headers" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>hash</strong> (<em>Object</em>) &#8211; A key-value object. Replaces all existing headers.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Use the <tt class="docutils literal"><span class="pre">header</span></tt> method instead when fetching or changing a single header.</p>
+<p>The headers for this request.
+By default, these headers are included:
+User-Agent</p>
+<blockquote>
+InDesign ExtendScript</blockquote>
+<dl class="docutils">
+<dt>Accept</dt>
+<dd><em>/</em></dd>
+<dt>Connection</dt>
+<dd>close</dd>
+</dl>
+</div>
+<div class="section" id="max-redirects">
+<h3>max_redirects<a class="headerlink" href="#max-redirects" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#max_redirects">
+<tt class="descname">HTTPRequest#max_redirects</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#HTTPRequest#max_redirects" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>How much redirects the http client should follow before giving up. 5 redirects by default.</p>
+</div>
+<div class="section" id="method">
+<h3>method<a class="headerlink" href="#method" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#method">
+<tt class="descname">HTTPRequest#method</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#HTTPRequest#method" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>The request method. One of <tt class="docutils literal"><span class="pre">GET</span></tt>, <tt class="docutils literal"><span class="pre">HEAD</span></tt>, <tt class="docutils literal"><span class="pre">POST</span></tt>, <tt class="docutils literal"><span class="pre">PUT</span></tt> or <tt class="docutils literal"><span class="pre">DELETE</span></tt>. <tt class="docutils literal"><span class="pre">GET</span></tt> by default.</p>
+</div>
+<div class="section" id="persistent">
+<h3>persistent<a class="headerlink" href="#persistent" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#persistent">
+<tt class="descname">HTTPRequest#persistent</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#HTTPRequest#persistent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>value</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Whether to establish a persistent connection. False by default, and best left that way.</p>
+</div>
+<div class="section" id="port">
+<h3>port<a class="headerlink" href="#port" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#port">
+<tt class="descname">HTTPRequest#port</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#HTTPRequest#port" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>number</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>The server port the request should be directed to.</p>
+</div>
+<div class="section" id="timeout">
+<h3>timeout<a class="headerlink" href="#timeout" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#timeout">
+<tt class="descname">HTTPRequest#timeout</tt><big>(</big><em>duration</em><big>)</big><a class="headerlink" href="#HTTPRequest#timeout" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>duration</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>How long before the http client should give up the request. 5 seconds by default.</p>
+</div>
+<div class="section" id="url">
+<h3>url<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="HTTPRequest#url">
+<tt class="descname">HTTPRequest#url</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#HTTPRequest#url" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>The resource to request</p>
+<div class="section" id="attributes">
+<h4>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="auth">
+<h3>auth<a class="headerlink" href="#auth" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">auth</tt></dt>
+<dd></dd></dl>
+
+<p>Basic authentication</p>
+</div>
 </div>
 <div class="section" id="response-objects">
 <h2>Response objects<a class="headerlink" href="#response-objects" title="Permalink to this headline">¶</a></h2>
+<p>The response to an HTTP request. These are returned by <a class="reference internal" href="#HTTPRequest" title="HTTPRequest"><tt class="xref js js-func docutils literal"><span class="pre">HTTPRequest()</span></tt></a> objects,
+you should never have to construct them yourself.</p>
+<dl class="class">
+<dt id="HTTPResponse">
+<em class="property">class </em><tt class="descname">HTTPResponse</tt><big>(</big><em>method</em>, <em>encoding</em>, <em>request</em><big>)</big><a class="headerlink" href="#HTTPResponse" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>method</strong> &#8211; The request method.</li>
+<li><strong>encoding</strong> &#8211; The expected response encoding.</li>
+<li><strong>request</strong> &#8211; The original request; mainly handy for debugging.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Available as <tt class="docutils literal"><span class="pre">for_request</span></tt> on the response object.</p>
+<div class="section" id="body">
+<h3>body<a class="headerlink" href="#body" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">body</tt></dt>
+<dd></dd></dl>
+
+<p>The body content of the response.</p>
+</div>
+<div class="section" id="corrupt">
+<h3>corrupt<a class="headerlink" href="#corrupt" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">corrupt</tt></dt>
+<dd></dd></dl>
+
+<p>Whether the response is corrupt. Currently not implemented.</p>
+</div>
+<div class="section" id="id1">
+<h3>encoding<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">encoding</tt></dt>
+<dd></dd></dl>
+
+<p>The encoding of the response we received. Usually UTF-8.</p>
+</div>
+<div class="section" id="for-request">
+<h3>for_request<a class="headerlink" href="#for-request" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="for_request">
+<tt class="descname">for_request</tt><a class="headerlink" href="#for_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The original HTTPRequest object that led to this response.</p>
+</div>
+<div class="section" id="is-redirect">
+<h3>is_redirect<a class="headerlink" href="#is-redirect" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="is_redirect">
+<tt class="descname">is_redirect</tt><a class="headerlink" href="#is_redirect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Whether we&#8217;ve received a response with a redirect code.</p>
+</div>
+<div class="section" id="redirection-type">
+<h3>redirection_type<a class="headerlink" href="#redirection-type" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="redirection_type">
+<tt class="descname">redirection_type</tt><a class="headerlink" href="#redirection_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>If redirected, distinguishes between requests that should be re-issued
+with a GET request (303) and those that should be re-issued as-is (all the others).</p>
+</div>
+<div class="section" id="redirects">
+<h3>redirects<a class="headerlink" href="#redirects" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">redirects</tt></dt>
+<dd></dd></dl>
+
+<p>An array of any redirects the request might have followed.</p>
+</div>
+<div class="section" id="response-time">
+<h3>response_time<a class="headerlink" href="#response-time" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="response_time">
+<tt class="descname">response_time</tt><a class="headerlink" href="#response_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>How long it took to request the resource and get a response. In milliseconds.</p>
+</div>
+<div class="section" id="status">
+<h3>status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">status</tt></dt>
+<dd></dd></dl>
+
+<p>The status code of the response.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP status code definitions</a></p>
+</div>
+</div>
 </div>
 </div>
 
@@ -82,9 +693,46 @@
   <h3><a href="../../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">http</span></tt>: sending and receiving http requests</a><ul>
-<li><a class="reference internal" href="#basic-requests">Basic requests</a></li>
-<li><a class="reference internal" href="#request-objects">Request objects</a></li>
-<li><a class="reference internal" href="#response-objects">Response objects</a></li>
+<li><a class="reference internal" href="#basic-requests">Basic requests</a><ul>
+<li><a class="reference internal" href="#del">del</a></li>
+<li><a class="reference internal" href="#get">get</a></li>
+<li><a class="reference internal" href="#has-internet-access">has_internet_access</a></li>
+<li><a class="reference internal" href="#head">head</a></li>
+<li><a class="reference internal" href="#post">post</a></li>
+<li><a class="reference internal" href="#put">put</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#request-objects">Request objects</a><ul>
+<li><a class="reference internal" href="#content">content</a></li>
+<li><a class="reference internal" href="#do">do</a></li>
+<li><a class="reference internal" href="#encoding">encoding</a></li>
+<li><a class="reference internal" href="#follow-redirects">follow_redirects</a></li>
+<li><a class="reference internal" href="#header">header</a></li>
+<li><a class="reference internal" href="#headers">headers</a></li>
+<li><a class="reference internal" href="#max-redirects">max_redirects</a></li>
+<li><a class="reference internal" href="#method">method</a></li>
+<li><a class="reference internal" href="#persistent">persistent</a></li>
+<li><a class="reference internal" href="#port">port</a></li>
+<li><a class="reference internal" href="#timeout">timeout</a></li>
+<li><a class="reference internal" href="#url">url</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#auth">auth</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response-objects">Response objects</a><ul>
+<li><a class="reference internal" href="#body">body</a></li>
+<li><a class="reference internal" href="#corrupt">corrupt</a></li>
+<li><a class="reference internal" href="#id1">encoding</a></li>
+<li><a class="reference internal" href="#for-request">for_request</a></li>
+<li><a class="reference internal" href="#is-redirect">is_redirect</a></li>
+<li><a class="reference internal" href="#redirection-type">redirection_type</a></li>
+<li><a class="reference internal" href="#redirects">redirects</a></li>
+<li><a class="reference internal" href="#response-time">response_time</a></li>
+<li><a class="reference internal" href="#status">status</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -129,7 +777,7 @@
         <li class="right" >
           <a href="../../testing/doc/readme.html" title="testing: unit testing in ExtendScript"
              >previous</a> |</li>
-        <li><a href="../../../index.html">Extendables v0.2a documentation</a> &raquo;</li> 
+        <li><a href="../../../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
