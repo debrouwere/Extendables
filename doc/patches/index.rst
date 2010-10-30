@@ -7,9 +7,6 @@ While Extendables includes a number of enhancements to the DOM objects you'll fi
 These helper methods range from ``obj.has(property)`` which checks whether an object contains a value for the specified property, to ``array.flatten()`` which flattens a nested array, to ``str.to('lower')`` which lowercases a string.
 
 Extendables contains a number of array methods for `functional programming <http://en.wikipedia.org/wiki/Functional_programming>`_ which come in handy when filtering and manipulating arrays.
-   
-.. literalinclude:: ../../examples/arrays.jsx
-   :language: extendscript
 
 .. toctree::
    :maxdepth: 2
