@@ -1,10 +1,14 @@
+"""
+This is experimental
+"""
+
 from docutils.parsers.rst import directives
 import glob
 import copy
 
 class Include(directives.misc.Include):
     def run(self):
-        if '*' in self.arguments[0]:
+        if self.arguments[0].endswith('*'):
             out = list()
             paths = glob.glob(self.arguments[0])
             for path in paths: 
@@ -16,4 +20,5 @@ class Include(directives.misc.Include):
             return super(Include, self).run()
 
 def setup(sphinx):
-    sphinx.add_directive('include', Include)
+    pass
+    #sphinx.add_directive('include', Include)

@@ -21,46 +21,31 @@ function from_basepath (folder) {
 }
 
 /**
+ * @function
  * @desc Get a file or folder starting from an existing path.
  * A foolproof way to join paths together.
  *
- * Similar to File.getRelativeURI, but returns a new File object
+ * Similar to ``File#getRelativeURI``, but returns a new File object
  * instead of a path.
  */
 
 File.prototype.at = from_basepath;
 
 /**
+ * @function
  * @desc Get a file or folder starting from an existing path.
  * A foolproof way to join paths together.
  *
- * Similar to File.getRelativeURI, but returns a new Folder object
+ * Similar to ``File#getRelativeURI``, but returns a new Folder object
  * instead of a path.
  */
 
 Folder.prototype.at = from_basepath;
 
 /**
- * @desc A class method on ``File``.
- * @returns The path to the current file.
- */
-
-File.here = function () {
-	return new File($.fileName);
-}
-
-/**
- * @desc A class method on ``Folder``.
- * @returns The path to the current folder.
- */
-
-Folder.here = function () {
-	return File.here().parent;
-}
-
-/**
- * @desc Easy extraction of ``path``, ``name``, ``basename`` and ``extension``
- * from a :func:`File` object.
+ * @desc Easy extraction of path, name, basename and extension from a
+ * :func:`File` object.
+ * @param {String} type ``path``, ``name``, ``basename`` or ``extension``
  */
 
 File.prototype.component = function (type) {
@@ -88,4 +73,26 @@ File.prototype.component = function (type) {
 			}
 		break;
 	}
+}
+
+/**
+ * @desc Works just like ``Folder#getFiles``, but returns only files, not folders.
+ * @param {String|Function} [mask]
+ */
+
+Folder.prototype.files = function (mask) {
+	return this.getFiles(mask).reject(function (file_or_folder) {
+		return file_or_folder.is(Folder);
+	});
+}
+
+/**
+ * @desc Works just like ``Folder#getFiles``, but returns only folders, not files.
+ * @param {String|Function} [mask]
+ */
+
+Folder.prototype.folders = function (mask) {
+	return this.getFiles(mask).reject(function (file_or_folder) {
+		return file_or_folder.is(File);
+	});
 }

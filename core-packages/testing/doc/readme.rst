@@ -32,6 +32,8 @@ A test suite is simply a Javascript file which calls ``describe``. Conventionall
 Running tests
 =============
 
+.. image:: unit-testing.png
+
 You don't need to use the Extendables test runner if you don't want to, or if you want to test a script that isn't a registered CommonJS module.
 
 Try this instead: 

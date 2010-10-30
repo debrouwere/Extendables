@@ -62,9 +62,9 @@ def push():
     local("git push origin --all")
 
 def commit():
-    if prompt("Do you want to do a docbuild first?", default=False):
+    if prompt("Do you want to do a docbuild first?", default='no') != 'no':
         build()
-        if not prompt("Is this docbuild okay?", default=False):
+        if not prompt("Is this docbuild okay?", default='no') != 'no':
             abort("Halting commit.")
     
     # show any new files we could add
@@ -72,13 +72,13 @@ def commit():
     if len(new_files):
         print "Git found a few new files: "
         print new_files
-        while prompt("Do you want to exclude some of these files first?", default=False):
+        while prompt("Do you want to exclude some of these files first?", default='no') != 'no':
             local("nano .gitignore", capture=False)
             local("git add . --dry-run", capture=False)
         local("git add .")
     local("git commit -a", capture=False)
 
-    if prompt("Commit to the central repository as well?", default=False):
+    if prompt("Commit to the central repository as well?", default='no') != 'no':
         push()
 
 def scaffold(name):

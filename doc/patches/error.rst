@@ -4,12 +4,12 @@
 Error handling
 ==============
 
-Error methods
-=============
+``Error`` methods
+=================
 
 .. contents::
 
-.. include:: ../../patches/doc/jsdoc/*Error.rst
+.. include:: ../../patches/doc/jsdoc/Error.rst
    :start-after: class-methods
 
 Error types

@@ -2,8 +2,6 @@
 Application methods
 ===================
 
-.. code-block:: extendscript
-    
-    alert(app.is('indesign'));       // any version
-    alert(app.is('aftereffects', 4); // Creative Suite 2
-    alert(app.is('incopy', '6.0');   // Creative Suite 4.0
+Most of Extendables' functionality is either at the application-specific level or at the ExtendScript level. However, each ``app`` object, regardless of the host application, does get a ``is`` method added in that makes it easy to write code that targets a specific application or version.
+
+.. include:: ../../patches/doc/jsdoc/Application.rst

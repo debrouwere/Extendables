@@ -128,7 +128,6 @@ describe('Monkeypatches on File and Folder', function () {
         var is_identical = (uris[0] == uris[1] && uris[1] == uris[2] && uris[2] == uris[3] && uris[3] == uris[4]);
 		expect(is_identical).toBeTruthy();
 		
-		identical[5] = new File("../patches/test/fixtures/file.ext").at(Folder.here());
 		var all_exist = identical.map(function (file) {
             return file.exists;
 		}).every(function (exists) {
