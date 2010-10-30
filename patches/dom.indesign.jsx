@@ -1,4 +1,9 @@
-﻿// perhaps a getter/setter would be better, 
+﻿/**
+ * @class
+ * @name Document
+ */
+
+// perhaps a getter/setter would be better, 
 // which either returns the xml root or replaces it
 // with the value of the argument (either a string, 
 // using a temp file, or a file, using the native
@@ -9,9 +14,23 @@ Document.prototype.xml = function (name) {
 	return this.xmlElements.item(i);
 }
 
+/**
+ * @class
+ * @name XMLElement
+ */
+
+/**
+ * @desc This is equivalent to ``el.xmlElements.item(name)``
+ */
+
 XMLElement.prototype.find = function (name) {
 	return this.xmlElements.item(name);
 }
+
+/**
+ * @desc An attribute getter/setter.
+ * @returns {undefined|String} Either nothing (when setting the attribute) or the attribute's value
+ */
 
 XMLElement.prototype.attr = function (name, value) {
 	var attribute = this.xmlAttributes.item(name);
@@ -24,6 +43,11 @@ XMLElement.prototype.attr = function (name, value) {
 	}
 }
 
+/**
+ * @desc An element's value getter/setter.
+ * @returns {undefined|String} Either nothing (when setting the element's value) or the element's value
+ */
+
 XMLElement.prototype.val = function (value) {
 	if (!this.isValid) {
 		return undefined;
@@ -33,6 +57,11 @@ XMLElement.prototype.val = function (value) {
 		return this.contents;
 	}
 }
+
+/**
+ * @desc An element tag getter/setter.
+ * @returns {undefined|String} Either nothing (when setting the tag) or the tag name
+ */
 
 XMLElement.prototype.tag = function (type) {
 	if (type) {
@@ -106,7 +135,16 @@ XMLElement.prototype.repr = function () {
 	return repr;
 }
 
+/**
+ * @class
+ * @name Page
+ */
+
 // -- untested -- //
+
+/**
+ * @desc n/a
+ */
 
 Page.prototype.master = function(name) {
 	if (name) {
@@ -117,6 +155,15 @@ Page.prototype.master = function(name) {
 	}
 
 }
+
+/**
+ * @class
+ * @name LayoutWindow
+ */
+
+/**
+ * @desc n/a
+ */
 
 LayoutWindow.prototype.page = function(name) {
 	if (name) {
@@ -136,11 +183,35 @@ var tag = function(name) {
 	}
 }
 
+/**
+ * @class
+ * @name PageItem
+ */
+
+/**
+ * @desc n/a
+ */
+
 PageItem.prototype.tag = tag;
+
+/**
+ * @class
+ * @name TextFrame
+ */
+
+/**
+ * @desc n/a
+ */
+
 TextFrame.prototype.tag = tag;
 
 /**
- * @desc the built-in ``asset.placeAsset() can only place on a document or on text
+ * @class
+ * @name Asset
+ */
+
+/**
+ * @desc the built-in ``asset.placeAsset()`` can only place on a document or on text
  * whereas, most often, you want to place it on specific coordinates on a specific
  * page. This method does that.
  *

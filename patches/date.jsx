@@ -1,4 +1,13 @@
-﻿var __timer__ = {
+﻿/**
+ * @desc A simple timer. Makes it easy to know how long it takes to execute something. 
+ * Exists as both a static method on ``Date`` 
+ * and a regular method on each ``Function`` object.
+ * @param {String} format Choose whether the elapsed time should be formatted in 
+ * milliseconds (``ms`` or no argument) or seconds, rounded to two decimals (``s``).
+ * @default ``ms``
+ */
+
+Date.timer = {
 	'set': function () {
 		this.start = new Date();
 	}, 
@@ -12,13 +21,4 @@
 	}
 }
 
-/**
- * @desc A simple timer. Makes it easy to know how long it takes to execute something. Exists as both a static method on ``Date`` 
- * and a regular method on each ``Function`` object.
- * @param {String} format Choose whether the elapsed time should be formatted in milliseconds (``ms`` or no argument) or 
- * seconds, rounded to two decimals (``s``).
- * @default ``ms``
- */
-
-Date.timer = __timer__;
-Function.prototype.timer = __timer__;
+Function.prototype.timer = Date.timer;

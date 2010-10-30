@@ -4,7 +4,7 @@ import copy
 
 class Include(directives.misc.Include):
     def run(self):
-        if self.arguments[0].endswith('*'):
+        if '*' in self.arguments[0]:
             out = list()
             paths = glob.glob(self.arguments[0])
             for path in paths: 

@@ -55,120 +55,114 @@ Error.factory = function (name) {
 }
 
 /**
- * @namespace
- *
- * Merely for documentation's sake. Some descriptions courtesy of the Mozilla MDC.
- */
-
-var errors = {
-	'builtin': {},
-	'ext': $.global
-	};
-
-/**
- * @function
+ * @class
+ * @name Error
  * @desc A general-purpose error
  */
 
-errors.builtin.Error = Error;
 Error.prototype._type = Error;
 
 /**
- * @function
+ * @class
+ * @name EvalError
  * @desc An error that occurs regarding the global function eval()
  */
 
-errors.builtin.EvalError = EvalError;
 EvalError.prototype._type = EvalError;
 
 /**
- * @function
+ * @class
+ * @name RangeError
  * @desc An error that occurs when a numeric variable or parameter is outside of its valid range
  */
 
-errors.builtin.RangeError = RangeError;
 RangeError.prototype._type = RangeError;
 
 /**
- * @function
+ * @class
+ * @name ReferenceError
  * @desc An error that occurs when de-referencing an invalid reference
  */
 
-errors.builtin.ReferenceError = ReferenceError;
 ReferenceError.prototype._type = ReferenceError;
 
 /**
- * @function
+ * @class
+ * @name SyntaxError
  * @desc An error that occurs regarding the global function eval()
  */
 
-errors.builtin.SyntaxError = SyntaxError;
 SyntaxError.prototype._type = SyntaxError;
 
 /**
- * @function
+ * @class
+ * @name TypeError
  * @desc An error that occurs when a variable or parameter is not of a valid type
  */
 
-errors.builtin.TypeError = TypeError;
 TypeError.prototype._type = TypeError;
 
 /**
- * @function
+ * @class
+ * @name IOError
  * @desc Use when an IO operation (loading a file, writing to a file, an internet connection) fails.
  */
 
-errors.builtin.IOError = IOError;
 IOError.prototype._type = IOError;
 
 /**
- * @function
+ * @class
+ * @name ArithmeticError
  * @desc Use when a calculation misbehaves.
  */
 
-errors.ext.ArithmeticError = Error.factory("ArithmeticError");
+var ArithmeticError = Error.factory("ArithmeticError");
 
 /**
- * @function
+ * @class
+ * @name ImportError
  * @desc Use when an import fails. More specific than IOError.
  */
 
-errors.ext.ImportError = Error.factory("ImportError");
+var ImportError = Error.factory("ImportError");
 
 /**
- * @function
+ * @class
+ * @name EnvironmentError
  * @desc Use for exceptions that have nothing to do with Extendables or ExtendScript.
  */
 
-errors.ext.EnvironmentError = Error.factory("EnvironmentError");
+var EnvironmentError = Error.factory("EnvironmentError");
 
 /**
- * @function
+ * @class
+ * @name ParseError
  * @desc Much like EvalError, but for your own parsers.
  */
 
-errors.ext.ParseError = Error.factory("ParseError");
+var ParseError = Error.factory("ParseError");
 
 /**
- * @function
+ * @class
+ * @name SystemError
  * @desc Use when the system (either the Creative Suite app or the operating system) malfunctions.
  */
 
-errors.ext.SystemError = Error.factory("SystemError");
+var SystemError = Error.factory("SystemError");
 
 /**
- * @function
+ * @class
+ * @name NotImplementedError
  * @desc Use to warn people that a feature has not yet been implemented, as a placeholder
  * to remind yourself or to indicate that a subclass needs to overload the parent method.
  */
 
-errors.ext.NotImplementedError = Error.factory("NotImplementedError");
-
-/**
- * @function
- */
+var NotImplementedError = Error.factory("NotImplementedError");
 
 if (app.name.to('lower').contains("indesign")) {
-	errors.builtin.ValidationError = ValidationError;
+	/**
+	 * @class
+	 * @name ValidationError
+	 */
 	ValidationError.prototype._type = ValidationError;
 }

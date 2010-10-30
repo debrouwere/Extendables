@@ -182,7 +182,7 @@ function HTTPRequest (method, url, timeout) {
 	 * Connection
 	 *	close
 	 *
-	 * @param {Object} An key-value object. Replaces all existing headers.
+	 * @param {Object} hash A key-value object. Replaces all existing headers.
 	 * Use the ``header`` method instead when fetching or changing a single header.
 	 */
 	this.headers = function (hash) {
@@ -406,6 +406,11 @@ function HTTPRequest (method, url, timeout) {
  * @class
  * @desc The response to an HTTP request. These are returned by :func:`HTTPRequest` objects, 
  * you should never have to construct them yourself.
+ *
+ * @param method The request method.
+ * @param encoding The expected response encoding.
+ * @param request The original request; mainly handy for debugging.
+ * Available as ``for_request`` on the response object.
  */
 
 function HTTPResponse (method, encoding, request) {
@@ -540,11 +545,14 @@ function HTTPResponse (method, encoding, request) {
 	this.headers;
 	/** @desc The body content of the response. */
 	this.body = undefined;
-	/** @desc The status code of the response. */
+	/**
+	 * @desc The status code of the response.
+	 * @see `HTTP status code definitions <http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>`_
+	 */
 	this.status = undefined;
 	/** @desc How long it took to request the resource and get a response. In milliseconds. */
 	this.response_time = undefined;
-	/** @desc The encoding of the response we received. */
+	/** @desc The encoding of the response we received. Usually UTF-8. */
 	this.encoding = encoding; 
 }
 

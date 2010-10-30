@@ -72,10 +72,14 @@ def commit():
     if len(new_files):
         print "Git found a few new files: "
         print new_files
-        if prompt("Do you want to exclude some of these files first?", default=False):
+        while prompt("Do you want to exclude some of these files first?", default=False):
             local("nano .gitignore", capture=False)
+            local("git add . --dry-run", capture=False)
         local("git add .")
     local("git commit -a", capture=False)
 
     if prompt("Commit to the central repository as well?", default=False):
         push()
+
+def scaffold(name):
+    local("cp -ri tools/scaffold site-packages/" + name, capture=False)

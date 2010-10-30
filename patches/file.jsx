@@ -1,8 +1,12 @@
-﻿/** @desc return the directory name */
-/** @desc return the basename (filename without extension) */
-/** @desc returns the file extension */
+﻿/**
+ * @class
+ * @name Folder
+ */
 
-// will replace the path module
+/**
+ * @class
+ * @name File
+ */
 
 /**
  * @desc The extendables base directory. Other notable class properties
@@ -36,13 +40,28 @@ File.prototype.at = from_basepath;
 
 Folder.prototype.at = from_basepath;
 
+/**
+ * @desc A class method on ``File``.
+ * @returns The path to the current file.
+ */
+
 File.here = function () {
 	return new File($.fileName);
 }
 
+/**
+ * @desc A class method on ``Folder``.
+ * @returns The path to the current folder.
+ */
+
 Folder.here = function () {
 	return File.here().parent;
 }
+
+/**
+ * @desc Easy extraction of ``path``, ``name``, ``basename`` and ``extension``
+ * from a :func:`File` object.
+ */
 
 File.prototype.component = function (type) {
 	switch (type) {

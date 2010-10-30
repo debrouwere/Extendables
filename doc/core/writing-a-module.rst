@@ -39,3 +39,10 @@ Extendables follows a subset of `the CommonJS specifications <http://wiki.common
 Documentation should be in reStructuredText syntax, and files should have a `.rst` extension. Unit tests follow `the Jasmine DSL <http://pivotal.github.com/jasmine/suites-and-specs.html>`_ and should have a `.specs` extension.
 
 For very small modules that don't require tests or documentation, a single ExtendScript file will also be recognized as a module when placed in the ``site-packages`` directory.
+
+Scaffolding
+-----------
+
+If you have `Fabric <http://docs.fabfile.org>`_ installed, you can create the scaffold for a module using ``fab scaffold:<modulename>``. The result will reside in ``extendables/site-packages/<modulename>``. If you'd rather not use Fabric, you may simply copy the scaffold from ``extendables/tools/scaffold``.
+
+Using the scaffold is highly encouraged. Its stub files include helpful comments and it takes care of the package layout for you.

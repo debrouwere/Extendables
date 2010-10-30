@@ -1,11 +1,21 @@
 ﻿#include "../extendables.jsx";
 
+/* UNTESTED! Just a rough draft. */
+
 // todo: create a new document
 
 var doc = current('document');
 doc.importXML('stories.xml');
 // q: what with multiple stories, does it return all of them as you'd expect?
 // var story = doc.xml().find('story');
+
+// Apply the 'B-culture' master page if to page 5 if that page doesn't
+// derive from a master yet.
+// Page#master and LayoutWindow#page are both getter/setters.
+current('window').page(5);
+if (!current('page').master()) {
+	current('page').master('B-culture');
+}
 
 // layout a page with all the story titles from the culture section
 doc.xml().children().forEach(function (story) {
@@ -19,37 +29,8 @@ doc.xml().children().forEach(function (story) {
 	}
 });
 
-doc.pageItems.item(0).tag() == doc.xml().find(0).tag()
-
-
-
-Page.prototype.master = function(name) {
-	if (name) {
-		var master = current.doc.masterSpreads.itemByName(master);
-		this.appliedMaster = master;
-	} else {
-		return this.appliedMaster;
-	}
-
+var pageitemtag = doc.pageItems.item(0).tag();
+var xmltag = doc.xml().find(0).tag();
+if (pageitemtag == xmltag) {
+	"Associated page item 0 with a {} xml element.".format(xmltag).to_console();
 }
-
-LayoutWindow.prototype.page = function(name) {
-	if (name) {
-		this.activePage = current.doc.pages.item(name);
-	} else {
-		return this.activePage;
-	}
-}
-
-/** getter/setter */
-var tag = function(name) {
-	if (this.has('associatedXMLElement')) {
-		// assocXMLElement is read-only, dus weet niet of dit zal werken
-		return this.associatedXMLElement.tag(name);		
-	} else {
-		return undefined;
-	}
-}
-
-PageItem.prototype.tag = tag;
-TextFrame.prototype.tag = tag;

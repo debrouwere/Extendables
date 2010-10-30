@@ -10,3 +10,4 @@ Core
    writing-a-module
    contribute
    roadmap
+   changes

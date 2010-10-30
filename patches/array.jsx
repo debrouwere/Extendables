@@ -318,6 +318,12 @@ Array.prototype.indexAfter = function (element) {
  *     > var people = [{'name': 'Alfred', age: 33}, {'name': 'Zed', age: 45}];
  *     > people.pluck('age');
  *     [33,45]
+ *     > people.pluck('age').sum();
+ *     78
+ *     > people.sum('age');
+ *     78
+ *     > people.sum(function (person) { return person.age });
+ *     78
  */
 
 Array.prototype.pluck = function (name) {

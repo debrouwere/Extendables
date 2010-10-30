@@ -49,6 +49,14 @@ describe('Monkeypatches on Array', function () {
 		expect(array.max('last').first).toEqual('Joe');
 	});
 
+	it('has a pluck method', function () {
+		var people = [{'name': 'Alfred', age: 33}, {'name': 'Zed', age: 45}];
+		expect(people.pluck('age')).toEqual([33,45]);
+		expect(people.pluck('age').sum()).toEqual(78);
+		expect(people.sum('age')).toEqual(78);
+		expect(people.sum(function (person) { return person.age })).toEqual(78);
+	});
+
 	it('has a sum method that works on objects', function () {
 		var numbers = [3, 2, 5];
 		var persons = [
