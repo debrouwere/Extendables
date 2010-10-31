@@ -175,6 +175,7 @@ function HTTPRequest (method, url, timeout) {
 	/**
 	 * @desc The headers for this request.
 	 * By default, these headers are included: 
+	 * 
 	 * User-Agent
 	 *     InDesign ExtendScript
 	 * Accept
@@ -248,7 +249,10 @@ function HTTPRequest (method, url, timeout) {
 	}
 
 	this._max_redirects = 5;
-	/** @desc How much redirects the http client should follow before giving up. 5 redirects by default. */
+	/** 
+	 * @desc How much redirects the http client should follow before giving up.
+	 * @default 5 redirects
+	 */
 	this.max_redirects = function (value) {
 		if (value) {
 			this._max_redirects = value;
@@ -306,7 +310,10 @@ function HTTPRequest (method, url, timeout) {
 		}
 	}
 
-	/** @desc Basic authentication */
+	/** 
+	 * @desc Basic authentication
+	 * Currently not implemented.
+	 */
 	this.auth = {
 		basic: function (user) {
 			if (user) {

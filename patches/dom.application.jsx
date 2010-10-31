@@ -1,4 +1,11 @@
 ﻿/**
+ * @class
+ * @name Application
+ * @desc An instance of this class is available as ``app`` in every Adobe 
+ * application with an ExtendScript engine.
+ */
+
+/**
  * @desc Check the host app.
  * @param {String} application The application name. Case-insensitive. Prefixing 
  * @param {String|Number} [version] The application version number. Add two to your CS version number.

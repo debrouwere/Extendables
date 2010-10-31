@@ -7,8 +7,7 @@
  * @param {String} replacements
  *     For each **{}** symbol in the text, ``format`` expects a replacement argument.
  *     Calls `.toString()` on each replacement, so you can pass in any data type.
- *
- *	You may also specify a single replacement object, which will do named formatting.
+ *     You may also specify a single replacement object, which will do named formatting.
  *
  * @example
  *     > var person = {'salutation': 'mister', 'name': 'John Smith'};

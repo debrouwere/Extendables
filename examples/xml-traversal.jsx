@@ -1,8 +1,17 @@
 ﻿#include "../extendables.jsx";
 
-/* UNTESTED! Just a rough draft. */
+if (!app.is('indesign') {
+	throw new EnvironmentError("This script only works in Adobe InDesign");
+}
 
-// todo: create a new document
+// create a new document
+app.activeDocument = app.documents.add();
+Number.range(10).forEach(function () {
+	current('document').pages.add();
+}
+
+// create a B-culture master
+current('document').masterSpreads.add(1, {'namePrefix': 'B', 'name': 'culture'});
 
 var doc = current('document');
 doc.importXML('stories.xml');
@@ -17,6 +26,8 @@ if (!current('page').master()) {
 	current('page').master('B-culture');
 }
 
+var frames = current('page').textFrames;
+
 // layout a page with all the story titles from the culture section
 doc.xml().children().forEach(function (story) {
 	// attr returns the value for the specified attribute on an element, 
@@ -24,7 +35,8 @@ doc.xml().children().forEach(function (story) {
 	if (story.attr('section') == 'culture') {
 		// val returns the value of an element, in this case the title
 		var title = story.find('title').val();
-		// todo: make a new text frame with that title;
+		var frame = frames.add(undefined, undefined, undefined, {'contents': title});
+		frame.move(undefined, [0, 10]);
 		story.attr('processed', new Date().getTime());
 	}
 });

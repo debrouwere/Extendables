@@ -80,6 +80,7 @@ XMLElement.prototype.tag = function (type) {
  */
 XMLElement.prototype.children = function() {
 	var children = [];
+	if (!this.has('xmlElements')) return children;
 	for (var i = 0; i < this.xmlElements.length; i++) {
 		children.push(this.xmlElements[i]);
 	}
@@ -222,8 +223,8 @@ TextFrame.prototype.tag = tag;
  * Optionally, you may define a ``layer`` attribute, containing either a
  * layer name or a layer object.
  *
- * @returns {Object[]} Returns an array with the page items that make up the
- * library asset.
+ * @returns {Object[]}
+ *     Returns an array with the page items that make up the library asset.
  *
  * @example
  *     var library = app.libraries.item('storylayouts.indl');
@@ -236,15 +237,18 @@ TextFrame.prototype.tag = tag;
  */
 
 Asset.prototype.place = function (positioning) {
-	// TODO: should temporarily set unit origins to page, not spread, 
+	// we temporarily set unit origins to page, not spread, 
 	// so we can treat lefthand and righthand pages the same
-	// (note: perhaps using the .before and .after aspect-oriented tricks?)
+	var preferences = current('document').viewPreferences;
 	function setup () {
-		return orig;
+		Asset.prototype.place.frozen = preferences.rulerOrigin;
+		preferences.rulerOrigin = RulerOrigin.PAGE_ORIGIN;
+	}
+	function teardown () {
+		preferences.rulerOrigin = Asset.prototype.place.frozen;
 	}
 
-	function teardown (orig) {
-	}
+	setup();
 	
 	function move (items, x, y) {
 		var group = current('window').activePage.groups.add(items);
@@ -255,32 +259,42 @@ Asset.prototype.place = function (positioning) {
 	var doc = current('document');
 	var page = doc.pages.item(positioning.page);
 	var window = current('window');
-	var _margins_ = 20; // todo!
-	var x = positioning.x || _margins_;
-	var y = positioning.y || _margins_;
-	var pos_layer = false; // todo!
+	var margins = current('page').marginPreferences;
+	var x = positioning.x || margins.left;
+	var y = positioning.y || margins.top;
+	if (positioning.has('layer')) {
+		var destination_layer = current('document').layers.item(positioning.layer);
+		if (destination_layer == null) {
+			teardown();
+			throw new RangeError("Layer {layer} does not exist".format(positioning));
+		}
+	} else {
+		var destination_layer = doc.activeLayer
+	}
 	// put asset on the right page on a temporary layer
 	window.activePage = page;
-	var active_layer = doc.activeLayer;
 	var temporary_layer = doc.layers.add({'name': '__temp__'});
 	this.placeAsset(doc);
 	// page items become invalid and lose their ids when they get merged into
 	// another layer, so we have to go through quite a bit of trickery
-	// to keep track of which 
+	// to keep track of which page items make up the asset we placed
 	for (i = 0; i < temporary_layer.pageItems.count(); i++) {
 		temporary_layer.pageItems.item(i).insertLabel('__temp__', '__temp__');
 	}
-	// move the page items that comprise the asset, to the given location
+	// move the page items that make up the asset to the given location
 	move(temporary_layer.pageItems, x, y);
-	// delete the temporary layer
-	active_layer.merge(temporary_layer);
+	// get rid of the temporary layer
+	destination_layer.merge(temporary_layer);
 	var items = [];
-	for (i = 0; i < active_layer.pageItems.count(); i++) {
-		var item = active_layer.pageItems.item(i);
+	for (i = 0; i < destination_layer.pageItems.count(); i++) {
+		var item = destination_layer.pageItems.item(i);
 		if (item.extractLabel('__temp__') == '__temp__') {
 			item.insertLabel('__temp__', '');
 			items.push(item);
 		}
 	}
+	
+	teardown();
+
 	return items;
 }

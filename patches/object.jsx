@@ -7,7 +7,7 @@
  * @desc Merge two objects together. This modifies the original object.
  * First use :func:`Object#clone` on the object if you want to keep the original object intact.
  * 
- * @param {Object} The object to merge into this one.
+ * @param {Object} obj The object to merge into this one.
  *
  * @returns {Object} Returns the merged object (``this``);
  */
@@ -92,7 +92,12 @@ Object.prototype.is = function(type) {
 
 Object.prototype.has = function (key) {
 	if (key in this) {
-		return new Boolean(this[key]) != false;
+		try {
+			return new Boolean(this[key]) != false;
+		} catch (error) {
+			// invalid object
+			return false;
+		}
 	} else {
 		return false;
 	}
@@ -110,7 +115,8 @@ Object.prototype.has_own = function (key) {
 /**
  * @desc A debugging utility. When used without the ``dump`` argument,
  * equivalent to ``$.writeln(obj.toString())``.
- * @param {Bool} [dump=false] Dump all properties of this object;
+ * @param {Bool} [dump=false]
+ *     Dump all properties of this object;
  *     otherwise just returns a string representation.
  */
 

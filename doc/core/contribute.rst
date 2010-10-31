@@ -95,6 +95,15 @@ Extendables is under revision control, using the excellent Git VCS. The central 
 
 If you're uncomfortable using Git, just use ``fab commit`` instead and it will guide you through the commit process.
 
+.. warning:: 
+
+    If you're doing development on the Extendables core, make sure you don't put anything valuable inside ``extendables/site-packages`` — nothing in ``site-packages`` or ``log`` is tracked by Git, so whenever you change branches, everything inside of these directories will disappear. Instead, you could
+    
+     * use two different installations of Extendables: one for testing and development, 
+       and another as a production environment.
+     * place your own modules somewhere else, and place a shortcut or alias inside of
+       ``extendables/site-packages`` so your modules will get registered.
+
 Guidelines
 ----------
 
