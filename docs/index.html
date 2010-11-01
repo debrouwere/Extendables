@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to Extendables’ documentation! &mdash; Extendables v0.3b documentation</title>
+    <title>Welcome to Extendables’ documentation! &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.3b',
+        VERSION:     '0.3a',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="about.html" />
-    <link rel="top" title="Extendables v0.3b documentation" href="#" />
+    <link rel="top" title="Extendables v0.3a documentation" href="#" />
     <link rel="next" title="ui: The UI framework" href="packages/ui/doc/readme.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="packages/ui/doc/readme.html" title="ui: The UI framework"
              accesskey="N">next</a> |</li>
-        <li><a href="#">Extendables v0.3b documentation</a> &raquo;</li> 
+        <li><a href="#">Extendables v0.3a documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -83,8 +83,9 @@
 <span class="p">}</span>
 <span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s2">&quot;I&#39;m hungry&quot;</span><span class="p">).</span><span class="kd">with</span><span class="p">(</span><span class="nx">styling</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">suggestion</span> <span class="o">=</span> <span class="nx">dialog</span><span class="p">.</span><span class="nx">row</span><span class="p">(</span><span class="s1">&#39;suggestion&#39;</span><span class="p">);</span>
-<span class="nx">dialog</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;food&#39;</span><span class="p">,</span> <span class="s1">&#39;Want some food suggestions?&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;big&#39;</span><span class="p">).</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="s1">&#39;Sure thing!&#39;</span><span class="p">);</span>
-<span class="nx">dialog</span><span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;No thanks&#39;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span><span class="s1">&#39;food&#39;</span><span class="p">,</span> <span class="s1">&#39;Want some food suggestions?&#39;</span><span class="p">).</span><span class="nx">using</span><span class="p">(</span><span class="s1">&#39;big&#39;</span><span class="p">)</span>
+	<span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="s1">&#39;Sure thing!&#39;</span><span class="p">)</span>
+	<span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">,</span> <span class="s1">&#39;No thanks&#39;</span><span class="p">);</span>
 
 <span class="c1">// event handlers, the easy way</span>
 <span class="nx">dialog</span><span class="p">.</span><span class="nx">ok</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">).</span><span class="k">do</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
@@ -96,7 +97,7 @@
 	<span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
 <span class="p">});</span>
 
-<span class="c1">// let&#39;s show this dialog</span>
+<span class="c1">// let&#39;s get started</span>
 <span class="nx">dialog</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
 </pre></div>
 </div>
@@ -138,14 +139,17 @@
 <h2>Javascript and DOM enhancements<a class="headerlink" href="#javascript-and-dom-enhancements" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="patches/index.html">DOM enhancements</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="patches/index.html">Enhancements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="patches/application-specific/indesign.html">InDesign enhancements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="patches/application-specific/indesign.html#xml-traversal">XML traversal</a></li>
 <li class="toctree-l3"><a class="reference internal" href="patches/application-specific/indesign.html#handy-helpers">Handy helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="patches/application-specific/indesign.html#placing-library-assets">Placing library assets</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="patches/application.html">Application methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patches/application.html"><tt class="docutils literal"><span class="pre">Application</span></tt> methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="patches/application.html#is">is</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="patches/array.html"><tt class="docutils literal"><span class="pre">Array</span></tt> methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="patches/array.html#compact">compact</a></li>
 <li class="toctree-l3"><a class="reference internal" href="patches/array.html#contains">contains</a></li>
@@ -176,8 +180,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="patches/file-and-folder.html"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="patches/file-and-folder.html#class-file">Class File</a></li>
-<li class="toctree-l3"><a class="reference internal" href="patches/file-and-folder.html#class-folder">Class Folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/file-and-folder.html#file-methods"><tt class="docutils literal"><span class="pre">File</span></tt> methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patches/file-and-folder.html#folder-methods"><tt class="docutils literal"><span class="pre">Folder</span></tt> methods</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="patches/object.html"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a><ul>
@@ -216,8 +220,9 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="core/index.html">Core</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="core/writing-a-module.html">Writing your own module for Extendables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/writing-a-module.html">Writing your own module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/contribute.html">Contribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core/design-patterns.html">Common design patterns</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/roadmap.html">A roadmap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="core/changes.html">Changelog</a></li>
 </ul>
@@ -284,7 +289,7 @@
         <li class="right" >
           <a href="packages/ui/doc/readme.html" title="ui: The UI framework"
              >next</a> |</li>
-        <li><a href="#">Extendables v0.3b documentation</a> &raquo;</li> 
+        <li><a href="#">Extendables v0.3a documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

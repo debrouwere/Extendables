@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Contribute &mdash; Extendables v0.3b documentation</title>
+    <title>Contribute &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3b',
+        VERSION:     '0.3a',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,10 +22,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="Extendables v0.3b documentation" href="../index.html" />
+    <link rel="top" title="Extendables v0.3a documentation" href="../index.html" />
     <link rel="up" title="Core" href="index.html" />
-    <link rel="next" title="A roadmap" href="roadmap.html" />
-    <link rel="prev" title="Writing your own module for Extendables" href="writing-a-module.html" /> 
+    <link rel="next" title="Common design patterns" href="design-patterns.html" />
+    <link rel="prev" title="Writing your own module" href="writing-a-module.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,12 +35,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="roadmap.html" title="A roadmap"
+          <a href="design-patterns.html" title="Common design patterns"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="writing-a-module.html" title="Writing your own module for Extendables"
+          <a href="writing-a-module.html" title="Writing your own module"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
+        <li><a href="../index.html">Extendables v0.3a documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Core</a> &raquo;</li> 
       </ul>
     </div>  
@@ -122,17 +122,29 @@
 <h3>Git and GitHub<a class="headerlink" href="#git-and-github" title="Permalink to this headline">¶</a></h3>
 <p>Extendables is under revision control, using the excellent Git VCS. The central repository is over at <a class="reference external" href="http://github.com/stdbrouw/Extendables">http://github.com/stdbrouw/Extendables</a>. GitHub has <a class="reference external" href="http://help.github.com/">excellent help pages</a> that will get you started with both Git and GitHub.</p>
 <p>If you&#8217;re uncomfortable using Git, just use <tt class="docutils literal"><span class="pre">fab</span> <span class="pre">commit</span></tt> instead and it will guide you through the commit process.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>If you&#8217;re doing development on the Extendables core, make sure you don&#8217;t put anything valuable inside <tt class="docutils literal"><span class="pre">extendables/site-packages</span></tt> — nothing in <tt class="docutils literal"><span class="pre">site-packages</span></tt> or <tt class="docutils literal"><span class="pre">log</span></tt> is tracked by Git, so whenever you change branches, everything inside of these directories will disappear. Instead, you could</p>
+<blockquote class="last">
+<ul class="simple">
+<li>use two different installations of Extendables: one for testing and development,
+and another as a production environment.</li>
+<li>place your own modules somewhere else, and place a shortcut or alias inside of
+<tt class="docutils literal"><span class="pre">extendables/site-packages</span></tt> so your modules will get registered.</li>
+</ul>
+</blockquote>
+</div>
 </div>
 <div class="section" id="guidelines">
 <h3>Guidelines<a class="headerlink" href="#guidelines" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>versioning: <a class="reference external" href="http://semver.org/">semver spec</a>. Since we&#8217;re currently still in the experimental phase (version 0), semver places no restrictions on how we use version numbers, but this will become important once we graduate to version 1.</li>
+<li>Versioning: see the <a class="reference external" href="http://semver.org/">semver spec</a>. Since we&#8217;re currently still in the experimental phase (version 0), semver places no restrictions on how we use version numbers, but this will become important once we graduate to version 1.</li>
 <li>In time, if necessary, we may adopt the <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">nvie branching strategy</a>.</li>
-<li>what belongs in the framework and core-packages, what should be a site-package, what should be a script; experimentation</li>
-<li>we don&#8217;t commit things that aren&#8217;t documented or tested &#8211; there&#8217;s no point having functionality in the framework if nobody knows it&#8217;s there or if it&#8217;s not dependable; though we will look at unfinished</li>
-<li>version control messages: see Django style guide</li>
-<li>keep commits as atomic as possible: smaller is better</li>
-<li>style guide: none yet; tbd</li>
+<li>We don&#8217;t commit things that aren&#8217;t documented or tested &#8211; there&#8217;s no point having functionality in the framework if nobody knows it&#8217;s there or if it&#8217;s not dependable. We encourage people to show unfinished code, they just shouldn&#8217;t expect it to get committed any time soon.</li>
+<li>Keep commits as atomic as possible: smaller is better.</li>
+<li>Version control messages: messages should be in the past tense, e.g. <tt class="docutils literal"><span class="pre">Improved</span> <span class="pre">XMLElement#repr</span></tt>. If your commit closes a ticket in the issue tracker, start your commit message with <tt class="docutils literal"><span class="pre">Fixed</span> <span class="pre">#issue</span></tt>, e.g. <tt class="docutils literal"><span class="pre">Fixed</span> <span class="pre">#33</span> <span class="pre">--</span> <span class="pre">improved</span> <span class="pre">XMLElement#repr</span></tt>.</li>
+<li>In the documentation, instance methods are referred to as <tt class="docutils literal"><span class="pre">MyClass#mymethod</span></tt>, class methods are referred to as <tt class="docutils literal"><span class="pre">MyClass.mymethod</span></tt>.</li>
+<li>style guide: none yet; to be discussed. See the <a class="reference external" href="http://docs.djangoproject.com/en/dev/internals/contributing/">Django style guide</a> for a good example of issues that need to be addressed (code style, reporting bugs, how to do unit tests, naming conventions et cetera) and how we can communicate them.</li>
 </ul>
 </div>
 </div>
@@ -166,10 +178,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="writing-a-module.html"
-                        title="previous chapter">Writing your own module for Extendables</a></p>
+                        title="previous chapter">Writing your own module</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="roadmap.html"
-                        title="next chapter">A roadmap</a></p>
+  <p class="topless"><a href="design-patterns.html"
+                        title="next chapter">Common design patterns</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/core/contribute.txt"
@@ -199,12 +211,12 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="roadmap.html" title="A roadmap"
+          <a href="design-patterns.html" title="Common design patterns"
              >next</a> |</li>
         <li class="right" >
-          <a href="writing-a-module.html" title="Writing your own module for Extendables"
+          <a href="writing-a-module.html" title="Writing your own module"
              >previous</a> |</li>
-        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li>
+        <li><a href="../index.html">Extendables v0.3a documentation</a> &raquo;</li>
           <li><a href="index.html" >Core</a> &raquo;</li> 
       </ul>
     </div>

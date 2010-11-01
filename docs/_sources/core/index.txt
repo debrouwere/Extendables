@@ -9,5 +9,6 @@ Core
    
    writing-a-module
    contribute
+   design-patterns
    roadmap
    changes

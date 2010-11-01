@@ -257,6 +257,7 @@ Use the ``header`` method instead when fetching or changing a single header.
 
 The headers for this request.
 By default, these headers are included: 
+
 User-Agent
     InDesign ExtendScript
 Accept
@@ -290,7 +291,7 @@ max_redirects
 
 
 
-How much redirects the http client should follow before giving up. 5 redirects by default.
+How much redirects the http client should follow before giving up.
 
 
 
@@ -461,6 +462,7 @@ auth
 
 
 Basic authentication
+Currently not implemented.
 
 
 

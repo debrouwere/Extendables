@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Common design patterns in Extendables &mdash; Extendables v0.3b documentation</title>
+    <title>Common design patterns &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.3b',
+        VERSION:     '0.3a',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,10 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="Extendables v0.3b documentation" href="../index.html" /> 
+    <link rel="top" title="Extendables v0.3a documentation" href="../index.html" />
+    <link rel="up" title="Core" href="index.html" />
+    <link rel="next" title="A roadmap" href="roadmap.html" />
+    <link rel="prev" title="Contribute" href="contribute.html" /> 
   </head>
   <body>
     <div class="related">
@@ -31,7 +34,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="roadmap.html" title="A roadmap"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contribute.html" title="Contribute"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Extendables v0.3a documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Core</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -40,23 +50,33 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="common-design-patterns-in-extendables">
-<h1>Common design patterns in Extendables<a class="headerlink" href="#common-design-patterns-in-extendables" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="common-design-patterns">
+<h1>Common design patterns<a class="headerlink" href="#common-design-patterns" title="Permalink to this headline">¶</a></h1>
+<p>For framework design issues currently under discussion, look at <a class="reference external" href="http://github.com/stdbrouw/Extendables/issues/labels/design">issues in the GitHub issue tracker with a design label</a>.</p>
 <div class="section" id="getter-setters">
 <h2>getter/setters<a class="headerlink" href="#getter-setters" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, when coding an interface, it&#8217;s useful to be able to pretend that an object has a certain attribute people can read from and write to, while in reality there&#8217;s more going on behind the screen: a certain calculation, creating an object, doing a lookup in different places and so on — in essence, properties that work like functions, or functions that look like properties. This is a very useful abstraction that makes code more domain-specific.</p>
+<p>Unfortunately, as opposed to Ruby and Python, Javascript has no support for making a function appear to be a property. Instead, you&#8217;ll see the following idiom appear across different Javascript libraries:</p>
+<p>Extendables makes considerable use of this idiom, which you&#8217;re probably familiar with if you&#8217;ve ever used <a class="reference external" href="http://jquery.com/">jQuery</a> before.</p>
 </div>
 <div class="section" id="domain-specific-language-constructs">
 <h2>domain-specific language constructs<a class="headerlink" href="#domain-specific-language-constructs" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>esp. in the UI interface</li>
-<li>make code read more like plain English, at the expense of having function names that are, perhaps, in themselves not always very descriptive (e.g. <tt class="docutils literal"><span class="pre">obj.is</span></tt> in itself might not make a lot of sense, even though it&#8217;s pretty obvious what <tt class="docutils literal"><span class="pre">obj.is(Array)</span></tt> does.)</li>
-</ul>
+<p>Some parts of Extendables try to make coding a bit more elegant and a bit more like plain English by introducing a <a class="reference external" href="http://en.wikipedia.org/wiki/Domain-specific_language">domain-specific language</a> within Javascript.</p>
+<p>For example, in the UI module you would add styles to a dialog using <tt class="docutils literal"><span class="pre">var</span> <span class="pre">dialog</span> <span class="pre">=</span> <span class="pre">ui.Dialog(&quot;Hello</span> <span class="pre">there&quot;).with(styles);</span></tt> and not <tt class="docutils literal"><span class="pre">var</span> <span class="pre">dialog</span> <span class="pre">=</span> <span class="pre">ui.Dialog(&quot;Hello</span> <span class="pre">there&quot;);</span> <span class="pre">dialog.add_styles(styles);</span></tt></p>
+<p>In the Jasmine testing library, you define tests that look like</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">it</span><span class="p">(</span><span class="s1">&#39;needs proper unit tests&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="nx">toBeTruthy</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>By themselves, the function names <tt class="docutils literal"><span class="pre">it</span></tt> and <tt class="docutils literal"><span class="pre">expect</span></tt> are vague and undescriptive. But in context, they lead to very elegant code that makes immediate sense. Extendables uses domain-specific constructs wherever a single isolated task needs to be accomplished (building a user interface, testing your code) but avoids them elsewhere, in favor of more generally descriptive function and class names.</p>
+<p>In Extendables, modules that implement a domain-specific constructs are referred to as frameworks, because they frame your entire way of coding, whereas a library includes mostly helper classes and functions.</p>
 </div>
 <div class="section" id="extending-prototypes">
 <h2>extending prototypes<a class="headerlink" href="#extending-prototypes" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>people should make sure not to override these methods</li>
-</ul>
+<p>Extendables does most of its work by extending the prototypes of built-in objects, like <tt class="docutils literal"><span class="pre">Number</span></tt>, <tt class="docutils literal"><span class="pre">Array</span></tt> and <tt class="docutils literal"><span class="pre">String</span></tt>. That way, we can keep our code entirely object-oriented instead of having
+to define a plethora of helper functions.</p>
+<p>If a developer wishes to extend object prototypes him- or herself, they need to be aware of which methods Extendables adds to the prototypes. Overriding prototype methods provided by Extendables could unpredictably alter how applications work, so some care needs to be taken.</p>
 </div>
 </div>
 
@@ -68,7 +88,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Common design patterns in Extendables</a><ul>
+<li><a class="reference internal" href="#">Common design patterns</a><ul>
 <li><a class="reference internal" href="#getter-setters">getter/setters</a></li>
 <li><a class="reference internal" href="#domain-specific-language-constructs">domain-specific language constructs</a></li>
 <li><a class="reference internal" href="#extending-prototypes">extending prototypes</a></li>
@@ -76,6 +96,12 @@
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contribute.html"
+                        title="previous chapter">Contribute</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="roadmap.html"
+                        title="next chapter">A roadmap</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/core/design-patterns.txt"
@@ -104,7 +130,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">Extendables v0.3b documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="roadmap.html" title="A roadmap"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contribute.html" title="Contribute"
+             >previous</a> |</li>
+        <li><a href="../index.html">Extendables v0.3a documentation</a> &raquo;</li>
+          <li><a href="index.html" >Core</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

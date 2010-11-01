@@ -188,7 +188,7 @@ The end result is the code we showed at the top of this page:
 .. literalinclude:: ../../../examples/ui.jsx
    :language: extendscript
    
-You'll find this exact script in ``extendables/examples/ui.jsx``. You can copy-paste this file elsewhere and use it as a starting point to learn more about creating user interfaces with the Extendables UI library.
+You'll find this exact script at ``extendables/examples/ui.jsx``. You can copy-paste this file elsewhere and use it as a starting point to learn more about creating user interfaces with the Extendables UI library.
 
 What's wrong with a GUI designer?
 =================================

@@ -2,7 +2,7 @@
 A roadmap
 =========
 
-Extendables is strictly scratch-your-own-itch material, so there's no strict roadmap, but here are a couple of things under consideration for future releases. No promises, though.
+Extendables is strictly scratch-your-own-itch material, so there's no strict roadmap, but here are a couple of things under consideration for future releases. No promises.
 
 * a persistence module that would make it easy to persist objects either in an external database (using a REST interface) or locally in a serialized file.
 * improvements to the UI library, making it possible to apply a wider range of stylings than is currently possible.

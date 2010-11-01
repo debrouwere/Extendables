@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>InDesign enhancements &mdash; Extendables v0.3b documentation</title>
+    <title>InDesign enhancements &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.3b',
+        VERSION:     '0.3a',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,10 +22,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="top" title="Extendables v0.3b documentation" href="../../index.html" />
-    <link rel="up" title="DOM enhancements" href="../index.html" />
+    <link rel="top" title="Extendables v0.3a documentation" href="../../index.html" />
+    <link rel="up" title="Enhancements" href="../index.html" />
     <link rel="next" title="Application methods" href="../application.html" />
-    <link rel="prev" title="DOM enhancements" href="../index.html" /> 
+    <link rel="prev" title="Enhancements" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,10 +38,10 @@
           <a href="../application.html" title="Application methods"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="DOM enhancements"
+          <a href="../index.html" title="Enhancements"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">Extendables v0.3b documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">DOM enhancements</a> &raquo;</li> 
+        <li><a href="../../index.html">Extendables v0.3a documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Enhancements</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,11 +54,27 @@
 <h1>InDesign enhancements<a class="headerlink" href="#indesign-enhancements" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="xml-traversal">
 <h2>XML traversal<a class="headerlink" href="#xml-traversal" title="Permalink to this headline">¶</a></h2>
+<p>Extendables includes a number of shortcuts methods on <tt class="xref js js-func docutils literal"><span class="pre">XMLElement()</span></tt> that make XML traversal less verbose.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For handling straight-up XML (not InDesign-aware XMLElement objects),
+use the built-in XML support in ExtendScript</p>
+</div>
+<p>Here&#8217;s an example to get you started:</p>
 <div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="s2">&quot;../extendables.jsx&quot;</span><span class="p">;</span>
 
-<span class="cm">/* UNTESTED! Just a rough draft. */</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">app</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;indesign&#39;</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">throw</span> <span class="k">new</span> <span class="nx">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;This script only works in Adobe InDesign&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="c1">// todo: create a new document</span>
+<span class="c1">// create a new document</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">activeDocument</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">documents</span><span class="p">.</span><span class="nx">add</span><span class="p">();</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="nx">current</span><span class="p">(</span><span class="s1">&#39;document&#39;</span><span class="p">).</span><span class="nx">pages</span><span class="p">.</span><span class="nx">add</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// create a B-culture master</span>
+<span class="nx">current</span><span class="p">(</span><span class="s1">&#39;document&#39;</span><span class="p">).</span><span class="nx">masterSpreads</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;namePrefix&#39;</span><span class="o">:</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;culture&#39;</span><span class="p">});</span>
 
 <span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">current</span><span class="p">(</span><span class="s1">&#39;document&#39;</span><span class="p">);</span>
 <span class="nx">doc</span><span class="p">.</span><span class="nx">importXML</span><span class="p">(</span><span class="s1">&#39;stories.xml&#39;</span><span class="p">);</span>
@@ -73,6 +89,8 @@
 	<span class="nx">current</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">).</span><span class="nx">master</span><span class="p">(</span><span class="s1">&#39;B-culture&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 
+<span class="kd">var</span> <span class="nx">frames</span> <span class="o">=</span> <span class="nx">current</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">).</span><span class="nx">textFrames</span><span class="p">;</span>
+
 <span class="c1">// layout a page with all the story titles from the culture section</span>
 <span class="nx">doc</span><span class="p">.</span><span class="nx">xml</span><span class="p">().</span><span class="nx">children</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">story</span><span class="p">)</span> <span class="p">{</span>
 	<span class="c1">// attr returns the value for the specified attribute on an element, </span>
@@ -80,7 +98,8 @@
 	<span class="k">if</span> <span class="p">(</span><span class="nx">story</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;section&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;culture&#39;</span><span class="p">)</span> <span class="p">{</span>
 		<span class="c1">// val returns the value of an element, in this case the title</span>
 		<span class="kd">var</span> <span class="nx">title</span> <span class="o">=</span> <span class="nx">story</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
-		<span class="c1">// todo: make a new text frame with that title;</span>
+		<span class="kd">var</span> <span class="nx">frame</span> <span class="o">=</span> <span class="nx">frames</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;contents&#39;</span><span class="o">:</span> <span class="nx">title</span><span class="p">});</span>
+		<span class="nx">frame</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
 		<span class="nx">story</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;processed&#39;</span><span class="p">,</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">());</span>
 	<span class="p">}</span>
 <span class="p">});</span>
@@ -92,7 +111,6 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Extendables provides some shortcut methods that make traversing XML in InDesign less verbose.</p>
 <div class="section" id="xmlelement">
 <h3><tt class="docutils literal"><span class="pre">XMLElement</span></tt><a class="headerlink" href="#xmlelement" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="attr">
@@ -232,11 +250,6 @@ text content will be ignored. <tt class="docutils literal"><span class="pre">&lt
 </dd></dl>
 
 <p>An element&#8217;s value getter/setter.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">For handling straight-up XML (not InDesign-aware XMLElement objects),
-use the built-in XML support in ExtendScript</p>
-</div>
 </div>
 </div>
 </div>
@@ -344,12 +357,11 @@ layer name or a layer object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field"><th class="field-name" colspan="2">returns Object[]:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Returns an array with the page items that make up the</td>
+<tr><td>&nbsp;</td><td class="field-body">Returns an array with the page items that make up the library asset.</td>
 </tr>
 </tbody>
 </table>
 </blockquote>
-<p>library asset.</p>
 <p>the built-in <tt class="docutils literal"><span class="pre">asset.placeAsset()</span></tt> can only place on a document or on text
 whereas, most often, you want to place it on specific coordinates on a specific
 page. This method does that.</p>
@@ -416,10 +428,10 @@ page. This method does that.</p>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="../index.html"
-                        title="previous chapter">DOM enhancements</a></p>
+                        title="previous chapter">Enhancements</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../application.html"
-                        title="next chapter">Application methods</a></p>
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">Application</span></tt> methods</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/patches/application-specific/indesign.txt"
@@ -452,10 +464,10 @@ page. This method does that.</p>
           <a href="../application.html" title="Application methods"
              >next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="DOM enhancements"
+          <a href="../index.html" title="Enhancements"
              >previous</a> |</li>
-        <li><a href="../../index.html">Extendables v0.3b documentation</a> &raquo;</li>
-          <li><a href="../index.html" >DOM enhancements</a> &raquo;</li> 
+        <li><a href="../../index.html">Extendables v0.3a documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Enhancements</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
