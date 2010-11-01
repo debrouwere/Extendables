@@ -131,7 +131,7 @@
         $(document).ready(function () {
             $("#codesample").one('click', function () {
                 $(this).find("a").removeAttr("href");
-                $.get("http://github.com/stdbrouw/Extendables/blob/master/examples/basic.jsx", function (data) {
+                $.get("example.html", function (data) {
                     var code = $(data).find("div.highlight");
                     // GitHub doesn't recognize ExtendScript include directives, so we need to tweak its display slightly.
                     code.find(".err").text("#");
