@@ -5,7 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19440923-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
     <title>Application methods &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -53,34 +64,6 @@
   <div class="section" id="application-methods">
 <h1><tt class="docutils literal"><span class="pre">Application</span></tt> methods<a class="headerlink" href="#application-methods" title="Permalink to this headline">¶</a></h1>
 <p>Most of Extendables&#8217; functionality is either at the application-specific level or at the ExtendScript level. However, each <tt class="docutils literal"><span class="pre">app</span></tt> object, regardless of the host application, does get a <tt class="docutils literal"><span class="pre">is</span></tt> method added in that makes it easy to write code that targets a specific application or version.</p>
-<div class="section" id="is">
-<h2>is<a class="headerlink" href="#is" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="Application#is">
-<tt class="descname">Application#is</tt><big>(</big><em>application</em><span class="optional">[</span>, <em>version</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Application#is" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>application</strong> (<em>String</em>) &#8211; The application name. Case-insensitive.</li>
-<li><strong>version</strong> (<em>String|Number</em>) &#8211; The application version number. Add two to your CS version number.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>or pass in the version number as a string prefixed with &#8216;CS&#8217;, like <tt class="docutils literal"><span class="pre">app.is('indesign',</span> <span class="pre">'CS5')</span></tt>.</p>
-</dd></dl>
-
-<p>Check the host app.</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">alert</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;toolkit&#39;</span><span class="p">));</span>          <span class="c1">// any version</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;indesign&#39;</span><span class="p">,</span> <span class="s1">&#39;CS2&#39;</span><span class="p">));</span>  <span class="c1">// Creative Suite 2</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;indesign&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">));</span>      <span class="c1">// Creative Suite 2</span>
-<span class="nx">alert</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s1">&#39;indesign&#39;</span><span class="p">,</span> <span class="s1">&#39;6.0&#39;</span><span class="p">));</span>  <span class="c1">// Creative Suite 4.0</span>
-</pre></div>
-</div>
-</div>
 </div>
 
 
@@ -89,14 +72,6 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">Application</span></tt> methods</a><ul>
-<li><a class="reference internal" href="#is">is</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
   <p class="topless"><a href="application-specific/indesign.html"
                         title="previous chapter">InDesign enhancements</a></p>

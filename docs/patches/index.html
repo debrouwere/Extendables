@@ -5,7 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19440923-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
     <title>Enhancements &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -61,34 +72,8 @@
 <li class="toctree-l2"><a class="reference internal" href="application-specific/indesign.html#placing-library-assets">Placing library assets</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="application.html"><tt class="docutils literal"><span class="pre">Application</span></tt> methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="application.html#is">is</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="array.html"><tt class="docutils literal"><span class="pre">Array</span></tt> methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="array.html#compact">compact</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#contains">contains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#every">every</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#filter">filter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#first">first</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#flatten">flatten</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#foreach">forEach</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#indexafter">indexAfter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#indexof">indexOf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#last">last</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#lastindexof">lastIndexOf</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#map">map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#max">max</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#min">min</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#pluck">pluck</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#reduce">reduce</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#reduceright">reduceRight</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#reject">reject</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#select">select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#some">some</a></li>
-<li class="toctree-l2"><a class="reference internal" href="array.html#sum">sum</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="application.html"><tt class="docutils literal"><span class="pre">Application</span></tt> methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="array.html"><tt class="docutils literal"><span class="pre">Array</span></tt> methods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="error.html#id1"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="error.html#error-types">Error types</a></li>
@@ -99,32 +84,8 @@
 <li class="toctree-l2"><a class="reference internal" href="file-and-folder.html#folder-methods"><tt class="docutils literal"><span class="pre">Folder</span></tt> methods</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="object.html"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="object.html#clone">clone</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#deserialize">deserialize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#extend">extend</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#has">has</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#has-own">has_own</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#is">is</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#keys">keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#merge">merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#serialize">serialize</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#to">to</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#to-console">to_console</a></li>
-<li class="toctree-l2"><a class="reference internal" href="object.html#values">values</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="string.html"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="string.html#contains">contains</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#endswith">endswith</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#format">format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#indexafter">indexAfter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#ltrim">ltrim</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#rtrim">rtrim</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#startswith">startswith</a></li>
-<li class="toctree-l2"><a class="reference internal" href="string.html#trim">trim</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="object.html"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string.html"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a></li>
 </ul>
 </div>
 </div>

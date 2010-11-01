@@ -5,7 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19440923-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
     <title>logging: a logging utility for ExtendScript &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="../../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -89,154 +100,6 @@
 </tbody>
 </table>
 </div>
-<div class="section" id="class-log">
-<h2>Class Log<a class="headerlink" href="#class-log" title="Permalink to this headline">¶</a></h2>
-<p>A log file object. Will resume an existing log if it exists,
-or make a new one if it doesn&#8217;t.</p>
-<div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-javascript"><div class="highlight"><pre> <span class="kd">var</span> <span class="nx">logging</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;logging&quot;</span><span class="p">);</span>
- <span class="c1">// all logs end up in extendables/log</span>
- <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Log</span><span class="p">(</span><span class="s2">&quot;example.log&quot;</span><span class="p">);</span>
- <span class="k">try</span> <span class="p">{</span>
-     <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">();</span>
- <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-     <span class="nx">log</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;Caught error, will log a debug message now&quot;</span><span class="p">);</span>
-     <span class="nx">log</span><span class="p">.</span><span class="nx">critical</span><span class="p">(</span><span class="s2">&quot;Something happened: {error} ({env})&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="o">:</span> <span class="nx">error</span><span class="p">,</span> <span class="s1">&#39;env&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">.</span><span class="nx">os</span><span class="p">});</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="constructor">
-<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="Log">
-<em class="property">class </em><tt class="descname">Log</tt><big>(</big><em>name</em><span class="optional">[</span>, <em>log_level</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Log" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<em>String</em>) &#8211; the filename for this log file</li>
-<li><strong>log_level</strong> (<em>String|Number</em>) &#8211; the log level above which log messages don&#8217;t get written,</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>either a name (e.g. CRITICAL) or the actual log level. (<em>Default</em>: 4)</p>
-</div>
-<div class="section" id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="critical">
-<h4>critical<a class="headerlink" href="#critical" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt id="Log#critical">
-<tt class="descname">Log#critical</tt><big>(</big><em>message</em><span class="optional">[</span>, <em>replacements</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Log#critical" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>message</strong> (<em>String</em>) &#8211; The log message</li>
-<li><strong>replacements</strong> (<em>String|Object</em>) &#8211; Can take any number of replacements, to be passed along to str.format()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>log a critical error</p>
-</div>
-<div class="section" id="debug">
-<h4>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt id="Log#debug">
-<tt class="descname">Log#debug</tt><big>(</big><em>message</em><span class="optional">[</span>, <em>replacements</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Log#debug" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>message</strong> (<em>String</em>) &#8211; The log message</li>
-<li><strong>replacements</strong> (<em>String|Object</em>) &#8211; Can take any number of replacements, to be passed along to str.format()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>log a debug message</p>
-</div>
-<div class="section" id="error">
-<h4>error<a class="headerlink" href="#error" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt id="Log#error">
-<tt class="descname">Log#error</tt><big>(</big><em>message</em><span class="optional">[</span>, <em>replacements</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Log#error" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>message</strong> (<em>String</em>) &#8211; The log message</li>
-<li><strong>replacements</strong> (<em>String|Object</em>) &#8211; Can take any number of replacements, to be passed along to str.format()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>log an error</p>
-</div>
-<div class="section" id="info">
-<h4>info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt id="Log#info">
-<tt class="descname">Log#info</tt><big>(</big><em>message</em><span class="optional">[</span>, <em>replacements</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Log#info" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>message</strong> (<em>String</em>) &#8211; The log message</li>
-<li><strong>replacements</strong> (<em>String|Object</em>) &#8211; Can take any number of replacements, to be passed along to str.format()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>log an info message</p>
-</div>
-<div class="section" id="warning">
-<h4>warning<a class="headerlink" href="#warning" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt id="Log#warning">
-<tt class="descname">Log#warning</tt><big>(</big><em>message</em><span class="optional">[</span>, <em>replacements</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Log#warning" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>message</strong> (<em>String</em>) &#8211; The log message</li>
-<li><strong>replacements</strong> (<em>String|Object</em>) &#8211; Can take any number of replacements, to be passed along to str.format()</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<p>log a warning</p>
-</div>
-</div>
-</div>
 </div>
 
 
@@ -249,19 +112,6 @@ or make a new one if it doesn&#8217;t.</p>
   <ul>
 <li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">logging</span></tt>: a logging utility for ExtendScript</a><ul>
 <li><a class="reference internal" href="#log-levels">Log levels</a></li>
-<li><a class="reference internal" href="#class-log">Class Log</a><ul>
-<li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#constructor">Constructor</a></li>
-<li><a class="reference internal" href="#methods">Methods</a><ul>
-<li><a class="reference internal" href="#critical">critical</a></li>
-<li><a class="reference internal" href="#debug">debug</a></li>
-<li><a class="reference internal" href="#error">error</a></li>
-<li><a class="reference internal" href="#info">info</a></li>
-<li><a class="reference internal" href="#warning">warning</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

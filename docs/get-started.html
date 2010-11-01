@@ -5,7 +5,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19440923-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
     <title>Getting started with Extendables &mdash; Extendables v0.3a documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -48,26 +59,6 @@
 </div>
 <div class="section" id="first-steps">
 <h2>First steps<a class="headerlink" href="#first-steps" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="methods">
-<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="current">
-<h4>current<a class="headerlink" href="#current" title="Permalink to this headline">¶</a></h4>
-<dl class="function">
-<dt>
-<tt class="descname">current</tt><big>(</big><em>item</em><big>)</big></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>item</strong> (<em>String</em>) &#8211; Can be any one of <tt class="docutils literal"><span class="pre">window</span></tt>, <tt class="docutils literal"><span class="pre">doc</span></tt>, <tt class="docutils literal"><span class="pre">page</span></tt> or <tt class="docutils literal"><span class="pre">spread</span></tt>.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <p>... now let&#8217;s see whether that worked.</p>
 <ul class="simple">
 <li>loading a package (e.g. http) and the concept of namespaces</li>
@@ -104,8 +95,6 @@
 </li>
 </ul>
 </div>
-</div>
-</div>
 <div class="section" id="installing-a-new-extendables-module">
 <h2>Installing a new Extendables module<a class="headerlink" href="#installing-a-new-extendables-module" title="Permalink to this headline">¶</a></h2>
 <p>Extendables comes with a bunch of built-in modules, but you can also <a class="reference external" href="writing-a-module">write your own</a> and install modules other people have contributed. Contributed modules are installed by simply downloading them and  putting them inside of <tt class="docutils literal"><span class="pre">extendables/site-packages</span></tt>.</p>
@@ -130,13 +119,7 @@
   <ul>
 <li><a class="reference internal" href="#">Getting started with Extendables</a><ul>
 <li><a class="reference internal" href="#download">Download</a></li>
-<li><a class="reference internal" href="#first-steps">First steps</a><ul>
-<li><a class="reference internal" href="#methods">Methods</a><ul>
-<li><a class="reference internal" href="#current">current</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a class="reference internal" href="#first-steps">First steps</a></li>
 <li><a class="reference internal" href="#installing-a-new-extendables-module">Installing a new Extendables module</a></li>
 <li><a class="reference internal" href="#issues">Issues</a></li>
 </ul>

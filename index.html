@@ -86,6 +86,17 @@
             background-color: transparent;
         }
         </style>
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-19440923-1']);
+          _gaq.push(['_trackPageview']);
+        
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
 	</head>
 	<body>
         <div id="main">
@@ -120,7 +131,7 @@
         $(document).ready(function () {
             $("#codesample").one('click', function () {
                 $(this).find("a").removeAttr("href");
-                $.get("example.html", function (data) {
+                $.get("http://github.com/stdbrouw/Extendables/blob/master/examples/basic.jsx", function (data) {
                     var code = $(data).find("div.highlight");
                     // GitHub doesn't recognize ExtendScript include directives, so we need to tweak its display slightly.
                     code.find(".err").text("#");
