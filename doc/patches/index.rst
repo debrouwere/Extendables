@@ -1,6 +1,6 @@
-================
-DOM enhancements
-================
+============
+Enhancements
+============
 
 While Extendables includes a number of enhancements to the DOM objects you'll find in Adobe software, it works most of its magic at the Javascript level: it adds all kinds of methods to ``Array``, ``String``, ``Object``, ``Function`` and other prototypes, allowing for more expressive code with less boilerplate.
 

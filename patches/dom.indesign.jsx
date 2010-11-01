@@ -263,13 +263,19 @@ Asset.prototype.place = function (positioning) {
 	var x = positioning.x || margins.left;
 	var y = positioning.y || margins.top;
 	if (positioning.has('layer')) {
-		var destination_layer = current('document').layers.item(positioning.layer);
+		// positioning.layer can be both an actual layer or a layer name
+		if (positioning.layer instanceof Layer) {
+			var destination_layer = positioning.layer;
+		} else {
+			var destination_layer = current('document').layers.item(positioning.layer);
+		}
+		// can't place an asset on a layer that doesn't exist
 		if (destination_layer == null) {
 			teardown();
 			throw new RangeError("Layer {layer} does not exist".format(positioning));
 		}
 	} else {
-		var destination_layer = doc.activeLayer
+		var destination_layer = doc.activeLayer;
 	}
 	// put asset on the right page on a temporary layer
 	window.activePage = page;

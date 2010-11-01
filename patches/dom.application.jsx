@@ -7,9 +7,10 @@
 
 /**
  * @desc Check the host app.
- * @param {String} application The application name. Case-insensitive. Prefixing 
- * @param {String|Number} [version] The application version number. Add two to your CS version number.
- * or pass in the version number as a string prefixed with 'CS', like ``app.is('indesign', 'CS5')``.
+ * @param {String} application The application name. Case-insensitive. 
+ * @param {String|Number} [version] 
+ *     The application version number. Add two to your CS version number.
+ *     or pass in the version number as a string prefixed with 'CS', like ``app.is('indesign', 'CS5')``.
  *
  * @example
  *     alert(app.is('toolkit'));          // any version

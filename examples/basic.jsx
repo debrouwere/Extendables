@@ -27,8 +27,9 @@ var styling = {
 }
 var dialog = new ui.Dialog("I'm hungry").with(styling);
 var suggestion = dialog.row('suggestion');
-dialog.text('food', 'Want some food suggestions?').using('big').button('ok', 'Sure thing!');
-dialog.button('no', 'No thanks');
+dialog.text('food', 'Want some food suggestions?').using('big')
+	.button('ok', 'Sure thing!')
+	.button('no', 'No thanks');
 
 // event handlers, the easy way
 dialog.ok.on('click').do(function(){
@@ -40,5 +41,5 @@ dialog.no.on('click').do(function(){
 	this.window.close();
 });
 
-// let's show this dialog
+// let's get started
 dialog.window.show();

@@ -4,6 +4,8 @@
 
 .. contents::
 
+Extendables adds a considerable amount of methods to the ``Array`` object prototype. Most of these will be familiar from either Javascript 1.6+ (modern browsers implement Javascript 1.8 or higher) or from Jeremy Ashkenas' `underscore.js <http://documentcloud.github.com/underscore/>`_ library.
+
 .. literalinclude:: ../../examples/arrays.jsx
    :language: extendscript
 

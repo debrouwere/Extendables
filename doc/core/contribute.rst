@@ -107,10 +107,10 @@ If you're uncomfortable using Git, just use ``fab commit`` instead and it will g
 Guidelines
 ----------
 
-* versioning: `semver spec <http://semver.org/>`_. Since we're currently still in the experimental phase (version 0), semver places no restrictions on how we use version numbers, but this will become important once we graduate to version 1.
+* Versioning: see the `semver spec <http://semver.org/>`_. Since we're currently still in the experimental phase (version 0), semver places no restrictions on how we use version numbers, but this will become important once we graduate to version 1.
 * In time, if necessary, we may adopt the `nvie branching strategy <http://nvie.com/posts/a-successful-git-branching-model/>`_.
-* what belongs in the framework and core-packages, what should be a site-package, what should be a script; experimentation
-* we don't commit things that aren't documented or tested -- there's no point having functionality in the framework if nobody knows it's there or if it's not dependable; though we will look at unfinished 
-* version control messages: see Django style guide
-* keep commits as atomic as possible: smaller is better
-* style guide: none yet; tbd
+* We don't commit things that aren't documented or tested -- there's no point having functionality in the framework if nobody knows it's there or if it's not dependable. We encourage people to show unfinished code, they just shouldn't expect it to get committed any time soon.
+* Keep commits as atomic as possible: smaller is better.
+* Version control messages: messages should be in the past tense, e.g. ``Improved XMLElement#repr``. If your commit closes a ticket in the issue tracker, start your commit message with ``Fixed #issue``, e.g. ``Fixed #33 -- improved XMLElement#repr``.
+* In the documentation, instance methods are referred to as ``MyClass#mymethod``, class methods are referred to as ``MyClass.mymethod``.
+* style guide: none yet; to be discussed. See the `Django style guide <http://docs.djangoproject.com/en/dev/internals/contributing/>`_ for a good example of issues that need to be addressed (code style, reporting bugs, how to do unit tests, naming conventions et cetera) and how we can communicate them.

@@ -1,7 +1,8 @@
 ﻿#include "../extendables.jsx"
 extract("testing");
 
-var specs = new File($.fileName).parent.getFiles("*.specs");
+var specs = new File($.fileName).parent.files("*.specs");
+specs = specs.concat(new Folder("examples/test").at(Folder.extendables).files("*.specs"));
 
 specs.forEach(function (specfile) {
 	try {

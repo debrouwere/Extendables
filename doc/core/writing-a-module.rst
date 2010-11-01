@@ -1,8 +1,8 @@
 .. _writing-a-module:
 
-=======================================
-Writing your own module for Extendables
-=======================================
+=======================
+Writing your own module
+=======================
 
 Modules versus scripts
 ----------------------
