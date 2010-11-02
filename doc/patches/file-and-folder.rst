@@ -2,6 +2,8 @@
 ``File`` and ``Folder`` objects
 ===============================
 
+.. contents::
+
 .. literalinclude:: ../../examples/files-and-folders.jsx
    :language: extendscript
 
