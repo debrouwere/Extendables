@@ -45,8 +45,7 @@ function Module (file_or_folder, is_package) {
 		try {
 			$.evalFile(file);
 		} catch (error) {
-			// REFACTOR: shouldn't be user-facing; should perhaps be a log message
-			alert("Could not fully load " + module.id + "\n" + error);	
+			log_buffer.push([3, "Could not fully load " + module.id + "\n" + error]);	
 		}
 		return exports;		
 	};

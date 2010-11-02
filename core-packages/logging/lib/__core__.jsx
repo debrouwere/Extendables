@@ -119,7 +119,7 @@ var Log = function (name, log_level) {
 	}
 
 	// init
-	var logfolder = new Folder("log").at(Folder.extendables);
+	var logfolder = settings.LOGGING_FOLDER;
 	this.file = new File(this.name).at(logfolder);
 	this.truncate();
 }

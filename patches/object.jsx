@@ -91,13 +91,12 @@ Object.prototype.is = function(type) {
  */
 
 Object.prototype.has = function (key) {
+	// could be just null or an invalid object
+	// either way, has() should return false
+	if (this == null || this[key] == null) return false; 
+	
 	if (key in this) {
-		if (this[key] == null) {
-			// invalid object
-			return false;
-		} else {
-			return new Boolean(this[key]) != false;
-		}
+		return new Boolean(this[key]) != false;
 	} else {
 		return false;
 	}

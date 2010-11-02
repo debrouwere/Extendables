@@ -56,9 +56,11 @@ IDEAS / VAGUE THOUGHTS:
 // perhaps a Collection wrapper class would be handy in that case, to homogenize
 // how we handle collections and to be able to handle them in a more Array-like way?
 
+/*
 var menus = app.menus.item("Main").submenus;
 var menus = app.menus;
 var menus = app.menus.item("Main").submenus.item("Window").submenus;
 for (var i = 0; i < menus.count(); i++) {
 	$.writeln(menus.item(i).name);
 }
+*/
