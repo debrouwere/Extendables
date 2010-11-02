@@ -100,8 +100,9 @@ If you're uncomfortable using Git, just use ``fab commit`` instead and it will g
     If you're doing development on the Extendables core, make sure you don't put anything valuable inside ``extendables/site-packages`` — nothing in ``site-packages`` or ``log`` is tracked by Git, so whenever you change branches, everything inside of these directories will disappear. Instead, you could
     
      * use two different installations of Extendables: one for testing and development, 
-       and another as a production environment.
-     * place your own modules somewhere else, and place a shortcut or alias inside of
+       and another as a production environment. That way, you can use a stable version
+       for app development, but also the latest checkout of Extendables for working on the core.
+     * place your own modules somewhere else, and place a symlink (OSX-only) inside of
        ``extendables/site-packages`` so your modules will get registered.
 
 Guidelines

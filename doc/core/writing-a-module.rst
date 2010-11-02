@@ -46,8 +46,9 @@ For very small modules that don't require tests or documentation, a single Exten
     system, so whenever you change branches, everything inside of these directories will disappear. Instead, you could
     
      * use two different installations of Extendables: one for testing and development, 
-       and another as a production environment.
-     * place your own modules somewhere else, and place a shortcut or alias inside of
+       and another as a production environment. That way, you can use a stable version
+       for app development, but also the latest checkout of Extendables for working on the core.
+     * place your own modules somewhere else, and place a symlink (OSX-only) inside of
        ``extendables/site-packages`` so your modules will get registered.
 
 Scaffolding

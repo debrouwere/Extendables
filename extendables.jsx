@@ -1,7 +1,17 @@
 ﻿#include "patches/__all__.jsx"
+if (new File("settings.jsx").at(Folder.extendables.parent).exists) {
+	// allows for project-specific settings, so nobody
+	// has to override anything within /extendables
+	// (this feature is currently undocumented)
+	$.writeln("Using Extendables with project-specific settings");
+	#include "../settings.jsx"
+} else {
+	$.writeln("Using Extendables with default settings");
+	#include "settings.jsx"
+}
 #include "settings.jsx"
 #include "loader.jsx"
-load_modules(['./core-packages', './site-packages']);
+load_modules(settings.package_directories);
 
 // note: if we want some modules to be available in the global namespace, 
 // we can simply extract() 'em here
