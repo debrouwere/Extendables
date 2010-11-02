@@ -66,8 +66,281 @@
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#object-methods" id="id1"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a></li>
+<li><a class="reference internal" href="#object-methods" id="id1"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#clone" id="id2">clone</a></li>
+<li><a class="reference internal" href="#deserialize" id="id3">deserialize</a></li>
+<li><a class="reference internal" href="#extend" id="id4">extend</a></li>
+<li><a class="reference internal" href="#has" id="id5">has</a></li>
+<li><a class="reference internal" href="#has-own" id="id6">has_own</a></li>
+<li><a class="reference internal" href="#is" id="id7">is</a></li>
+<li><a class="reference internal" href="#keys" id="id8">keys</a></li>
+<li><a class="reference internal" href="#merge" id="id9">merge</a></li>
+<li><a class="reference internal" href="#serialize" id="id10">serialize</a></li>
+<li><a class="reference internal" href="#to" id="id11">to</a></li>
+<li><a class="reference internal" href="#to-console" id="id12">to_console</a></li>
+<li><a class="reference internal" href="#values" id="id13">values</a></li>
 </ul>
+</li>
+</ul>
+</div>
+<div class="section" id="clone">
+<h2><a class="toc-backref" href="#id2">clone</a><a class="headerlink" href="#clone" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#clone">
+<tt class="descname">Object#clone</tt><big>(</big><big>)</big><a class="headerlink" href="#Object#clone" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Creates and returns a clone of the object.</p>
+</div>
+<div class="section" id="deserialize">
+<h2><a class="toc-backref" href="#id3">deserialize</a><a class="headerlink" href="#deserialize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#deserialize">
+<tt class="descname">Object#deserialize</tt><big>(</big><em>type</em><span class="optional">[</span>, <em>options</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Object#deserialize" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<em>String</em>) &#8211; Either <tt class="docutils literal"><span class="pre">xml</span></tt>, <tt class="docutils literal"><span class="pre">base64</span></tt> or <tt class="docutils literal"><span class="pre">key-value</span></tt>.</li>
+<li><strong>options</strong> (<em>Object</em>) &#8211; Options, if applicable for the deserialization type.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Object deserialization.</p>
+</div>
+<div class="section" id="extend">
+<h2><a class="toc-backref" href="#id4">extend</a><a class="headerlink" href="#extend" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#extend">
+<tt class="descname">Object#extend</tt><big>(</big><big>)</big><a class="headerlink" href="#Object#extend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An alias for <a class="reference internal" href="#Object#merge" title="Object#merge"><tt class="xref js js-func docutils literal"><span class="pre">Object#merge()</span></tt></a></p>
+</div>
+<div class="section" id="has">
+<h2><a class="toc-backref" href="#id5">has</a><a class="headerlink" href="#has" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#has">
+<tt class="descname">Object#has</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#Object#has" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Checks whether the object has a value for the specified property.</p>
+</div>
+<div class="section" id="has-own">
+<h2><a class="toc-backref" href="#id6">has_own</a><a class="headerlink" href="#has-own" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#has_own">
+<tt class="descname">Object#has_own</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#Object#has_own" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Alias for <tt class="docutils literal"><span class="pre">obj.hasOwnProperty</span></tt></p>
+</div>
+<div class="section" id="is">
+<h2><a class="toc-backref" href="#id7">is</a><a class="headerlink" href="#is" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#is">
+<tt class="descname">Object#is</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#Object#is" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>An alias for <tt class="docutils literal"><span class="pre">this</span> <span class="pre">instanceof</span> <span class="pre">type</span></tt>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="p">[].</span><span class="nx">is</span><span class="p">(</span><span class="nb">Array</span><span class="p">);</span>
+<span class="kc">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="keys">
+<h2><a class="toc-backref" href="#id8">keys</a><a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#keys">
+<tt class="descname">Object#keys</tt><big>(</big><big>)</big><a class="headerlink" href="#Object#keys" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns Array:</th><td class="field-body">An array with all the keys.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Returns only the keys (also known as &#8216;names&#8217;) of an object or associative array.</p>
+</div>
+<div class="section" id="merge">
+<h2><a class="toc-backref" href="#id9">merge</a><a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#merge">
+<tt class="descname">Object#merge</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#Object#merge" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj</strong> (<em>Object</em>) &#8211; The object to merge into this one.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Object:</th><td class="field-body"><p class="first last">Returns the merged object (<tt class="docutils literal"><span class="pre">this</span></tt>);</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Merge two objects together. This modifies the original object.
+First use <a class="reference internal" href="#Object#clone" title="Object#clone"><tt class="xref js js-func docutils literal"><span class="pre">Object#clone()</span></tt></a> on the object if you want to keep the original object intact.</p>
+</div>
+<div class="section" id="serialize">
+<h2><a class="toc-backref" href="#id10">serialize</a><a class="headerlink" href="#serialize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#serialize">
+<tt class="descname">Object#serialize</tt><big>(</big><em>type</em><span class="optional">[</span>, <em>options</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Object#serialize" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<em>String</em>) &#8211; Either <tt class="docutils literal"><span class="pre">base64</span></tt> or <tt class="docutils literal"><span class="pre">key-value</span></tt>.</li>
+<li><strong>options</strong> (<em>Object</em>) &#8211; Options, if applicable for the serialization type.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Object serialization.</p>
+<p>The result of serialization followed by deserialization is the original object, whereas
+a conversion is not reversible.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;key1&#39;</span><span class="o">:</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span><span class="o">:</span> <span class="s1">&#39;value2&#39;</span><span class="p">};</span>
+<span class="o">&gt;</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">serialize</span><span class="p">(</span><span class="s1">&#39;key-value&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;separator&#39;</span><span class="o">:</span> <span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="s1">&#39;eol&#39;</span><span class="o">:</span> <span class="s1">&#39;\n&#39;</span><span class="p">});</span>
+<span class="s2">&quot;key1: value1\nkey2: value2\n&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to">
+<h2><a class="toc-backref" href="#id11">to</a><a class="headerlink" href="#to" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#to">
+<tt class="descname">Object#to</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#Object#to" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<em>String</em>) &#8211; One of <tt class="docutils literal"><span class="pre">boolean</span></tt>, <tt class="docutils literal"><span class="pre">number</span></tt>, <tt class="docutils literal"><span class="pre">int</span></tt>, <tt class="docutils literal"><span class="pre">float</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt>, <tt class="docutils literal"><span class="pre">array</span></tt>, <tt class="docutils literal"><span class="pre">alphanumeric</span></tt>, <tt class="docutils literal"><span class="pre">slug</span></tt>, <tt class="docutils literal"><span class="pre">lower</span></tt> and <tt class="docutils literal"><span class="pre">upper</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Provides easy shortcuts to a number of common conversions, like lowercasing a string or
+converting the <tt class="docutils literal"><span class="pre">arguments</span></tt> object to an array.</p>
+<p>All of these conversions return a new object, they do not modify the original.</p>
+<p>A <tt class="docutils literal"><span class="pre">slug</span></tt> is a string that&#8217;s usable as a filename or in an URL: it&#8217;s
+a lowercased string with all non-alphanumeric characters stripped out, and spaces replaced by
+hyphens.</p>
+<p>Use this method instead of functions like <tt class="docutils literal"><span class="pre">parseInt</span></tt> and methods like <tt class="docutils literal"><span class="pre">str.toLowerCase()</span></tt>.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">];</span>
+<span class="o">&gt;</span> <span class="kd">function</span> <span class="nx">to_integers</span> <span class="p">()</span> <span class="p">{</span>
+<span class="p">...</span> <span class="k">return</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">&#39;array&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">);</span> <span class="p">});</span>
+<span class="p">...</span> <span class="p">}</span>
+<span class="o">&gt;</span> <span class="nx">to_integers</span><span class="p">(</span><span class="nx">list</span><span class="p">);</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-console">
+<h2><a class="toc-backref" href="#id12">to_console</a><a class="headerlink" href="#to-console" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#to_console">
+<tt class="descname">Object#to_console</tt><big>(</big><span class="optional">[</span><em>dump</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Object#to_console" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dump</strong> (<em>Bool</em>) &#8211; Dump all properties of this object;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>otherwise just returns a string representation. (<em>Default</em>: false)</p>
+</dd></dl>
+
+<p>A debugging utility. When used without the <tt class="docutils literal"><span class="pre">dump</span></tt> argument,
+equivalent to <tt class="docutils literal"><span class="pre">$.writeln(obj.toString())</span></tt>.</p>
+</div>
+<div class="section" id="values">
+<h2><a class="toc-backref" href="#id13">values</a><a class="headerlink" href="#values" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="Object#values">
+<tt class="descname">Object#values</tt><big>(</big><big>)</big><a class="headerlink" href="#Object#values" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns Array:</th><td class="field-body">An array with all the values.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Returns only the values of an object or associative array.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="o">&gt;</span> <span class="kd">var</span> <span class="nx">nation</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;continent&#39;</span><span class="o">:</span> <span class="s1">&#39;Europe&#39;</span><span class="p">}</span>
+<span class="o">&gt;</span> <span class="nx">nation</span><span class="p">.</span><span class="nx">values</span><span class="p">();</span>
+<span class="p">[</span><span class="s1">&#39;Belgium&#39;</span><span class="p">,</span> <span class="s1">&#39;Europe&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -77,12 +350,31 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">Object</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#clone">clone</a></li>
+<li><a class="reference internal" href="#deserialize">deserialize</a></li>
+<li><a class="reference internal" href="#extend">extend</a></li>
+<li><a class="reference internal" href="#has">has</a></li>
+<li><a class="reference internal" href="#has-own">has_own</a></li>
+<li><a class="reference internal" href="#is">is</a></li>
+<li><a class="reference internal" href="#keys">keys</a></li>
+<li><a class="reference internal" href="#merge">merge</a></li>
+<li><a class="reference internal" href="#serialize">serialize</a></li>
+<li><a class="reference internal" href="#to">to</a></li>
+<li><a class="reference internal" href="#to-console">to_console</a></li>
+<li><a class="reference internal" href="#values">values</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="file-and-folder.html"
                         title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal docutils literal docutils literal"><span class="pre">Folder</span></tt> objects</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="string.html"
-                        title="next chapter"><tt class="docutils literal"><span class="pre">String</span></tt> methods</a></p>
+                        title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">String</span></tt> methods</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/patches/object.txt"

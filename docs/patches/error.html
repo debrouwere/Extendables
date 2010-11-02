@@ -69,15 +69,160 @@
 <p class="topic-title first">Contents</p>
 <ul class="simple">
 <li><a class="reference internal" href="#error-handling" id="id2">Error handling</a><ul>
-<li><a class="reference internal" href="#id1" id="id3"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a></li>
-<li><a class="reference internal" href="#error-types" id="id4">Error types</a></li>
+<li><a class="reference internal" href="#id1" id="id3"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#factory" id="id4">factory</a></li>
+<li><a class="reference internal" href="#is" id="id5">is</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#error-types" id="id6">Error types</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="factory">
+<h3><a class="toc-backref" href="#id4">factory</a><a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Error.factory">
+<tt class="descclassname">Error.</tt><tt class="descname">factory</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#Error.factory" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>String</em>) &#8211; Preferably the same name as the variable you&#8217;re associating the error with.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Use this classmethod to make sure your custom error types work
+just like the built-in ones.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">DatabaseError</span> <span class="o">=</span> <span class="nb">Error</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s2">&quot;DatabaseError&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="is">
+<h3><a class="toc-backref" href="#id5">is</a><a class="headerlink" href="#is" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Error#is">
+<tt class="descname">Error#is</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#Error#is" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>type</strong> (<em>Constructor</em>) &#8211; Use the constructor itself, not a string or an instance.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns Bool:</th><td class="field-body"><p class="first last">True or false. Any error type matches the base class, so <tt class="docutils literal"><span class="pre">new</span> <span class="pre">SyntaxError().is(Error)</span></tt> would return <tt class="docutils literal"><span class="pre">true</span></tt>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>This method overloads <a class="reference internal" href="object.html#Object#is" title="Object#is"><tt class="xref js js-func docutils literal"><span class="pre">Object#is()</span></tt></a> to combat a problem with some versions of ExtendScript
+that leads to all error types being considered the base class Error. This problem makes it impossible to
+do simple comparisons on errors, for example <tt class="docutils literal"><span class="pre">new</span> <span class="pre">EvalError()</span> <span class="pre">instanceof</span> <span class="pre">SyntaxError</span></tt>. The previous
+expression should return false but will return true.</p>
+<p>When testing whether you&#8217;re dealing with a specific kind of error, use this method, and refrain
+from using <tt class="docutils literal"><span class="pre">instanceof</span></tt>.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><em class="xref std std-ref">error-handling</em> has some useful advice on how to handle errors in ExtendScript.</p>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="k">try</span> <span class="p">{</span>
+    <span class="nx">raise</span> <span class="k">new</span> <span class="nx">SyntaxError</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span> <span class="k">if</span> <span class="nx">error</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;This displays in case of a type error, but not in case of a syntax error.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="error-types">
-<h2><a class="toc-backref" href="#id4">Error types</a><a class="headerlink" href="#error-types" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Error types</a><a class="headerlink" href="#error-types" title="Permalink to this headline">¶</a></h2>
+<p>Use when a calculation misbehaves.</p>
+<dl class="class">
+<dt id="ArithmeticError">
+<em class="property">class </em><tt class="descname">ArithmeticError</tt><big>(</big><big>)</big><a class="headerlink" href="#ArithmeticError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Use for exceptions that have nothing to do with Extendables or ExtendScript.</p>
+<dl class="class">
+<dt id="EnvironmentError">
+<em class="property">class </em><tt class="descname">EnvironmentError</tt><big>(</big><big>)</big><a class="headerlink" href="#EnvironmentError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An error that occurs regarding the global function eval()</p>
+<dl class="class">
+<dt id="EvalError">
+<em class="property">class </em><tt class="descname">EvalError</tt><big>(</big><big>)</big><a class="headerlink" href="#EvalError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Use when an import fails. More specific than IOError.</p>
+<dl class="class">
+<dt id="ImportError">
+<em class="property">class </em><tt class="descname">ImportError</tt><big>(</big><big>)</big><a class="headerlink" href="#ImportError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Use when an IO operation (loading a file, writing to a file, an internet connection) fails.</p>
+<dl class="class">
+<dt id="IOError">
+<em class="property">class </em><tt class="descname">IOError</tt><big>(</big><big>)</big><a class="headerlink" href="#IOError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Use to warn people that a feature has not yet been implemented, as a placeholder
+to remind yourself or to indicate that a subclass needs to overload the parent method.</p>
+<dl class="class">
+<dt id="NotImplementedError">
+<em class="property">class </em><tt class="descname">NotImplementedError</tt><big>(</big><big>)</big><a class="headerlink" href="#NotImplementedError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Much like EvalError, but for your own parsers.</p>
+<dl class="class">
+<dt id="ParseError">
+<em class="property">class </em><tt class="descname">ParseError</tt><big>(</big><big>)</big><a class="headerlink" href="#ParseError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An error that occurs when a numeric variable or parameter is outside of its valid range</p>
+<dl class="class">
+<dt id="RangeError">
+<em class="property">class </em><tt class="descname">RangeError</tt><big>(</big><big>)</big><a class="headerlink" href="#RangeError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An error that occurs when de-referencing an invalid reference</p>
+<dl class="class">
+<dt id="ReferenceError">
+<em class="property">class </em><tt class="descname">ReferenceError</tt><big>(</big><big>)</big><a class="headerlink" href="#ReferenceError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An error that occurs regarding the global function eval()</p>
+<dl class="class">
+<dt id="SyntaxError">
+<em class="property">class </em><tt class="descname">SyntaxError</tt><big>(</big><big>)</big><a class="headerlink" href="#SyntaxError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Use when the system (either the Creative Suite app or the operating system) malfunctions.</p>
+<dl class="class">
+<dt id="SystemError">
+<em class="property">class </em><tt class="descname">SystemError</tt><big>(</big><big>)</big><a class="headerlink" href="#SystemError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>An error that occurs when a variable or parameter is not of a valid type</p>
+<dl class="class">
+<dt id="TypeError">
+<em class="property">class </em><tt class="descname">TypeError</tt><big>(</big><big>)</big><a class="headerlink" href="#TypeError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="ValidationError">
+<em class="property">class </em><tt class="descname">ValidationError</tt><big>(</big><big>)</big><a class="headerlink" href="#ValidationError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -90,7 +235,11 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Error handling</a><ul>
-<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a></li>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">Error</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#factory">factory</a></li>
+<li><a class="reference internal" href="#is">is</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#error-types">Error types</a></li>
 </ul>
 </li>

@@ -1,0 +1,233 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19440923-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Class HTTPResponse &mdash; Extendables v0.3a documentation</title>
+    <link rel="stylesheet" href="../../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.3a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="top" title="Extendables v0.3a documentation" href="../../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../../../index.html">Extendables v0.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="class-httpresponse">
+<h1>Class HTTPResponse<a class="headerlink" href="#class-httpresponse" title="Permalink to this headline">¶</a></h1>
+<p>The response to an HTTP request. These are returned by <a class="reference internal" href="../readme.html#HTTPRequest" title="HTTPRequest"><tt class="xref js js-func docutils literal"><span class="pre">HTTPRequest()</span></tt></a> objects,
+you should never have to construct them yourself.</p>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="HTTPResponse">
+<em class="property">class </em><tt class="descname">HTTPResponse</tt><big>(</big><em>method</em>, <em>encoding</em>, <em>request</em><big>)</big><a class="headerlink" href="#HTTPResponse" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>method</strong> &#8211; The request method.</li>
+<li><strong>encoding</strong> &#8211; The expected response encoding.</li>
+<li><strong>request</strong> &#8211; The original request; mainly handy for debugging.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Available as <tt class="docutils literal"><span class="pre">for_request</span></tt> on the response object.</p>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="body">
+<h3>body<a class="headerlink" href="#body" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">body</tt></dt>
+<dd></dd></dl>
+
+<p>The body content of the response.</p>
+</div>
+<div class="section" id="corrupt">
+<h3>corrupt<a class="headerlink" href="#corrupt" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">corrupt</tt></dt>
+<dd></dd></dl>
+
+<p>Whether the response is corrupt. Currently not implemented.</p>
+</div>
+<div class="section" id="encoding">
+<h3>encoding<a class="headerlink" href="#encoding" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">encoding</tt></dt>
+<dd></dd></dl>
+
+<p>The encoding of the response we received. Usually UTF-8.</p>
+</div>
+<div class="section" id="for-request">
+<h3>for_request<a class="headerlink" href="#for-request" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="for_request">
+<tt class="descname">for_request</tt><a class="headerlink" href="#for_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The original HTTPRequest object that led to this response.</p>
+</div>
+<div class="section" id="is-redirect">
+<h3>is_redirect<a class="headerlink" href="#is-redirect" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="is_redirect">
+<tt class="descname">is_redirect</tt><a class="headerlink" href="#is_redirect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Whether we&#8217;ve received a response with a redirect code.</p>
+</div>
+<div class="section" id="redirection-type">
+<h3>redirection_type<a class="headerlink" href="#redirection-type" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="redirection_type">
+<tt class="descname">redirection_type</tt><a class="headerlink" href="#redirection_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>If redirected, distinguishes between requests that should be re-issued
+with a GET request (303) and those that should be re-issued as-is (all the others).</p>
+</div>
+<div class="section" id="redirects">
+<h3>redirects<a class="headerlink" href="#redirects" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">redirects</tt></dt>
+<dd></dd></dl>
+
+<p>An array of any redirects the request might have followed.</p>
+</div>
+<div class="section" id="response-time">
+<h3>response_time<a class="headerlink" href="#response-time" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="response_time">
+<tt class="descname">response_time</tt><a class="headerlink" href="#response_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>How long it took to request the resource and get a response. In milliseconds.</p>
+</div>
+<div class="section" id="status">
+<h3>status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt>
+<tt class="descname">status</tt></dt>
+<dd></dd></dl>
+
+<p>The status code of the response.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP status code definitions</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Class HTTPResponse</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#attributes">Attributes</a><ul>
+<li><a class="reference internal" href="#body">body</a></li>
+<li><a class="reference internal" href="#corrupt">corrupt</a></li>
+<li><a class="reference internal" href="#encoding">encoding</a></li>
+<li><a class="reference internal" href="#for-request">for_request</a></li>
+<li><a class="reference internal" href="#is-redirect">is_redirect</a></li>
+<li><a class="reference internal" href="#redirection-type">redirection_type</a></li>
+<li><a class="reference internal" href="#redirects">redirects</a></li>
+<li><a class="reference internal" href="#response-time">response_time</a></li>
+<li><a class="reference internal" href="#status">status</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../../_sources/packages/http/doc/jsdoc/HTTPResponse.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../../../index.html">Extendables v0.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

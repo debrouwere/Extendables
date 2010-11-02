@@ -1,0 +1,135 @@
+
+
+
+
+
+
+..
+    Classes and methods
+
+Class UI
+================================================================================
+
+..
+   class-title
+
+
+This is the base class from which ``Dialog`` and ``Palette`` inherit.
+Don't instantiate this class directly.
+
+
+
+
+
+
+
+
+    
+
+
+Constructor
+-----------
+
+.. js:class:: UI()
+
+
+
+
+
+
+
+
+Methods
+-------
+
+..
+   class-methods
+
+
+el
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: UI#el()
+
+
+
+
+
+To make ``UI`` methods chainable, they return the entire
+``UI`` object instead of any control element you may have just created;
+``obj.el()`` gives you easy access to the last added element.
+
+
+
+
+
+
+
+
+
+    
+
+
+.. code-block:: javascript
+
+    var dialog = new ui.Dialog("Hello");
+    dialog.button('ok', 'Click here').el().size = [400, 200];
+
+
+
+
+using
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: UI#using()
+
+
+
+
+
+apply a mixin to an element
+
+
+
+
+
+
+
+
+
+    
+
+
+
+with
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. js:function:: UI#with(mixins)
+
+
+    
+    :param Object mixins: 
+        See elsewhere to know what a mixin object should look like. 
+    
+
+
+
+
+Add mixins -- mixins are like style sheets for Extendables UIs.
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+
+

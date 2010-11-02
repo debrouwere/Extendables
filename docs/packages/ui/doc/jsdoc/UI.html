@@ -1,0 +1,171 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19440923-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+    <title>Class UI &mdash; Extendables v0.3a documentation</title>
+    <link rel="stylesheet" href="../../../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.3a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="top" title="Extendables v0.3a documentation" href="../../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../../../index.html">Extendables v0.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="class-ui">
+<h1>Class UI<a class="headerlink" href="#class-ui" title="Permalink to this headline">¶</a></h1>
+<p>This is the base class from which <tt class="docutils literal"><span class="pre">Dialog</span></tt> and <tt class="docutils literal"><span class="pre">Palette</span></tt> inherit.
+Don&#8217;t instantiate this class directly.</p>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="UI">
+<em class="property">class </em><tt class="descname">UI</tt><big>(</big><big>)</big><a class="headerlink" href="#UI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="el">
+<h3>el<a class="headerlink" href="#el" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UI#el">
+<tt class="descname">UI#el</tt><big>(</big><big>)</big><a class="headerlink" href="#UI#el" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>To make <tt class="docutils literal"><span class="pre">UI</span></tt> methods chainable, they return the entire
+<tt class="docutils literal"><span class="pre">UI</span></tt> object instead of any control element you may have just created;
+<tt class="docutils literal"><span class="pre">obj.el()</span></tt> gives you easy access to the last added element.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">);</span>
+<span class="nx">dialog</span><span class="p">.</span><span class="nx">button</span><span class="p">(</span><span class="s1">&#39;ok&#39;</span><span class="p">,</span> <span class="s1">&#39;Click here&#39;</span><span class="p">).</span><span class="nx">el</span><span class="p">().</span><span class="nx">size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using">
+<h3>using<a class="headerlink" href="#using" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UI#using">
+<tt class="descname">UI#using</tt><big>(</big><big>)</big><a class="headerlink" href="#UI#using" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>apply a mixin to an element</p>
+</div>
+<div class="section" id="with">
+<h3>with<a class="headerlink" href="#with" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="UI#with">
+<tt class="descname">UI#with</tt><big>(</big><em>mixins</em><big>)</big><a class="headerlink" href="#UI#with" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mixins</strong> (<em>Object</em>) &#8211; See elsewhere to know what a mixin object should look like.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Add mixins &#8211; mixins are like style sheets for Extendables UIs.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Class UI</a><ul>
+<li><a class="reference internal" href="#constructor">Constructor</a></li>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#el">el</a></li>
+<li><a class="reference internal" href="#using">using</a></li>
+<li><a class="reference internal" href="#with">with</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../../../_sources/packages/ui/doc/jsdoc/UI.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../../../index.html">Extendables v0.3a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, Stijn Debrouwere.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.4.
+    </div>
+  </body>
+</html>

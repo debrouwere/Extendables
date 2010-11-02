@@ -2,6 +2,8 @@
 InDesign enhancements
 =====================
 
+.. contents::
+
 XML traversal
 =============
 

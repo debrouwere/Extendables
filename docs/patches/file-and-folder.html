@@ -62,7 +62,30 @@
           <div class="body">
             
   <div class="section" id="file-and-folder-objects">
-<h1><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects<a class="headerlink" href="#file-and-folder-objects" title="Permalink to this headline">¶</a></h1>
+<h1><a class="toc-backref" href="#id2"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a><a class="headerlink" href="#file-and-folder-objects" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#file-and-folder-objects" id="id2"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a><ul>
+<li><a class="reference internal" href="#file-methods" id="id3"><tt class="docutils literal"><span class="pre">File</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#at" id="id4">at</a></li>
+<li><a class="reference internal" href="#component" id="id5">component</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#folder-methods" id="id6"><tt class="docutils literal"><span class="pre">Folder</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#id1" id="id7">at</a></li>
+<li><a class="reference internal" href="#files" id="id8">files</a></li>
+<li><a class="reference internal" href="#folders" id="id9">folders</a><ul>
+<li><a class="reference internal" href="#attributes" id="id10">Attributes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extendables" id="id11">extendables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="highlight-extendscript"><div class="highlight"><pre><span class="kr">#include</span> <span class="p">..</span><span class="o">/</span><span class="nx">extendables</span><span class="p">.</span><span class="nx">jsx</span>
 
 <span class="cm">/*</span>
@@ -87,10 +110,108 @@
 </pre></div>
 </div>
 <div class="section" id="file-methods">
-<h2><tt class="docutils literal"><span class="pre">File</span></tt> methods<a class="headerlink" href="#file-methods" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id3"><tt class="docutils literal"><span class="pre">File</span></tt> methods</a><a class="headerlink" href="#file-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="at">
+<h3><a class="toc-backref" href="#id4">at</a><a class="headerlink" href="#at" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="File#at">
+<tt class="descname">File#at</tt><big>(</big><big>)</big><a class="headerlink" href="#File#at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Get a file or folder starting from an existing path.
+A foolproof way to join paths together.</p>
+<p>Similar to <tt class="docutils literal"><span class="pre">File#getRelativeURI</span></tt>, but returns a new File object
+instead of a path.</p>
+</div>
+<div class="section" id="component">
+<h3><a class="toc-backref" href="#id5">component</a><a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="File#component">
+<tt class="descname">File#component</tt><big>(</big><em>type</em><big>)</big><a class="headerlink" href="#File#component" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>type</strong> (<em>String</em>) &#8211; <tt class="docutils literal"><span class="pre">path</span></tt>, <tt class="docutils literal"><span class="pre">name</span></tt>, <tt class="docutils literal"><span class="pre">basename</span></tt> or <tt class="docutils literal"><span class="pre">extension</span></tt></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Easy extraction of path, name, basename and extension from a
+<tt class="xref js js-func docutils literal"><span class="pre">File()</span></tt> object.</p>
+</div>
 </div>
 <div class="section" id="folder-methods">
-<h2><tt class="docutils literal"><span class="pre">Folder</span></tt> methods<a class="headerlink" href="#folder-methods" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6"><tt class="docutils literal"><span class="pre">Folder</span></tt> methods</a><a class="headerlink" href="#folder-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id7">at</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Folder#at">
+<tt class="descname">Folder#at</tt><big>(</big><big>)</big><a class="headerlink" href="#Folder#at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Get a file or folder starting from an existing path.
+A foolproof way to join paths together.</p>
+<p>Similar to <tt class="docutils literal"><span class="pre">File#getRelativeURI</span></tt>, but returns a new Folder object
+instead of a path.</p>
+</div>
+<div class="section" id="files">
+<h3><a class="toc-backref" href="#id8">files</a><a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Folder#files">
+<tt class="descname">Folder#files</tt><big>(</big><span class="optional">[</span><em>mask</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Folder#files" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mask</strong> (<em>String|Function</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Works just like <tt class="docutils literal"><span class="pre">Folder#getFiles</span></tt>, but returns only files, not folders.</p>
+</div>
+<div class="section" id="folders">
+<h3><a class="toc-backref" href="#id9">folders</a><a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="Folder#folders">
+<tt class="descname">Folder#folders</tt><big>(</big><span class="optional">[</span><em>mask</em><span class="optional">]</span><big>)</big><a class="headerlink" href="#Folder#folders" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>mask</strong> (<em>String|Function</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>Works just like <tt class="docutils literal"><span class="pre">Folder#getFiles</span></tt>, but returns only folders, not files.</p>
+<div class="section" id="attributes">
+<h4><a class="toc-backref" href="#id10">Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="extendables">
+<h3><a class="toc-backref" href="#id11">extendables</a><a class="headerlink" href="#extendables" title="Permalink to this headline">¶</a></h3>
+<dl class="attribute">
+<dt id="extendables ">
+<tt class="descname">extendables </tt><a class="headerlink" href="#extendables " title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>The extendables base directory. Other notable class properties
+include <tt class="docutils literal"><span class="pre">current</span></tt>, <tt class="docutils literal"><span class="pre">desktop</span></tt>, <tt class="docutils literal"><span class="pre">userData</span></tt>, <tt class="docutils literal"><span class="pre">temp</span></tt> and <tt class="docutils literal"><span class="pre">trash</span></tt>.</p>
+</div>
 </div>
 </div>
 
@@ -103,8 +224,21 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">File</span></tt> and <tt class="docutils literal"><span class="pre">Folder</span></tt> objects</a><ul>
-<li><a class="reference internal" href="#file-methods"><tt class="docutils literal"><span class="pre">File</span></tt> methods</a></li>
-<li><a class="reference internal" href="#folder-methods"><tt class="docutils literal"><span class="pre">Folder</span></tt> methods</a></li>
+<li><a class="reference internal" href="#file-methods"><tt class="docutils literal"><span class="pre">File</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#at">at</a></li>
+<li><a class="reference internal" href="#component">component</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#folder-methods"><tt class="docutils literal"><span class="pre">Folder</span></tt> methods</a><ul>
+<li><a class="reference internal" href="#id1">at</a></li>
+<li><a class="reference internal" href="#files">files</a></li>
+<li><a class="reference internal" href="#folders">folders</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extendables">extendables</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
