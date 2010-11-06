@@ -80,12 +80,22 @@ function UIShortcuts () {
 		return this.add_control(name, 'image', text);		
 	}
 	/** @desc adds an item (part of a list) */
-	this.item = function (name, text) {
-		return this.add_control(name, 'item', text);		
+	this.item = function (name, values) {
+		return this.add_item(name, values);		
 	}
 	/** @desc adds a list, equivalent to ``listbox`` in plain ScriptUI */
-	this.list = function (name, text) {
-		return this.add_control(name, 'listbox', text);		
+	this.list = function (name, headers, properties) {
+		var properties = properties || {};
+		if (headers) {
+			if (headers.is(Number)) {
+				properties['numberOfColumns'] = headers;
+			} else {
+				properties['numberOfColumns'] = headers.length;
+				properties['showHeaders'] = true, 
+				properties['columnTitles'] = headers
+			}
+		}
+		return this.add_list(name, properties);
 	}
 	/** @desc adds a panel */
 	this.panel = function (name, text) {
@@ -184,30 +194,52 @@ function UI () {
 		});
 		return this;
 	}
+
+	this.add_item = function (name, values) {
+		if (this[name] != undefined) throw new Error("{} is a reserved name.".format(name));
+		if (!values.is(Array)) throw new TypeError("A list item expects an array of text labels, not a string");
+		var control = self.window.add('item', values.shift());
+		values.forEach(function (value, i) {
+			control.subItems[i].text = value;
+		});
+		// refactor, actually, we only need 'item' from the control mixins
+		control.merge(new ControlMixins());
+		this[name] = control;
+		self._last_added = control;
+		return this;		
+	}
 	
-	this.add_control = function (name, type, text) {
+	this.add_control = function (name, type, text, properties) {
 		// people can add controls to this object willy-nilly, 
 		// so we check whether they're not overriding any existing
 		// methods, attributes or controls.		
-		if (this[name] == undefined) {
-			var control = self.window.add(type, undefined, text);
-			control.merge(new ControlMixins());
-			this[name] = control;
-			self._last_added = control;
-			return this;
-		} else {		
-			throw new Error("{} is a reserved name.");
-		}
+		if (this[name] != undefined) throw new Error("{} is a reserved name.".format(name));
+		
+		var control = self.window.add(type, undefined, text, properties);
+		control.merge(new ControlMixins());
+		this[name] = control;
+		self._last_added = control;
+		return this;
 	}
 
-	this.add_group = function (name) {
+	this.add_group = function (name, properties) {
+		return this.add_container(name, 'group', properties);
+	}
+
+	this.add_list = function (name, properties) {
+		return this.add_container(name, 'listbox', properties);		
+	}
+
+	this.add_container = function (name, type, properties) {
 		var ui = new UI();
-		ui.window = this.add_control(name, 'group').el();
+		ui.window = this.add_control(name, type, undefined, properties).el();
 		ui._last_added = ui.window;
 		ui.mixins = this.mixins;
 		this[name] = ui;
 		return ui;		
 	}
+
+	
 }
 
 // prototypal inheritance only shares properties upstream, so making Dialog and Palette subclasses of UI
