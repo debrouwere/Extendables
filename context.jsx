@@ -8,9 +8,17 @@
 function current (item) {
 	var items = {
 		'window': app.layoutWindows.item(0),
-		'document': app.documents.item(0),
-		'page': app.documents.item(0).pages.item(0),
-		'spread': app.documents.item(0).spreads.item(0)
+		'document': undefined,
+		'page': undefined,
+		'spread': undefined
+	}
+
+	if (app.documents.length) {
+		items.merge({
+			'document': app.documents.item(0),
+			'page': app.documents.item(0).pages.item(0),
+			'spread': app.documents.item(0).spreads.item(0)
+		});
 	}
 
 	if (item in items) {

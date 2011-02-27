@@ -15,7 +15,7 @@ The ``http`` library allows scripts to fetch and push data from and to the inter
         $.writeln("Connection failed");
     }
 
-Aside from high-level functions like ``get`` and ``post``, there's also a lower-level interface providing, if you happen to need more flexibility.
+Aside from high-level functions like ``get`` and ``post``, there's also a lower-level interface if you happen to need more flexibility.
 
 .. code-block:: extendscript
 
