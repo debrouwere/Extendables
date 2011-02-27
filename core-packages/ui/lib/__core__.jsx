@@ -32,6 +32,8 @@ function ControlMixins () {
  */
 
 function UIShortcuts () {
+	/* CONTAINER TYPES */
+	
 	/** @desc adds a group, displayed as a row */
 	this.row = function (name) {
 		var group = this.add_group(name);	
@@ -49,7 +51,34 @@ function UIShortcuts () {
 		var group = this.add_group(name);	
 		group.window.orientation = 'stack';
 		return group;
-	}	
+	}
+
+	/** 
+	 * @desc adds a list, equivalent to ``listbox`` in plain ScriptUI
+	 * @param name The name this list will take on within the dialog object
+	 * @param {String[]|Number} [headers]
+	 *     Either just a number of columns, or an array with 
+	 *     header names. Once set, you may not add list items
+	 *     with more columns than available in the header.
+	 * @param [properties] any other properties you want to pass along on creation
+	 */
+	this.list = function (name, headers, properties) {
+		var properties = properties || {};
+		if (headers) {
+			if (headers.is(Number)) {
+				properties.merge({'numberOfColumns': headers});
+			} else {
+				properties.merge({
+					'numberOfColumns': headers.length, 
+					'showHeaders': true, 
+					'columnTitles': headers
+				});
+			}
+		}
+		return this.add_list(name, properties);
+	}
+
+	/* SIMPLE TYPES */
 
 	/** @desc adds a button */
 	this.button = function (name, text) {
@@ -67,6 +96,10 @@ function UIShortcuts () {
 	this.input = function (name, text) {
 		return this.add_control(name, 'edittext', text);	
 	}
+	/** @desc adds an item (part of a list) */
+	this.item = function (name, values) {
+		return this.add_item(name, values);		
+	}
 	/** @desc adds a flash element, equivalent to ``flashplayer`` in plain ScriptUI */
 	this.flash = function (name, text) {
 		return this.add_control(name, 'flashplayer', text);		
@@ -78,24 +111,6 @@ function UIShortcuts () {
 	/** @desc adds an image */
 	this.image = function (name, text) {
 		return this.add_control(name, 'image', text);		
-	}
-	/** @desc adds an item (part of a list) */
-	this.item = function (name, values) {
-		return this.add_item(name, values);		
-	}
-	/** @desc adds a list, equivalent to ``listbox`` in plain ScriptUI */
-	this.list = function (name, headers, properties) {
-		var properties = properties || {};
-		if (headers) {
-			if (headers.is(Number)) {
-				properties['numberOfColumns'] = headers;
-			} else {
-				properties['numberOfColumns'] = headers.length;
-				properties['showHeaders'] = true, 
-				properties['columnTitles'] = headers
-			}
-		}
-		return this.add_list(name, properties);
 	}
 	/** @desc adds a panel */
 	this.panel = function (name, text) {
