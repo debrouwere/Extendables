@@ -26,3 +26,9 @@ The first publicized release, including a minimalistic website. This release con
 * Added in File and Folder monkeypatches, and removed the ``path`` module.
 * Improvements to ``XMLElement#repr()``
 * Added a ``Number.range()`` class method.
+
+0.4 (pending)
+=============
+
+* Further improved the documentation
+* Improvements to the UI module
