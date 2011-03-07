@@ -352,8 +352,8 @@ function HTTPRequest (method, url, timeout) {
 		// headers to string (kv) form
 		var headers = this.headers().serialize('key-value', {'separator': ': ', 'eol': '\n'});
 		head.push(headers);
-		var end_of_head = "\n";
-		return head.join("\n") + end_of_head;
+		var end_of_head = "\r\n";
+		return head.join("\r\n") + end_of_head;
 	}
 
 	this._build_request = function () {
