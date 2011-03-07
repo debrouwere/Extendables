@@ -53,14 +53,24 @@ function UIShortcuts () {
 		return group;
 	}
 
+	/**
+	 * @desc adds a panel
+	 * @param {String} name The name this panel will take on within the dialog object
+	 * @param {Object} [properties] any other properties you want to pass along on creation
+	 */
+	this.panel = function (name, properties) {
+		var properties = properties || {};
+		return this.add_container(name, 'panel', properties);		
+	}
+
 	/** 
 	 * @desc adds a list, equivalent to ``listbox`` in plain ScriptUI
-	 * @param name The name this list will take on within the dialog object
+	 * @param {String} name The name this list will take on within the dialog object
 	 * @param {String[]|Number} [headers]
 	 *     Either just a number of columns, or an array with 
 	 *     header names. Once set, you may not add list items
 	 *     with more columns than available in the header.
-	 * @param [properties] any other properties you want to pass along on creation
+	 * @param {Object} [properties] any other properties you want to pass along on creation
 	 */
 	this.list = function (name, headers, properties) {
 		var properties = properties || {};
@@ -111,10 +121,6 @@ function UIShortcuts () {
 	/** @desc adds an image */
 	this.image = function (name, text) {
 		return this.add_control(name, 'image', text);		
-	}
-	/** @desc adds a panel */
-	this.panel = function (name, text) {
-		return this.add_control(name, 'panel', text);		
 	}
 	/** @desc adds a progress bar */
 	this.progressbar = function (name, text) {
@@ -253,8 +259,6 @@ function UI () {
 		this[name] = ui;
 		return ui;		
 	}
-
-	
 }
 
 // prototypal inheritance only shares properties upstream, so making Dialog and Palette subclasses of UI
