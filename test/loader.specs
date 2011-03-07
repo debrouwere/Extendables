@@ -21,7 +21,7 @@ describe('Extendables module loader', function () {
 	it('provides a context for each module containing an exports object, \
 	the module id and module uri', function () {
 		var b = __modules__["package-b"].load().exports;
-		expect(b.id).toEqual("__core__");
+		expect(b.id).toEqual("index");
 		expect(b.uri.contains("package-b")).toEqual(true);
 	});
 	it('is entirely CommonJS-compliant', function () {

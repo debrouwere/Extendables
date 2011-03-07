@@ -82,4 +82,4 @@ def commit():
         push()
 
 def scaffold(name):
-    local("cp -ri tools/scaffold site-packages/" + name, capture=False)
+    local("cp -ri tools/scaffold ../site-packages/" + name, capture=False)

@@ -93,7 +93,7 @@ function Module (file_or_folder, is_package) {
 
 	this.load = function () {
 		if (self.packaged) {
-			self.exports = self.submodules['__core__'].load().exports;
+			self.exports = self.submodules['index'].load().exports;
 		} else {
 			self.exports = self.eval(self.uri);
 		}
