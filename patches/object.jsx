@@ -44,14 +44,16 @@ Object.prototype.clone = function () {
 }
 
 /**
- * @desc Returns only the keys (also known as 'names') of an object or associative array.
+ * @desc
+ *     Returns only the keys (also known as 'names') of an object or associative array.
+ *     Will filter out any functions, as these are presumed to be object methods. 
  * @returns {Array} An array with all the keys.
  */
 
 Object.prototype.keys = function () {
 	var keys = [];
 	for (var key in this) {
-        if (this.hasOwnProperty(key)) keys.push(key);
+        if (this.hasOwnProperty(key) && !(this[key] instanceof Function)) keys.push(key);
     }
 	return keys;
 }
