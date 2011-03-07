@@ -7,7 +7,7 @@
 
 var exports = {};
 #include "../patches/__all__.jsx"
-#include "../core-packages/templating/lib/__core__.jsx"
+#include "../core-packages/templating/lib/index.jsx"
 function require () { 
 	return { 
 		Template: exports.Template.clone()
@@ -15,10 +15,10 @@ function require () {
 }
 var module = {
 	'id': 'testing',
-	'uri': new File("core-packages/testing/lib/__core__.jsx").at(Folder.extendables)
+	'uri': new File("core-packages/testing/lib/index.jsx").at(Folder.extendables)
 }
 
-#include "../core-packages/testing/lib/__core__.jsx"
+#include "../core-packages/testing/lib/index.jsx"
 
 for (name in exports) {
 	$.global[name] = exports[name];
