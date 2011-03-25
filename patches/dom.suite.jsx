@@ -1,13 +1,15 @@
-﻿Submenu.prototype.get_or_add = function (menu_title) {
-	var item = this.menuItems.item(menu_title);
-	
-	// refactor: probably better, though untested: item == null
-	if (!item.hasOwnProperty('title')) {
-		var action = app.scriptMenuActions.add(menu_title);	
-		item = this.menuItems.add(action);		
-	}
+﻿if (typeof(Submenu) !== 'undefined') {
+  Submenu.prototype.get_or_add = function (menu_title) {
+    var item = this.menuItems.item(menu_title);
+    
+    // refactor: probably better, though untested: item == null
+    if (!item.hasOwnProperty('title')) {
+      var action = app.scriptMenuActions.add(menu_title);	
+      item = this.menuItems.add(action);		
+    }
 
-	return item;
+    return item;
+  }
 }
 
 /*

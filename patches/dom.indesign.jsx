@@ -166,12 +166,14 @@ Page.prototype.master = function(name) {
  * @desc n/a
  */
 
-LayoutWindow.prototype.page = function(name) {
-	if (name) {
-		this.activePage = current.doc.pages.item(name);
-	} else {
-		return this.activePage;
-	}
+if (typeof(LayoutWindow) !== 'undefined') {
+  LayoutWindow.prototype.page = function(name) {
+    if (name) {
+      this.activePage = current.doc.pages.item(name);
+    } else {
+      return this.activePage;
+    }
+  }
 }
 
 /** getter/setter */
