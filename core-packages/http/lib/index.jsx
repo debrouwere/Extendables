@@ -312,13 +312,12 @@ function HTTPRequest (method, url, timeout) {
 
 	/** 
 	 * @desc Basic authentication
-	 * Currently not implemented.
 	 */
 	this.auth = {
 		basic: function (user) {
 			if (user) {
-				var credentials  = "{}:{}".format(user.username, user.password).to('base64');
-				self.add_header("Authorization", "Basic: " + credentials);
+				var credentials  = "{}:{}".format(user.username, user.password).serialize('base64');
+				self.header("Authorization", "Basic: " + credentials);
 			} else {
 				return new Boolean(self.header("Authorization"));
 			}
