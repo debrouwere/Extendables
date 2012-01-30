@@ -9,7 +9,7 @@
 
 function ControlMixins () {
 	this.on = function (event) {
-		// todo: work with arguments (react to multiple event types)
+		// TODO: work with arguments (react to multiple event types)
 		// instead of expecting a single argument
 		return new EventManager(this, event);
 	}
@@ -201,7 +201,7 @@ function UI () {
 	this.using = function () {
 		// arguments may be passed either as variable arguments or as an array
 		var mixin_names = arguments.to('array').flatten();		
-		mixin_names.forEach(function(mixin_name) {
+		mixin_names.forEach(function(mixin_name){
 			var mixin = self.mixins[mixin_name];
 			if (mixin == undefined) {
 				throw Error("Mixin {} does not exist.".format(mixin_name));

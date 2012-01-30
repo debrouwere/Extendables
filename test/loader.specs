@@ -26,6 +26,7 @@ describe('Extendables module loader', function () {
 	});
 	it('is entirely CommonJS-compliant', function () {
 		// our .id implementation is currently incorrect
+		var b = __modules__["package-b"].load().exports;
 		expect(b.id).toEqual("package-b");
 	});
 	it('has a require function that works according to the CommonJS specs', function () {

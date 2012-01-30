@@ -46,6 +46,7 @@ keyvalue.decode = function (str, options) {
 
 Object.prototype.serialize = function (type, options) {
 	var obj = this;
+	var options = options || {};
 	// type: json, keyvalue
 	var serializations = {
 		'xml': function () { throw new NotImplementedError(); },

@@ -112,7 +112,11 @@ function Module (file_or_folder, is_package) {
 
 function load_modules (packagefolders) {
 	packagefolders.forEach(function(packagefolder) {
-		var folder = new Folder(packagefolder).at(Folder.extendables);
+		if (typeof packagefolder === 'string') {
+			var folder = new Folder(packagefolder).at(Folder.extendables);
+		} else {
+			var folder = packagefolder;
+		}
 		var packages = folder.getFiles(_is_valid_module);
 		
 		packages.forEach(function(file_or_folder) {

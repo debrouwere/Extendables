@@ -347,7 +347,9 @@ function HTTPRequest (method, url, timeout) {
 	this._build_head = function () {
 		// request line
 		var head = [];
-		var request_line = "{} {} HTTP/1.1".format(this.method(), this.url().pathname || "/");
+		var url = this.url();
+		var path = url.pathname + url.search;
+		var request_line = "{} {} HTTP/1.1".format(this.method(), path || "/");
 		head.push(request_line);
 		// headers to string (kv) form
 		var headers = this.headers().serialize('key-value', {'separator': ': ', 'eol': '\n'});
@@ -394,7 +396,7 @@ function HTTPRequest (method, url, timeout) {
 		var start = new Date();
 		var socket = new Socket();
 		socket.timeout = this.timeout();
-		var host = "{}:{}".format(this.url().host, this.port());
+		var host = "{}:{}".format(this.url().hostname, this.port());
 		if (socket.open(host, this.encoding())) {
 			var response = this._execute(socket);
 		} else {

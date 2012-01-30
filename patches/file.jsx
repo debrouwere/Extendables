@@ -16,6 +16,7 @@ Folder.extendables = new File($.fileName).parent.parent;
 
 function from_basepath (folder) {
 	if (folder.is(String)) folder = new Folder(folder);
+	
 	var path = [folder.relativeURI, this.relativeURI].join('/');
 	return new this.constructor(path);
 }
