@@ -317,7 +317,7 @@ function HTTPRequest (method, url, timeout) {
 		basic: function (user) {
 			if (user) {
 				var credentials  = "{}:{}".format(user.username, user.password).serialize('base64');
-				self.header("Authorization", "Basic: " + credentials);
+				self.header("Authorization", "Basic " + credentials);
 			} else {
 				return new Boolean(self.header("Authorization"));
 			}
