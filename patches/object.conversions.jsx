@@ -1,6 +1,7 @@
 ﻿var exports = {};
 var base64 = exports;
 #include "../dependencies/base64.js"
+#include "../dependencies/json2.js"
 
 // keyvalue encoding comes in handy to create things like INI files and HTTP headers
 
@@ -50,7 +51,7 @@ Object.prototype.serialize = function (type, options) {
 	// type: json, keyvalue
 	var serializations = {
 		'xml': function () { throw new NotImplementedError(); },
-		'json': function () { throw new NotImplementedError(); },
+		'json': function () { return JSON.stringify(obj); },
 		'base64': function () { return base64.encode64(obj); },
 		'key-value': function () { return keyvalue.encode(obj, options); }
 	};
@@ -74,7 +75,7 @@ Object.prototype.deserialize = function (type, options) {
 	
 	var deserializations = {
 		'xml': function () { return new XML(obj); },
-		'json': function () { throw new NotImplementedError(); },
+		'json': function () { return JSON.parse(obj); },
 		'base64': function () { return base64.decode64(obj); },
 		'key-value': function () { return keyvalue.decode(obj, options); }
 	}
