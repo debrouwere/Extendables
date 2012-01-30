@@ -1,26 +1,30 @@
-﻿// quick testing: 
-var exports = {};
-#include ../../../patches/__all__.jsx
-
-var str = {'bla bla bla': 'yes'}.serialize('json');
-var obj = str.deserialize('json');
-
-str.to_console();
-obj.serialize('key-value').to_console();
-
-function Store(uri) {
+﻿exports.Store = function (uri) {
+	var self = this;
 	this.uri = uri;
 	this.file = new File(uri);
-	this.data = {};
+	this.exists = this.file.exists;
 
 	this.save = function () {
-		this.file.open();
+		var data = this.data.serialize('json');
+		this.file.open('w');
+		this.file.write(data);
+		this.file.close();
+	}
+
+	this.refresh = function () {
+		this.file.open('r');
+		this.data = this.file.read().deserialize('json');
+		this.file.close();
 	}
 	
 	this.destroy = function () {
+		this.data = {};
+		this.file.remove();
 	}
 
-	var engine = new engine(resource_path);
-	Model.objects = new Manager(engine);
-	return Model;
+	if (this.file.exists) {
+		this.refresh();
+	} else {
+		this.data = {};
+	}
 }
