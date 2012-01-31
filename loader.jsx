@@ -120,6 +120,9 @@ function load_modules (packagefolders) {
 		var packages = folder.getFiles(_is_valid_module);
 		
 		packages.forEach(function(file_or_folder) {
+			// An alias regists as a file in ExtendScript, even if it refers to a folder.
+			// Check if the file is an alias and, if so, resolve it.
+			if (file_or_folder.alias) file_or_folder = file_or_folder.resolve();
 			var module = new Module(file_or_folder, true);
 			__modules__[module.id] = module;
 		});	
